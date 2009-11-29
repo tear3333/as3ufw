@@ -1,0 +1,39 @@
+<project name="Blastradius AS3 Utility Framework" default="compile" basedir="..">
+
+    <!-- import our build properties file -->
+    <property file="${basedir}/build/build.properties" />
+
+    <property name="windowtitle" value="Blastradius AS3 Utility Framework Documentation" />
+    <property name="maintitle" value="Blastradius AS3 Utility Framework Documentation" />
+    <property name="footer" value="" />
+
+    <property name="bindir" value="${basedir}/bin" />
+    <property name="classesdir" value="${basedir}/src" />
+	<property name="libdir" value="${basedir}/lib" />
+
+    <property name="flex3bindir" value="${flex3dir}/bin" />
+    <property name="flex3libsdir" value="${flex3dir}/frameworks/libs" />
+    <property name="asdoc" value="${flex3bindir}/${asdoc.exe}" />
+    <property name="compc" value="${flex3bindir}/${compc.exe}" />
+
+    <tstamp prefix="dateStamp">
+        <format property="date" pattern="MMM d yyyy" offset="-5" unit="hour" />
+    </tstamp>
+
+    <target name="compile" description="Creates swc">
+        <antcall target="generateSWC" />
+    </target>
+
+    <target name="generateSWC" description="Generates a swc of the AS3 Utility Framework">
+        <echo>Generating swc using '${classesdir}'</echo>
+        <exec executable="${compc}">
+            <arg line="-source-path ${classesdir}" />
+            <arg line="-output ${bindir}/as3ufw.swc" />
+            <arg line="-include-sources ${classesdir}" />
+        	<arg line="-library-path ${libdir}" />      	
+        	<arg line="-library-path ${flex3libsdir}" />
+        	<!--arg line="-external-library-path ${libdir}/as3commons-logging-1.1.swc" /-->
+        </exec>
+    </target>
+
+</project>
