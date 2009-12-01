@@ -21,7 +21,7 @@ package com.br.as3ufw.utils {
                                     	exclude : Array = null) : String {
         
 			refCount = 0;
-			return internalToString(value, 0,maxDepth, null, namespaceURIs, exclude);
+			return internalToString(value, 0, maxDepth, null, namespaceURIs, exclude);
 		}
 
 		private static function internalToString(value : Object, 
@@ -32,13 +32,12 @@ package com.br.as3ufw.utils {
                                              exclude : Array = null) : String {                           
 			var str : String;
 			var type : String = value == null ? "null" : typeof(value);
-			trace(type);
 			switch (type) {
 				case "boolean":
 				case "number":
 					return value.toString();
 				case "xml":
-					return "XML!="+value.toXMLString();
+					return "XML!=" + value.toXMLString();
 				case "string":
 					return "\"" + value.toString() + "\"";
 				case "object":
@@ -75,7 +74,7 @@ package com.br.as3ufw.utils {
                     
 						// Print all of the variable values.
 						for (var j : int = 0;j < properties.length; j++) {
-							str = newline(str, depth*FORMAT_INDENT);
+							str = newline(str, depth * FORMAT_INDENT);
 							prop = properties[j];
 							if (isArray)
                             str += "[";
@@ -85,10 +84,10 @@ package com.br.as3ufw.utils {
                         	else
                             	str += " = ";
 							try {
-								if (depth>maxDepth) {
-									 str += "max depth("+maxDepth+") reached...";  
+								if (depth > maxDepth) {
+									str += "max depth(" + maxDepth + ") reached...";  
 								} else {
-									str += internalToString(value[prop], depth,maxDepth, refs, namespaceURIs, exclude);
+									str += internalToString(value[prop], depth, maxDepth, refs, namespaceURIs, exclude);
 								}
 							} catch(e : Error) {
 								str += "?";
@@ -99,7 +98,7 @@ package com.br.as3ufw.utils {
 					}
 					break;
 				default:
-                	return "(" + type + ")";
+					return "(" + type + ")";
 			}
 			return "(unknown)";
 		}
@@ -111,7 +110,7 @@ package com.br.as3ufw.utils {
 				className = o;
 			else
 				className = getQualifiedClassName(o);
-			var result:XML = TYPE_INFO_CACHE[className];
+			var result : XML = TYPE_INFO_CACHE[className];
 			if (result) 
 				return result;
 			
@@ -140,7 +139,6 @@ package com.br.as3ufw.utils {
 			var properties : XMLList;
 			var prop : XML;
 			var isdynamic : Boolean = false;
-trace(">>>>>>>>>>.typeof="+typeof(obj));
 			if (typeof(obj) == "xml") {
 				className = "XML";
 				properties = obj.text();
@@ -224,8 +222,8 @@ trace(">>>>>>>>>>.typeof="+typeof(obj));
                     continue;
                     
 					//if (!options.includeTransient)// && internalHasMetadata(metadataInfo, p, "Transient"))
-                    //continue;
-                
+					//continue;
+
 					if (uris != null) {
 						if (uris.length == 1 && uris[0] == "*") {   
 							qName = new QName(uri, p);
@@ -316,5 +314,18 @@ trace(">>>>>>>>>>.typeof="+typeof(obj));
 			}
 			return result;
 		}
+		
+		public static function merge(... params):Object {
+			var target:Object = params[0] || {};
+			
+			for (var i : int = 1; i < params.length; i++) {
+				for (var key:String in params[i]) {
+					target[key] = params[key];
+				}
+			}
+			
+			return target;
+		}
+		
 	}
 }

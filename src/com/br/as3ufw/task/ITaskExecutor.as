@@ -19,6 +19,8 @@ package com.br.as3ufw.task {
 
 		function cancel() : Boolean;
 
+		function get resultSet(): Object;
+
 		function exec( fn:Function , execCtx:Boolean, args:Array ):void;
 
 		function get id() : int;

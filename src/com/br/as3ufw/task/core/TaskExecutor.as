@@ -27,6 +27,7 @@ package com.br.as3ufw.task.core {
 		private var _timer : Timer;
 		private var _pcentComplete : Number;
 		
+		protected var _resultSet:Object;
 		private var _isCancelable : Boolean;
 		private var _isPausable : Boolean;
 		
@@ -42,12 +43,13 @@ package com.br.as3ufw.task.core {
 			_id = _nextId++;
 		}
 		
-		public function start() : Boolean {
+		public function start( resultSet:Object ) : Boolean {
 			if (_state != TaskState.INACTIVE) {
 				return false;
 			}
 			_state = TaskState.ACTIVE;
 			_pcentComplete = Number.NaN;
+			this._resultSet = resultSet;
 			startTimer();
 			_task.onStart();
 			dispatchEvent(new TaskEvent(TaskEvent.START,_task));
@@ -137,7 +139,10 @@ package com.br.as3ufw.task.core {
 			dispatchEvent(new TaskEvent(TaskEvent.ERROR,_task));
 			//_log.warn(this + " timed out after " + totalRunningTime + "ms (timeout=" + _timeOut + ")");
 		}
-		
+
+		public function get resultSet() : Object {
+			return _resultSet;
+		}		
 		
 		virtual public function get isCancelable() : Boolean {
 			return _isCancelable;

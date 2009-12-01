@@ -32,7 +32,7 @@ package com.br.as3ufw.task.manager {
 			var finished:Boolean = true;
 			for each (var executor:TaskExecutor in executors) {
 				if (!canStartTasks) return false;
-				if (executor.start()) _runningCount++ ;
+				if (executor.start(resultSet)) _runningCount++ ;
 				finished = finished && (executor.state == TaskState.FINISHED);
 				//_log.info("e[" + executor.id+ "]finshed="+finished);
 			}
