@@ -34,6 +34,7 @@ package com.br.as3ufw.task.test.tasks {
 		
 		public function onComplete() : void {
 			_log.info(this + " complete ( "+_exec.runningTime+" ms)");
+			_exec.resultSet[_id] = "...done";
 		}
 		
 		public function set executor(executor : ITaskExecutor) : void {

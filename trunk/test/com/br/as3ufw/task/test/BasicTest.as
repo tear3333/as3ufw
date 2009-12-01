@@ -34,17 +34,20 @@ package com.br.as3ufw.task.test {
 		
 		private var assetSet:AssetSet;
 		private var concurrentMgr:ConcurrentTaskManager;
+		private var resultSet : Object;
+
 		
 		
 		public function BasicTest() {
 			
-			LoggerFactory.loggerFactory = new SOSLoggerFactory();
-//			LoggerFactory.loggerFactory = new DefaultLoggerFactory();
+//			LoggerFactory.loggerFactory = new SOSLoggerFactory();
+			LoggerFactory.loggerFactory = new DefaultLoggerFactory();
 			_log = LoggerFactory.getClassLogger(BasicTest);
 			
 			_log.info("Basic Test starting...");
 			
 			assetSet = new AssetSet("main");
+			resultSet = {};
 			
 			concurrentMgr = new ConcurrentTaskManager();
 			
@@ -69,12 +72,13 @@ package com.br.as3ufw.task.test {
 			
 			_log.info("Basic Test isCancelable? : " + concurrentMgr.isCancelable);
 			
-			concurrentMgr.start();
+			concurrentMgr.start(resultSet);
 		}
 		
 		private function onComplete(event : TaskEvent) : void {
 			_log.info("ConcurrentMgr is complete.");
-			_log.info("AssetSet=" + assetSet.toString());
+			_log.info("assetSet=" + assetSet.toString());
+			_log.info("resultSet=" + ObjectUtils.toString(resultSet));
 //			var result:Array = [];	
 //			concurrentMgr.exec(function(result:Array){result.push(this.toString()+this.id);}, true, [result]);
 //			for each (var s:String in result) {
