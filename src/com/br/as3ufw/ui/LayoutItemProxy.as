@@ -14,7 +14,6 @@ package com.br.as3ufw.ui {
 		
 
 		public function update() : void {
-			return null;
 		}
 	}
 }
