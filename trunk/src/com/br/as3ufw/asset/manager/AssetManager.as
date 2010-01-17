@@ -1,6 +1,6 @@
 package com.br.as3ufw.asset.manager {
-	import org.as3commons.logging.ILogger;
-	import org.as3commons.logging.LoggerFactory;
+	//import org.as3commons.logging.ILogger;
+	//import org.as3commons.logging.LoggerFactory;
 
 	import flash.utils.Dictionary;
 
@@ -34,7 +34,7 @@ package com.br.as3ufw.asset.manager {
 			}
 		}
 
-		private static var _log : ILogger = LoggerFactory.getClassLogger(AssetManager);
+		//private static var _log : ILogger = LoggerFactory.getClassLogger(AssetManager);
 	}
 }
 
