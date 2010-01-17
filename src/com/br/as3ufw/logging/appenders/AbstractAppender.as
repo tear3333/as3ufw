@@ -9,10 +9,12 @@ package com.br.as3ufw.logging.appenders {
 		
 		private var _logLevel:int;
 		private var _parameterExpander:Function;
+		public var useDate:Boolean;
 		protected var classFilters : Array;
 		
 		public function AbstractAppender() {
 			logLevel = Log.ALL;
+			useDate = true;
 		}
 
 		virtual public function addClassFilter(filter : String) : void {
@@ -27,7 +29,7 @@ package com.br.as3ufw.logging.appenders {
 		}
 		
 		virtual public function write(level : int, className : String, text : String, params : Array) : Boolean {
-			if (!level < _logLevel) return false;
+			if (!Log.match(level, _logLevel)) return false;
 			if (isFiltered(className)) return false;
 			return true;
 		}

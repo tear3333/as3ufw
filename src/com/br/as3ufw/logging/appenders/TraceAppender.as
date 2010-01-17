@@ -16,11 +16,17 @@ package com.br.as3ufw.logging.appenders {
 			
 			var msg:String = "";
 				
-			msg += (new Date()).toString() + " " + Log.levelToString(level) + " - ";
+			if (useDate) msg += (new Date()).toString() + " ";
 				
-			msg += className + " - " + text ;//MessageUtil.toString(message, params);
+			if (level) msg += Log.levelToString(level) + " - ";
+			
+			if (className) msg += className + " - ";
+				
+			msg += text ;//MessageUtil.toString(message, params);
 				
 			trace(msg);
+			
+			return true;
 		}
 	}
 }

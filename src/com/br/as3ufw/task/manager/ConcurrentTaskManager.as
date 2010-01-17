@@ -1,11 +1,11 @@
 package com.br.as3ufw.task.manager {
-	import org.as3commons.logging.LoggerFactory;
-	import org.as3commons.logging.ILogger;
-
-	import com.br.as3ufw.task.core.TaskExecutor;
-	import com.br.as3ufw.task.enum.TaskState;
+	import com.br.as3ufw.logging.ILogger;
+	import com.br.as3ufw.logging.Log;
 	import com.br.as3ufw.task.ITaskRunnable;
+	import com.br.as3ufw.task.core.TaskExecutor;
 	import com.br.as3ufw.task.core.TaskManagerExecutor;
+	import com.br.as3ufw.task.enum.TaskState;
+
 	/**
 	 * @author Richard.Jewson
 	 */
@@ -56,7 +56,7 @@ package com.br.as3ufw.task.manager {
 			return !((_runningCount>0)&&(_runningCount==_concurrency));
 		}
 		
-		private var _log : ILogger = LoggerFactory.getClassLogger(ConcurrentTaskManager);
+		private var _log : ILogger = Log.getClassLogger(ConcurrentTaskManager);
 		
 	}
 }

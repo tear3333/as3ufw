@@ -1,29 +1,19 @@
 package com.br.as3ufw.task.test {
+	import com.br.as3ufw.logging.appenders.TraceAppender;
 	import com.br.as3ufw.asset.manager.AssetSet;
 	import com.br.as3ufw.asset.tasks.impl.CSSLoaderTask;
-	import com.br.as3ufw.asset.tasks.AssetTaskFactory;
-	import flash.system.Security;
-
-	import com.br.as3ufw.asset.tasks.impl.SWFLoaderTask;
-
-	import flash.net.URLRequest;
 	import com.br.as3ufw.asset.tasks.impl.ImageLoaderTask;
 	import com.br.as3ufw.asset.tasks.impl.XMLLoaderTask;
-	import com.br.as3ufw.task.test.tasks.TestTask;
-
-	import org.as3commons.logging.impl.DefaultLoggerFactory;
-
-	import com.br.as3ufw.task.test.tasks.CancelableTestTask;
+	import com.br.as3ufw.logging.ILogger;
+	import com.br.as3ufw.logging.Log;
 	import com.br.as3ufw.task.events.TaskEvent;
 	import com.br.as3ufw.task.manager.ConcurrentTaskManager;
-	import org.as3commons.logging.ILogger;
-
+	import com.br.as3ufw.task.test.tasks.CancelableTestTask;
+	import com.br.as3ufw.task.test.tasks.TestTask;
 	import com.br.as3ufw.utils.ObjectUtils;
-	import com.br.as3ufw.logging.SOSLoggerFactory;
-
-	import org.as3commons.logging.LoggerFactory;
 
 	import flash.display.Sprite;
+	import flash.net.URLRequest;
 
 	/**
 	 * @author Richard.Jewson
@@ -40,9 +30,11 @@ package com.br.as3ufw.task.test {
 		
 		public function BasicTest() {
 			
-//			LoggerFactory.loggerFactory = new SOSLoggerFactory();
-			LoggerFactory.loggerFactory = new DefaultLoggerFactory();
-			_log = LoggerFactory.getClassLogger(BasicTest);
+			var traceAppender:TraceAppender = new TraceAppender();
+			//traceAppender.logLevel = Log.DEBUG | Log.INFO;
+			traceAppender.useDate = false;
+			Log.addApender(traceAppender);
+			_log = Log.getClassLogger(BasicTest);
 			
 			_log.info("Basic Test starting...");
 			

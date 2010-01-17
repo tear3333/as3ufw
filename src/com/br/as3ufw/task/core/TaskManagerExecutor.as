@@ -1,13 +1,12 @@
 package com.br.as3ufw.task.core {
+	import com.br.as3ufw.logging.ILogger;
+	import com.br.as3ufw.logging.Log;
 	import com.br.as3ufw.task.ITaskCancelable;
 	import com.br.as3ufw.task.ITaskExecutor;
 	import com.br.as3ufw.task.ITaskPausable;
 	import com.br.as3ufw.task.ITaskRunnable;
 	import com.br.as3ufw.task.enum.TaskState;
 	import com.br.as3ufw.task.events.TaskEvent;
-
-	import org.as3commons.logging.ILogger;
-	import org.as3commons.logging.LoggerFactory;
 
 	/**
 	 * @author Richard.Jewson
@@ -140,7 +139,7 @@ package com.br.as3ufw.task.core {
 			return _executors;
 		}
 		
-		private var _log : ILogger = LoggerFactory.getClassLogger(TaskManagerExecutor);
+		private var _log : ILogger = Log.getClassLogger(TaskManagerExecutor);
 		
 	}
 }

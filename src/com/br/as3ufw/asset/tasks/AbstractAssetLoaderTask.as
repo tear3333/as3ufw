@@ -1,14 +1,11 @@
 package com.br.as3ufw.asset.tasks {
-	import flash.utils.getTimer;
-	import flash.net.URLVariables;
 	import com.br.as3ufw.asset.enum.LoaderTypes;
 	import com.br.as3ufw.asset.manager.AssetSet;
+	import com.br.as3ufw.logging.ILogger;
+	import com.br.as3ufw.logging.Log;
 	import com.br.as3ufw.task.ITaskCancelable;
 	import com.br.as3ufw.task.ITaskExecutor;
 	import com.br.as3ufw.task.ITaskRunnable;
-
-	import org.as3commons.logging.ILogger;
-	import org.as3commons.logging.LoggerFactory;
 
 	import flash.events.Event;
 	import flash.events.HTTPStatusEvent;
@@ -16,6 +13,7 @@ package com.br.as3ufw.asset.tasks {
 	import flash.events.ProgressEvent;
 	import flash.events.SecurityErrorEvent;
 	import flash.net.URLRequest;
+	import flash.net.URLVariables;
 
 	/**
 	 * @author Richard.Jewson
@@ -152,7 +150,7 @@ package com.br.as3ufw.asset.tasks {
 			return finalParams;
 		}
 
-		private var _log : ILogger = LoggerFactory.getClassLogger(AbstractAssetLoaderTask);
+		private var _log : ILogger = Log.getClassLogger(AbstractAssetLoaderTask);
 		
 	}
 }
