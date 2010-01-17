@@ -1,13 +1,12 @@
 package com.br.as3ufw.task.core {
+	import com.br.as3ufw.logging.ILogger;
+	import com.br.as3ufw.logging.Log;
 	import com.br.as3ufw.task.ITaskCancelable;
 	import com.br.as3ufw.task.ITaskExecutor;
 	import com.br.as3ufw.task.ITaskPausable;
 	import com.br.as3ufw.task.ITaskRunnable;
 	import com.br.as3ufw.task.enum.TaskState;
 	import com.br.as3ufw.task.events.TaskEvent;
-
-	import org.as3commons.logging.ILogger;
-	import org.as3commons.logging.LoggerFactory;
 
 	import flash.events.EventDispatcher;
 	import flash.events.TimerEvent;
@@ -20,30 +19,30 @@ package com.br.as3ufw.task.core {
 	public class TaskExecutor extends EventDispatcher implements ITaskExecutor {
 
 		private var _task : ITaskRunnable;
-		
+
 		private var _state : String;
 		private var _totalRunningTime : int;
 		private var _runningTimeCounter : int;
 		private var _timer : Timer;
 		private var _pcentComplete : Number;
-		
-		protected var _resultSet:Object;
+
+		protected var _resultSet : Object;
 		private var _isCancelable : Boolean;
 		private var _isPausable : Boolean;
-		
-		private var _id:int;
-		private static var _nextId:int = 0;
-		
-		public function TaskExecutor( _task:ITaskRunnable ) {
-			this._task 			= _task;
+
+		private var _id : int;
+		private static var _nextId : int = 0;
+
+		public function TaskExecutor( _task : ITaskRunnable ) {
+			this._task = _task;
 			this._task.executor = this;
-			this._isCancelable 	= _task is ITaskCancelable;
-			this._isPausable 	= _task is ITaskPausable;
+			this._isCancelable = _task is ITaskCancelable;
+			this._isPausable = _task is ITaskPausable;
 			_state = TaskState.INACTIVE;
 			_id = _nextId++;
 		}
-		
-		public function start( resultSet:Object ) : Boolean {
+
+		public function start( resultSet : Object ) : Boolean {
 			if (_state != TaskState.INACTIVE) {
 				return false;
 			}
@@ -52,10 +51,10 @@ package com.br.as3ufw.task.core {
 			this._resultSet = resultSet;
 			startTimer();
 			_task.onStart();
-			dispatchEvent(new TaskEvent(TaskEvent.START,_task));
+			dispatchEvent(new TaskEvent(TaskEvent.START, _task));
 			return true;
 		}
-		
+
 		public function complete() : Boolean {
 			if (_state != TaskState.ACTIVE) {
 				return false;
@@ -63,55 +62,55 @@ package com.br.as3ufw.task.core {
 			_state = TaskState.FINISHED;			
 			stopTimer();
 			_task.onComplete();
-			dispatchEvent(new TaskEvent(TaskEvent.COMPLETE,_task));
+			dispatchEvent(new TaskEvent(TaskEvent.COMPLETE, _task));
 			return true;
 		}
-		
+
 		public function error(errorMsg : String) : void {
 		}
-		
+
 		public function update(pcentComplete : Number) : void {
 		}
-		
+
 		public function destroy() : void {
 			if (_task) _task.executor = null;
 		}		
-		
+
 		public function pause() : Boolean {
 			return false;
 		}
-		
+
 		public function resume() : Boolean {
 			return false;
 		}
-		
+
 		public function cancel() : Boolean {
 			if (!isCancelable)
 				return false;
 			ITaskCancelable(_task).onCancel();
 			return true;
 		}
-		
-		virtual public function exec(fn : Function, execCtx:Boolean, args:Array) : void {
-			execCtx ? fn.apply(this,args) : fn.apply(_task,args);
+
+		virtual public function exec(fn : Function, execCtx : Boolean, args : Array) : void {
+			execCtx ? fn.apply(this, args) : fn.apply(_task, args);
 		}
-		
+
 		public function get id() : int {
 			return _id;
 		}
-		
+
 		public function get state() : String {
 			return _state;
 		}
-		
+
 		public function get task() : ITaskRunnable {
 			return _task;
 		}
-		
+
 		public function get runningTime() : int {
 			return _totalRunningTime;
 		}
-						
+
 		private function startTimer() : void {
 			stopTimer();
 			_totalRunningTime = 0;
@@ -131,31 +130,31 @@ package com.br.as3ufw.task.core {
 				_timer = null;
 			}
 		}
-		
+
 		private function onTimeOutEvent(e : TimerEvent) : void {
 			_state = TaskState.FINISHED;
 			stopTimer();
 			ITaskCancelable(_task).onTimeOut();
-			dispatchEvent(new TaskEvent(TaskEvent.ERROR,_task));
+			dispatchEvent(new TaskEvent(TaskEvent.ERROR, _task));
 			//_log.warn(this + " timed out after " + totalRunningTime + "ms (timeout=" + _timeOut + ")");
 		}
 
 		public function get resultSet() : Object {
 			return _resultSet;
 		}		
-		
+
 		virtual public function get isCancelable() : Boolean {
 			return _isCancelable;
 		}
-		
+
 		virtual public function get isPausable() : Boolean {
 			return _isPausable;
 		}
-		
+
 		override public function toString() : String {
 			return super.toString();
 		}
-		
-		private var _log : ILogger = LoggerFactory.getClassLogger(TaskExecutor);
+
+		private var _log : ILogger = Log.getClassLogger(TaskExecutor);
 	}
 }

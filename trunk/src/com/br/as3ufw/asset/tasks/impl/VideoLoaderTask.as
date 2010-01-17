@@ -2,9 +2,8 @@ package com.br.as3ufw.asset.tasks.impl {
 	import com.br.as3ufw.asset.enum.LoaderTypes;
 	import com.br.as3ufw.asset.manager.AssetSet;
 	import com.br.as3ufw.asset.tasks.AbstractAssetLoaderTask;
-
-	import org.as3commons.logging.ILogger;
-	import org.as3commons.logging.LoggerFactory;
+	import com.br.as3ufw.logging.ILogger;
+	import com.br.as3ufw.logging.Log;
 
 	import flash.events.AsyncErrorEvent;
 	import flash.events.IOErrorEvent;
@@ -79,6 +78,6 @@ package com.br.as3ufw.asset.tasks.impl {
 			return {stream:_netStream, metadata:_metaData};
 		}
 
-		private var _log : ILogger = LoggerFactory.getClassLogger(VideoLoaderTask);
+		private var _log : ILogger = Log.getClassLogger(VideoLoaderTask);
 	}
 }

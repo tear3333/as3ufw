@@ -1,6 +1,6 @@
 package com.br.as3ufw.task.manager {
-	import org.as3commons.logging.ILogger;
-	import org.as3commons.logging.LoggerFactory;
+	import com.br.as3ufw.logging.ILogger;
+	import com.br.as3ufw.logging.Log;
 
 	/**
 	 * @author Richard.Jewson
@@ -10,8 +10,7 @@ package com.br.as3ufw.task.manager {
 		public function OrderedTaskManager() {
 			super(1);
 		}
-		
-		private var _log : ILogger = LoggerFactory.getClassLogger(OrderedTaskManager);
+
+		private var _log : ILogger = Log.getClassLogger(OrderedTaskManager);
 	}
-		
 }

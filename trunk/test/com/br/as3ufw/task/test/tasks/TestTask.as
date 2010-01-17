@@ -1,13 +1,12 @@
 package com.br.as3ufw.task.test.tasks {
-	import flash.events.Event;
-	import flash.events.TimerEvent;
-	import flash.utils.Timer;
-
+	import com.br.as3ufw.logging.ILogger;
+	import com.br.as3ufw.logging.Log;
 	import com.br.as3ufw.task.ITaskExecutor;
 	import com.br.as3ufw.task.ITaskRunnable;
 
-	import org.as3commons.logging.ILogger;
-	import org.as3commons.logging.LoggerFactory;
+	import flash.events.Event;
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
 
 	/**
 	 * @author Richard.Jewson
@@ -45,6 +44,6 @@ package com.br.as3ufw.task.test.tasks {
 			return "ID=[" + _id + "]";
 		}
 		
-		private var _log : ILogger = LoggerFactory.getClassLogger(TestTask);
+		private var _log : ILogger = Log.getClassLogger(TestTask);
 	}
 }
