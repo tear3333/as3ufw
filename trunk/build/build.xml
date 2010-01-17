@@ -32,7 +32,6 @@
             <arg line="-include-sources ${classesdir}" />
         	<arg line="-library-path ${libdir}" />      	
         	<arg line="-library-path ${flex3libsdir}" />
-        	<!--arg line="-external-library-path ${libdir}/as3commons-logging-1.1.swc" /-->
         </exec>
     </target>
 
