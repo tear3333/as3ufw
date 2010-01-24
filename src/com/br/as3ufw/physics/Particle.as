@@ -1,6 +1,7 @@
  package com.br.as3ufw.physics {
+	import flash.utils.getTimer;
+
 	import com.br.as3ufw.geom.Vector2D;
-	import com.br.as3ufw.physics.forces.IForceGenerator;
 
 	import flash.display.Graphics;
 
@@ -19,13 +20,17 @@
 
 		private var forces : Vector2D;
 		
-		private var forceGenerators:Array;
-
 		private var _mass : Number;
 		private var _invMass : Number;
 		private var _deltaT : Number;
 		
 		private var temp : Vector2D;
+
+		public var mask:uint;
+		public var prev:Particle;
+		public var next:Particle;
+		public var birth : uint;
+		public var ttl : uint;
 
 		/*
 		 * Constructs the particle
@@ -35,17 +40,27 @@
 		 * 				Must not be <=0 (if it is it will be set to a very low number)
 		 * 				To make the particle imovable, set to Math.POSITIVE_INFINITY
 		 */
-		public function Particle(pos : Vector2D, mass : Number = 1) {
-			this.pos = pos;
-			this.oldPos = pos.clone();
-			this.initPos = pos.clone();
+		public function Particle(pos : Vector2D) {
+			this.pos = new Vector2D();
+			this.oldPos = new Vector2D();
+			this.initPos = new Vector2D();
 			this.forces = new Vector2D();
-			this.forceGenerators = [];
 			this.temp = new Vector2D();
-			this.mass = mass;
-			
-			_deltaT = 0.0625;
+			reset(pos);
+		}
 
+		public function reset(pos : Vector2D):void {
+			this.pos.copy(pos);
+			this.oldPos.copy(pos);
+			this.initPos.copy(pos);
+			this.forces.setTo(0, 0);
+			this.mass = mass;
+			this.prev = this.next = null;
+			mass = 1;
+			birth = getTimer();
+			ttl = 0;
+			mask = 0;
+			_deltaT = 0.0625;			
 		}
 
 		public function addForce(f : Vector2D) : void {
@@ -56,25 +71,35 @@
 			forces.plusEquals(f);
 		}
 		
-		public function addForceGenerator(g : IForceGenerator) : void {
-			forceGenerators.push(g);
-		}
-		
-		public function clearForceGenerator() : void {
-			forceGenerators.length = 0;
-		}
-
-		public function update(damping : Number = 1) : void {
-			if (fixed) return;
-			forces.multEquals(_invMass);
-			for each (var fgen : IForceGenerator in forceGenerators) {
-				fgen.applyForce(this);
-			}
-			temp.copy(pos);                        
-			var vel : Vector2D = velocity.plus(forces.multEquals(deltaT));
-			pos.plusEquals(vel.multEquals(damping));
-			oldPos.copy(temp);
-			forces.setTo(0, 0);
+		public function update(now:uint, damping : Number = 1) : Boolean {
+			if (ttl && now-birth > ttl ) return false;
+			if (fixed) return true;
+			//Optimization
+			//forces.multEquals(_invMass);
+			forces.x *= _invMass;
+			forces.y *= _invMass;
+			
+			//Optimization
+			//temp.copy(pos); 
+			temp.x = pos.x;
+			temp.y = pos.y;
+			
+			//Optimization                    
+			//var vel : Vector2D = velocity.plus(forces.multEquals(deltaT));
+			//pos.plusEquals(vel.multEquals(damping));
+			pos.x += ((velocity.x + forces.x*deltaT) * damping);
+			pos.y += ((velocity.y + forces.y*deltaT) * damping);
+			
+			//Optimization  			
+			//oldPos.copy(temp);
+			oldPos.x = temp.x;
+			oldPos.y = temp.y;
+			
+			//Optimization 
+			//forces.setTo(0, 0);
+			forces.x = forces.y = 0;
+			
+			return true;
 		}
 		
 		public function render(g:Graphics,colour:uint,size:Number):void {
@@ -112,5 +137,27 @@
 			_deltaT = deltaT;
 		}
 
+		private static var _particlePool:Particle;
+		private static var _maxPoolCount:int;
+		
+		public static function GetParticle(pos : Vector2D):Particle {
+			if (_particlePool) {
+				var p:Particle = _particlePool;
+				_particlePool = p.next;
+				p.reset(pos);
+				return p;
+			}
+			//trace(++_maxPoolCount);
+			return new Particle(pos);
+		}
+		
+		public static function RecycleParticle(p:Particle):void {
+			if (_particlePool) {
+				_particlePool.prev = p;
+			}
+			p.next = _particlePool;
+			p.prev = null;
+			_particlePool = p;
+		}
 	}
 }

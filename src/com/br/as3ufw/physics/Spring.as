@@ -36,7 +36,7 @@ package com.br.as3ufw.physics {
 			return p1.pos.distance(p2.pos);
 		}
 		
-		public function render(g:Graphics,colour:uint,size:Number):void {
+		public function render(g:Graphics,colour:uint):void {
 			g.lineStyle(1,colour);
 			g.moveTo(p1.pos.x,p1.pos.y);
 			g.lineTo(p2.pos.x, p2.pos.y);

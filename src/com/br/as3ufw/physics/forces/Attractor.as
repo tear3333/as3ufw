@@ -20,7 +20,6 @@ package com.br.as3ufw.physics.forces {
 			var forceVector : Vector2D = forcePosition.minus(targetParticle.pos);
 			forceVector.normalize();
 			forceVector.multEquals(strength);
-			forceVector.multEquals(targetParticle.invMass);
 			targetParticle.addForce(forceVector);
 		}
 	}
