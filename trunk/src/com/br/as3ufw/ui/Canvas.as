@@ -5,7 +5,11 @@ package com.br.as3ufw.ui {
 	 * @author Richard.Jewson
 	 */
 	public class Canvas extends Sprite {
+		
+		
+		
 		public function Canvas() {
+		
 		}
 	}
 }
