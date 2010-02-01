@@ -17,7 +17,7 @@ package com.br.as3ufw.asset.tasks {
 		private var _urlloader : URLLoader;
 
 		public function URLLoaderTask(id : String, url : *, assetSet : AssetSet,  params:Object) {
-			super(id, url, assetSet, params );
+			super(id, url, assetSet, params);
 		}
 
 		override protected function onCompleteHandler(event : Event) : void {

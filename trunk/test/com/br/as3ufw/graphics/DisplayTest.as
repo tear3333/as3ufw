@@ -16,7 +16,9 @@ package com.br.as3ufw.graphics {
 			
 			var imageBitmap : Bitmap = new TestImage();
 			
-			ScaleBitmap.draw(imageBitmap.bitmapData, graphics, 200, 150, new Rectangle(25,25,50,50));
+			ScaleBitmap.scale(imageBitmap.bitmapData, graphics, 200, 150, new Rectangle(25,25,50,50) );
+			
+			//ScaleBitmap.draw(imageBitmap.bitmapData, graphics, 200, 150, new Rectangle(25,25,50,50) );
 			
 		}
 	}

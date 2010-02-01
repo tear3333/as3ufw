@@ -1,4 +1,5 @@
 package com.br.as3ufw.asset.tasks {
+	import com.br.as3ufw.asset.IAssetLoader;
 	import com.br.as3ufw.asset.enum.LoaderTypes;
 	import com.br.as3ufw.asset.manager.AssetSet;
 	import com.br.as3ufw.logging.ILogger;
@@ -18,7 +19,7 @@ package com.br.as3ufw.asset.tasks {
 	/**
 	 * @author Richard.Jewson
 	 */
-	public class AbstractAssetLoaderTask implements ITaskRunnable, ITaskCancelable {
+	public class AbstractAssetLoaderTask implements IAssetLoader, ITaskRunnable, ITaskCancelable {
 
 		protected var _content : *;
 
@@ -148,6 +149,10 @@ package com.br.as3ufw.asset.tasks {
 			}
 			//__log.debug("b="+ObjectUtils.toString(finalParams));
 			return finalParams;
+		}
+
+		public function get matchExp() : RegExp {
+			return null;
 		}
 
 		private var _log : ILogger = Log.getClassLogger(AbstractAssetLoaderTask);

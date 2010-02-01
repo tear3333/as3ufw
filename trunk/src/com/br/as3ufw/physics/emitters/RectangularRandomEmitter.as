@@ -18,7 +18,7 @@ package com.br.as3ufw.physics.emitters {
 
 		override public function emit(params:Object) : void {
 			var p:Particle = Particle.GetParticle(new Vector2D(Random.integer(_rectangle.left, _rectangle.right),Random.integer(_rectangle.top, _rectangle.bottom)));
-			p.ttl = Random.integer(500, 2000);
+			p.ttl = Random.integer(5000, 20000);
 			engine.addParticle(p);
 		}
 	}
