@@ -11,8 +11,5 @@ package com.br.as3ufw.asset.tasks.impl {
 			super(id, url, assetSet, mergeParams(params, {type:LoaderTypes.BINARY}));
 		}
 
-		override public function get content() : * {
-			return super.content;
-		}
 	}
 }
