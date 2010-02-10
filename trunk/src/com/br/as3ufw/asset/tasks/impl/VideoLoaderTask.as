@@ -4,6 +4,7 @@ package com.br.as3ufw.asset.tasks.impl {
 	import com.br.as3ufw.asset.tasks.AbstractAssetLoaderTask;
 	import com.br.as3ufw.logging.ILogger;
 	import com.br.as3ufw.logging.Log;
+	import com.br.as3ufw.utils.ObjectUtils;
 
 	import flash.events.AsyncErrorEvent;
 	import flash.events.IOErrorEvent;
@@ -23,7 +24,7 @@ package com.br.as3ufw.asset.tasks.impl {
 		private var _timer : Timer;
 
 		public function VideoLoaderTask(id : String, url : *, assetSet : AssetSet, params : Object = null) {
-			super(id, url, assetSet, mergeParams(params, {type:LoaderTypes.BINARY}));
+			super(id, url, assetSet, ObjectUtils.merge(params, {type:LoaderTypes.BINARY}));
 		}
 
 		override public function onStart() : void {

@@ -10,6 +10,13 @@ package com.br.as3ufw.asset.tasks {
 	 */
 	public class AssetTaskFactory {
 
+		private static var _loaders:Array;
+		
+		{
+			_loaders = [];
+			_loaders.push
+		}
+
 		public static function TaskByURLString(id : String, urlString : String,assetSet : AssetSet = null, params:Object = null) : ITaskRunnable {
 			var url:URLRequest = new URLRequest(urlString);
 			trace(urlString.search(/xml/));
