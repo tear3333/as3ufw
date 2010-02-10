@@ -18,7 +18,7 @@ package com.br.as3ufw.asset {
 
 		function getBool(key : String) : Boolean;
 
-		function getInt(key : String) : Number;
+		function getInt(key : String) : int;
 
 		function getFloat(key : String) : Number;
 

@@ -8,6 +8,5 @@ package com.br.as3ufw.asset {
 
 		function get content() : * ;
 
-		function get matchExp() : RegExp;
 	}
 }

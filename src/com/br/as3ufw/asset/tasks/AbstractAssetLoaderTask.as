@@ -1,4 +1,5 @@
 package com.br.as3ufw.asset.tasks {
+	import com.br.as3ufw.utils.ObjectUtils;
 	import com.br.as3ufw.asset.IAssetLoader;
 	import com.br.as3ufw.asset.enum.LoaderTypes;
 	import com.br.as3ufw.asset.manager.AssetSet;
@@ -49,7 +50,7 @@ package com.br.as3ufw.asset.tasks {
 			}
 			this._assetSet = assetSet;
 			this._type = type;
-			this.params = mergeParams(defaultParams, params);
+			this.params = ObjectUtils.merge(defaultParams, params);
 			if(this.params.forceReload) {
 				if (!url.data) {
 					url.data = new URLVariables();
@@ -130,29 +131,6 @@ package com.br.as3ufw.asset.tasks {
 
 		public function set id(id : String) : void {
 			_id = id;
-		}
-
-		protected function mergeParams(paramsTarget : Object, paramsSource : Object) : Object {
-			//var __log : ILogger = LoggerFactory.getClassLogger(AbstractAssetLoaderTask);
-			paramsTarget = paramsTarget || {};
-			paramsSource = paramsSource || {};
-			var finalParams : Object = {};
-			var key : String;
-			for (key in paramsTarget) {
-				finalParams[key] = paramsTarget[key];
-				//__log.debug("a["+key+"]="+paramsTarget[key]);
-			}
-			//__log.debug("---");
-			for (key in paramsSource) {
-				finalParams[key] = paramsSource[key];
-				//__log.debug("b["+key+"]="+paramsSource[key]);
-			}
-			//__log.debug("b="+ObjectUtils.toString(finalParams));
-			return finalParams;
-		}
-
-		public function get matchExp() : RegExp {
-			return null;
 		}
 
 		private var _log : ILogger = Log.getClassLogger(AbstractAssetLoaderTask);
