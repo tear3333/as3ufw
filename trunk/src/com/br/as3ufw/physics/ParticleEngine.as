@@ -10,68 +10,49 @@ package com.br.as3ufw.physics {
 	 */
 	public class ParticleEngine {
 
-		private var _particles : Particle;
-		private var _springs : Array;
-		private var _emitters : Array;
+		private var _groups : Array;
 		private var _forceGenerator : Array;
 
 		private var _graphics : Graphics;
 		public var damping : Number;
 
 		public function ParticleEngine() {
-			_particles = null;
-			_springs = [];
-			_emitters = [];
 			_forceGenerator = [];
+			_groups = [];
 			damping = 0;
 		}
 
 		public function update() : void {
-			var particle : Particle = _particles;
-			var lastParticle : Particle;
 			var now : uint = getTimer();
-			while (particle) {
+			for each (var group : ParticleGroup in _groups) {
+		
+				var particle : Particle = group.particles;
+				while (particle) {
 				
-				for each (var fgen : IForceGenerator in _forceGenerator) {
-					fgen.applyForce(particle);
-				}
-				
-				if (!particle.update(now, damping)) {
-					var thisParticle : Particle = particle;
-					if (particle == _particles) {                                                
-						particle = _particles = particle.next;
-					} else if (particle.next == null) {                              
-						particle = lastParticle.next = null;
-					} else {                                                                                
-						particle = lastParticle.next = particle.next;      
+					for each (var fgen : IForceGenerator in _forceGenerator) {
+						fgen.applyForce(particle);
 					}
-                                                
-					Particle.RecycleParticle(thisParticle);                 
-					continue;
+				
+					if (!particle.update(now, damping)) {
+						particle = Particle.removeParticle(group.particles, particle);            
+						continue;
+					}
+					if (_graphics)
+					particle.render(_graphics, 0x000000, 2);
+					particle = particle.next;
 				}
-				if (_graphics)
-						particle.render(_graphics, 0x000000, 2);
-				lastParticle = particle;
-				particle = particle.next;
-			}
-			for each (var spring : Spring in _springs) {
-				spring.resolve();
+				for each (var spring : Spring in group.springs) {
+					spring.resolve();
+				}
 			}
 		}
 
-		public function addParticle(p : Particle) : void {
-			p.next = _particles;
-			if (_particles) _particles.prev = p;
-			_particles = p;
+		public function addGroup(g : ParticleGroup) : void {
+			_groups.push(g);
 		}
 
-		public function addSpring(s : Spring) : void {
-			_springs.push(s);
-		}
-
-		public function addEmitter(e : Emitter) : void {
-			e.engine = this;
-			_emitters.push(e);
+		public function removeGroup(g : ParticleGroup) : void {
+			//_springs.push(s);
 		}
 
 		public function addForceGenerator(f : IForceGenerator) : void {

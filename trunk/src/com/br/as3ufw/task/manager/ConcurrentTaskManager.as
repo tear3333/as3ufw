@@ -14,7 +14,7 @@ package com.br.as3ufw.task.manager {
 		private var _concurrency : int;
 		private var _runningCount : int;
 		
-		public function ConcurrentTaskManager(concurrency:int = 0) {
+		public function ConcurrentTaskManager(concurrency:int = 1) {
 			this._concurrency = concurrency;
 			_runningCount = 0;
 		}

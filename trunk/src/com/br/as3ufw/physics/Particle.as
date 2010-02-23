@@ -31,6 +31,7 @@
 		public var next:Particle;
 		public var birth : uint;
 		public var ttl : uint;
+		public var active : Boolean;
 
 		/*
 		 * Constructs the particle
@@ -59,6 +60,7 @@
 			mass = 1;
 			birth = getTimer();
 			ttl = 0;
+			active = false;
 			mask = 0;
 			_deltaT = 0.0625;			
 		}
@@ -102,7 +104,7 @@
 			return true;
 		}
 		
-		public function render(g:Graphics,colour:uint,size:Number):void {
+		virtual public function render(g:Graphics,colour:uint,size:Number):void {
 			g.lineStyle(1,colour);
 			g.drawRect(pos.x-size, pos.y-size, size*2, size*2);	
 		}
@@ -142,14 +144,31 @@
 		
 		public static function GetParticle(pos : Vector2D):Particle {
 			if (_particlePool) {
+				trace("from pool");
 				var p:Particle = _particlePool;
 				_particlePool = p.next;
 				p.reset(pos);
 				return p;
 			}
-			//trace(++_maxPoolCount);
+			trace(++_maxPoolCount);
 			return new Particle(pos);
 		}
+		
+		public static function removeParticle(head:Particle, p : Particle) : Particle {
+			var next:Particle = p.next;
+			if (p == head) {                                                
+				head = p.next;
+			} else {
+				p.prev.next = p.next;
+			}
+			if (p.next == null) {
+				
+			} else {
+				p.next.prev = p.prev;
+			}
+			Particle.RecycleParticle(p);
+			return next;
+		}		
 		
 		public static function RecycleParticle(p:Particle):void {
 			if (_particlePool) {
