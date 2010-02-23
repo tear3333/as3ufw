@@ -36,10 +36,10 @@ package com.br.as3ufw.ui {
 		}
 		
 		public function update() : void {
-			if (horizontalPosFunc) horizontalPosFunc();
-			if (verticalPosFunc) verticalPosFunc();
-			if (horizontalSizeFunc) horizontalSizeFunc();
-			if (verticalSizeFunc) verticalSizeFunc();
+			if (horizontalPosFunc!=null) horizontalPosFunc();
+			if (verticalPosFunc!=null) verticalPosFunc();
+			if (horizontalSizeFunc!=null) horizontalSizeFunc();
+			if (verticalSizeFunc!=null) verticalSizeFunc();
 		}
 
 		public function get x() : Number {

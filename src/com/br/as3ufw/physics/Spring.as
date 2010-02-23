@@ -20,7 +20,7 @@ package com.br.as3ufw.physics {
 			_restLength = length;
 		}
 
-		public function resolve() : void {
+		public function resolve() : Boolean {
                         
 			var deltaLength : Number = length;                    
 			var diff : Number = (deltaLength - _restLength) / (deltaLength * (p1.invMass + p2.invMass));
@@ -29,6 +29,8 @@ package com.br.as3ufw.physics {
                 
 			if (!p1.fixed) p1.pos.minusEquals(dmds.mult(p1.invMass));
 			if (!p2.fixed) p2.pos.plusEquals(dmds.mult(p2.invMass));
+			
+			return true;
 		}      
 
 		

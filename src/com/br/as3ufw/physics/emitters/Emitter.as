@@ -1,25 +1,26 @@
 package com.br.as3ufw.physics.emitters {
 	import com.br.as3ufw.physics.ParticleEngine;
+	import com.br.as3ufw.physics.ParticleGroup;
 
 	/**
 	 * @author Richard.Jewson
 	 */
 	public class Emitter {
 
-		private var _engine : ParticleEngine;
-		
+		private var _group : ParticleGroup;
+
 		public function Emitter() {
 		}
 
-		virtual public function emit(params:Object) : void {
+		virtual public function emit(params : Object) : void {
 		}
-		
-		public function set engine(engine : ParticleEngine) : void {
-			_engine = engine;
+
+		public function set group(group : ParticleGroup) : void {
+			_group = group;
 		}
-		
-		public function get engine() : ParticleEngine {
-			return _engine;
+
+		public function get group() : ParticleGroup {
+			return _group;
 		}
 	}
 }
