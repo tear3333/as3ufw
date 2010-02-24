@@ -22,7 +22,7 @@ package com.br.as3ufw.physics.forces {
 			var forceVector : Vector2D = forcePosition.minus(targetParticle.pos);
 			var distance:Number = forceVector.magnitude;
 			if (distance>range) return;
-			trace(strength/distance);
+			//trace(strength/distance);
 			forceVector.multEquals(strength/distance);
 			targetParticle.addForce(forceVector);
 		}
