@@ -12,6 +12,7 @@ package com.br.as3ufw.task.events {
 		public static const RESUME : String = "resume";
 		public static const CANCEL : String = "cancel";
 		public static const ERROR : String = "error";
+		public static const PRIORITIZE : String = "prioritize";		
 
 		private var _task:ITaskRunnable;
 

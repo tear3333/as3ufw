@@ -32,13 +32,16 @@ package com.br.as3ufw.task.core {
 
 			executor.addEventListener(TaskEvent.COMPLETE, function(event : TaskEvent):void {
 				onSubTaskComplete(event.task);
-			});
+			},false,0,false);
 			executor.addEventListener(TaskEvent.CANCEL, function(event : TaskEvent):void {
 				onSubTaskCancel(event.task);
-			});
+			},false,0,false);
 			executor.addEventListener(TaskEvent.ERROR, function(event : TaskEvent):void {
 				onSubTaskError(event.task);
-			});
+			},false,0,false);
+			executor.addEventListener(TaskEvent.PRIORITIZE, function(event : TaskEvent):void {
+				onSubTaskPrioritize(event.task);
+			},false,0,false);
 			
 			onAddTask(task);
 			return true;
@@ -64,6 +67,9 @@ package com.br.as3ufw.task.core {
 		}
 
 		virtual public function onSubTaskError(task : ITaskRunnable) : void {
+		}
+
+		virtual public function onSubTaskPrioritize(task : ITaskRunnable) : void {
 		}
 
 		/*
@@ -133,6 +139,10 @@ package com.br.as3ufw.task.core {
 				if (!executor.isPausable) return false;
 			}
 			return true;
+		}
+		
+		protected public function sortByPriority(a:ITaskRunnable, b:ITaskRunnable):void {
+			
 		}
 		
 		public function get executors() : Array {

@@ -9,12 +9,19 @@ package com.br.as3ufw.logging.appenders {
 		
 		private var _logLevel:int;
 		private var _parameterExpander:Function;
-		public var useDate:Boolean;
 		protected var classFilters : Array;
 		
+		public var useTime:Boolean;
+		public var useDate:Boolean;
+		public var useLevel:Boolean;
+		public var useClass:Boolean;
+
 		public function AbstractAppender() {
 			logLevel = Log.ALL;
-			useDate = true;
+			useTime  = true;
+			useDate  = true;
+			useLevel = true;
+			useClass = true;
 		}
 
 		virtual public function addClassFilter(filter : String) : void {

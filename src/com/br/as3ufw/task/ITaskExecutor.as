@@ -30,5 +30,10 @@ package com.br.as3ufw.task {
 		function get isPausable() : Boolean;
 		
 		function get runningTime() : int;
+
+		function get priority() : Number;
+
+		function set priority(priority : Number) : void;
+
 	}
 }

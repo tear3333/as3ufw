@@ -25,6 +25,7 @@ package com.br.as3ufw.task.core {
 		private var _runningTimeCounter : int;
 		private var _timer : Timer;
 		private var _pcentComplete : Number;
+		private var _priority : Number;
 
 		protected var _resultSet : Object;
 		private var _isCancelable : Boolean;
@@ -38,6 +39,7 @@ package com.br.as3ufw.task.core {
 			this._task.executor = this;
 			this._isCancelable = _task is ITaskCancelable;
 			this._isPausable = _task is ITaskPausable;
+			this._priority = 10;
 			_state = TaskState.INACTIVE;
 			_id = _nextId++;
 		}
@@ -151,10 +153,20 @@ package com.br.as3ufw.task.core {
 			return _isPausable;
 		}
 
+		public function get priority() : Number {
+			return _priority;
+		}
+		
+		public function set priority(priority : Number) : void {
+			_priority = priority;
+			dispatchEvent(new TaskEvent(TaskEvent.PRIORITIZE, _task));
+		}
+
 		override public function toString() : String {
 			return super.toString();
 		}
 
 		private var _log : ILogger = Log.getClassLogger(TaskExecutor);
+
 	}
 }

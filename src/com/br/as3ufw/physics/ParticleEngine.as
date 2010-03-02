@@ -10,45 +10,46 @@ package com.br.as3ufw.physics {
 	 */
 	public class ParticleEngine {
 
-		private var _groups : Array;
-		private var _forceGenerator : Array;
+		public var groups : Array;
+		public var forceGenerator : Array;
 
-		private var _graphics : Graphics;
 		public var damping : Number;
 
 		public function ParticleEngine() {
-			_forceGenerator = [];
-			_groups = [];
+			forceGenerator = [];
+			groups = [];
 			damping = 0;
 		}
 
 		public function update() : void {
 			var now : uint = getTimer();
-			for each (var group : ParticleGroup in _groups) {
+			for each (var group : ParticleGroup in groups) {
 		
 				var particle : Particle = group.particles;
 				while (particle) {
-				
-					for each (var fgen : IForceGenerator in _forceGenerator) {
+					var fgen : IForceGenerator;
+					for each (fgen in forceGenerator) {
 						fgen.applyForce(particle);
 					}
-				
+					for each (fgen in group.forceGenerators) {
+						fgen.applyForce(particle);
+					}
 					if (!particle.update(now, damping)) {
 						particle = Particle.removeParticle(group.particles, particle);            
 						continue;
 					}
-					if (_graphics)
-					particle.render(_graphics, 0x000000, 2);
+					
 					particle = particle.next;
 				}
 				for each (var spring : Spring in group.springs) {
 					spring.resolve();
 				}
+				if (group.doRender) group.render();
 			}
 		}
 
 		public function addGroup(g : ParticleGroup) : void {
-			_groups.push(g);
+			groups.push(g);
 		}
 
 		public function removeGroup(g : ParticleGroup) : void {
@@ -56,11 +57,8 @@ package com.br.as3ufw.physics {
 		}
 
 		public function addForceGenerator(f : IForceGenerator) : void {
-			_forceGenerator.push(f);
+			forceGenerator.push(f);
 		}
 
-		public function set graphics(graphics : *) : void {
-			_graphics = graphics;
-		}
 	}
 }
