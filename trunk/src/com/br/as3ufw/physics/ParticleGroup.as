@@ -1,4 +1,5 @@
 package com.br.as3ufw.physics {
+	import com.br.as3ufw.physics.forces.IForceGenerator;
 	import com.br.as3ufw.physics.emitters.Emitter;
 
 	import flash.display.Graphics;
@@ -11,7 +12,11 @@ package com.br.as3ufw.physics {
 		public var particles : Particle;
 		public var springs : Array;
 		public var emitters : Array;
+		public var forceGenerators : Array;
+		
 		public var particleCount:int;
+
+		public var doRender:Boolean;
 
 		private var _id : int;
 		private static var _nextid : int = 0;
@@ -46,6 +51,14 @@ package com.br.as3ufw.physics {
 		public function addEmitter(e : Emitter) : void {
 			e.group = this;
 			emitters.push(e);
+		}
+
+		public function addForceGenerator(f : IForceGenerator) : void {
+			forceGenerators.push(f);
+		}
+
+		virtual public function render():void {
+			
 		}
 
 		public function renderCurveLine(graphics : Graphics,width : Number,colour : uint, alpha:Number) : void {

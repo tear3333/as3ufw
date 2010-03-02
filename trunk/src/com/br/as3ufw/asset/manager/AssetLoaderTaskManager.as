@@ -8,5 +8,8 @@ package com.br.as3ufw.asset.manager {
 		public function AssetLoaderTaskManager(concurrency : int = 10) {
 			super(concurrency);
 		}
+
+		public function addAsset() : void {
+		}
 	}
 }
