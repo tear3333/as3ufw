@@ -140,11 +140,18 @@ package com.br.as3ufw.task.core {
 			}
 			return true;
 		}
-		
-		protected public function sortByPriority(a:ITaskRunnable, b:ITaskRunnable):void {
-			
+
+		protected public function sortByPriority(a : TaskExecutor, b : TaskExecutor) : Number {
+			var diff : Number = a.priority - b.priority;
+			if( diff > 0) {
+				return 1;
+			} else if(diff < 0) {
+				return -1;
+			}
+    
+			return 0;
 		}
-		
+
 		public function get executors() : Array {
 			return _executors;
 		}
