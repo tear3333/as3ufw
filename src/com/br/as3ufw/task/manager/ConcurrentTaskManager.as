@@ -1,4 +1,5 @@
 package com.br.as3ufw.task.manager {
+	import com.br.as3ufw.task.ITaskExecutor;
 	import com.br.as3ufw.logging.ILogger;
 	import com.br.as3ufw.logging.Log;
 	import com.br.as3ufw.task.ITaskRunnable;
@@ -23,16 +24,20 @@ package com.br.as3ufw.task.manager {
 			startConcurrentTasks();
 		}
 
-		override public function onSubTaskComplete(task : ITaskRunnable) : void {
+		override public function onSubTaskComplete(task : ITaskExecutor) : void {
 			_runningCount--;
 			if (startConcurrentTasks()) complete();
 		}
 		
 		private function startConcurrentTasks() : Boolean {
+			//First, sort all the tasks
+			//TODO This could be optimized
+			executors.sort(sortByPriority);
+			
 			var finished:Boolean = true;
 			for each (var executor:TaskExecutor in executors) {
 				if (!canStartTasks) return false;
-				if (executor.start(resultSet)) _runningCount++ ;
+				if (executor.start(taskPipeline)) _runningCount++ ;
 				finished = finished && (executor.state == TaskState.FINISHED);
 				//_log.info("e[" + executor.id+ "]finshed="+finished);
 			}

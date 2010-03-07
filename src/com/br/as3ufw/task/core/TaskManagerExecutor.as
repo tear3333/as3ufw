@@ -60,16 +60,19 @@ package com.br.as3ufw.task.core {
 		/**
 		 * Subtask event handlers
 		 */
-		virtual public function onSubTaskComplete(task : ITaskRunnable) : void {
+		virtual public function onSubTaskComplete(task : ITaskExecutor) : void {
+			for each (var newtask : ITaskRunnable in task.taskPipeline.newtasks) {
+				addTask(newtask);
+			}
 		}
 
-		virtual public function onSubTaskCancel(task : ITaskRunnable) : void {
+		virtual public function onSubTaskCancel(task : ITaskExecutor) : void {
 		}
 
-		virtual public function onSubTaskError(task : ITaskRunnable) : void {
+		virtual public function onSubTaskError(task : ITaskExecutor) : void {
 		}
 
-		virtual public function onSubTaskPrioritize(task : ITaskRunnable) : void {
+		virtual public function onSubTaskPrioritize(task : ITaskExecutor) : void {
 		}
 
 		/*
@@ -120,6 +123,8 @@ package com.br.as3ufw.task.core {
 			if (!super.cancel())
 				return false;
 			//TODO implement
+			for each (var executor:TaskExecutor in executors)
+				executor.cancel();
 			return false;
 		}
 
@@ -127,21 +132,26 @@ package com.br.as3ufw.task.core {
 		 * Getter/Setter stuff
 		 */
 		
-		override public function get isCancelable() : Boolean {
-			for each (var executor:TaskExecutor in executors) {
-				if (!executor.isCancelable) return false;
-			}
-			return true;
+//		override public function get isCancelable() : Boolean {
+//			for each (var executor:TaskExecutor in executors) {
+//				if (!executor.isCancelable) return false;
+//			}
+//			return true;
+//		}
+//		
+//		override public function get isPausable() : Boolean {
+//			for each (var executor:TaskExecutor in executors) {
+//				if (!executor.isPausable) return false;
+//			}
+//			return true;
+//		}
+
+
+		public function get executors() : Array {
+			return _executors;
 		}
 		
-		override public function get isPausable() : Boolean {
-			for each (var executor:TaskExecutor in executors) {
-				if (!executor.isPausable) return false;
-			}
-			return true;
-		}
-
-		protected public function sortByPriority(a : TaskExecutor, b : TaskExecutor) : Number {
+		protected function sortByPriority(a : TaskExecutor, b : TaskExecutor) : Number {
 			var diff : Number = a.priority - b.priority;
 			if( diff > 0) {
 				return 1;
@@ -152,10 +162,6 @@ package com.br.as3ufw.task.core {
 			return 0;
 		}
 
-		public function get executors() : Array {
-			return _executors;
-		}
-		
 		private var _log : ILogger = Log.getClassLogger(TaskManagerExecutor);
 		
 	}

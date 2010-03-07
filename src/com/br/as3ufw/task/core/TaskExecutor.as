@@ -27,7 +27,7 @@ package com.br.as3ufw.task.core {
 		private var _pcentComplete : Number;
 		private var _priority : Number;
 
-		protected var _resultSet : Object;
+		protected var _taskPipeline : TaskPipeline;
 		private var _isCancelable : Boolean;
 		private var _isPausable : Boolean;
 
@@ -44,16 +44,16 @@ package com.br.as3ufw.task.core {
 			_id = _nextId++;
 		}
 
-		public function start( resultSet : Object ) : Boolean {
+		public function start( taskPipeline : TaskPipeline = null ) : Boolean {
 			if (_state != TaskState.INACTIVE) {
 				return false;
 			}
 			_state = TaskState.ACTIVE;
 			_pcentComplete = Number.NaN;
-			this._resultSet = resultSet;
+			this._taskPipeline = taskPipeline == null ? new TaskPipeline() : taskPipeline;
 			startTimer();
 			_task.onStart();
-			dispatchEvent(new TaskEvent(TaskEvent.START, _task));
+			dispatchEvent(new TaskEvent(TaskEvent.START, this));
 			return true;
 		}
 
@@ -64,7 +64,7 @@ package com.br.as3ufw.task.core {
 			_state = TaskState.FINISHED;			
 			stopTimer();
 			_task.onComplete();
-			dispatchEvent(new TaskEvent(TaskEvent.COMPLETE, _task));
+			dispatchEvent(new TaskEvent(TaskEvent.COMPLETE, this));
 			return true;
 		}
 
@@ -137,12 +137,12 @@ package com.br.as3ufw.task.core {
 			_state = TaskState.FINISHED;
 			stopTimer();
 			ITaskCancelable(_task).onTimeOut();
-			dispatchEvent(new TaskEvent(TaskEvent.ERROR, _task));
+			dispatchEvent(new TaskEvent(TaskEvent.ERROR, this));
 			//_log.warn(this + " timed out after " + totalRunningTime + "ms (timeout=" + _timeOut + ")");
 		}
 
-		public function get resultSet() : Object {
-			return _resultSet;
+		public function get taskPipeline() : TaskPipeline {
+			return _taskPipeline;
 		}		
 
 		virtual public function get isCancelable() : Boolean {
@@ -159,7 +159,7 @@ package com.br.as3ufw.task.core {
 		
 		public function set priority(priority : Number) : void {
 			_priority = priority;
-			dispatchEvent(new TaskEvent(TaskEvent.PRIORITIZE, _task));
+			dispatchEvent(new TaskEvent(TaskEvent.PRIORITIZE, this));
 		}
 
 		override public function toString() : String {

@@ -1,4 +1,6 @@
 package com.br.as3ufw.task.events {
+	import com.br.as3ufw.task.ITaskExecutor;
+	import com.br.as3ufw.task.core.TaskExecutor;
 	import com.br.as3ufw.task.ITaskRunnable;
 	import flash.events.Event;
 
@@ -14,19 +16,19 @@ package com.br.as3ufw.task.events {
 		public static const ERROR : String = "error";
 		public static const PRIORITIZE : String = "prioritize";		
 
-		private var _task:ITaskRunnable;
+		private var _taskExecutor:ITaskExecutor;
 
-		public function TaskEvent(type : String,task:ITaskRunnable) {
+		public function TaskEvent(type : String,taskExecutor:ITaskExecutor) {
 			super(type);
 			this.task = task;
 		}
 		
-		public function get task() : ITaskRunnable {
-			return _task;
+		public function get task() : ITaskExecutor {
+			return _taskExecutor;
 		}
 		
-		public function set task(task : ITaskRunnable) : void {
-			_task = task;
+		public function set task(task : ITaskExecutor) : void {
+			_taskExecutor = task;
 		}	
 	}
 }

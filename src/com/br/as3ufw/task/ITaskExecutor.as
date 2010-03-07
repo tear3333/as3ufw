@@ -1,4 +1,5 @@
 package com.br.as3ufw.task {
+	import com.br.as3ufw.task.core.TaskPipeline;
 
 	/**
 	 * @author Richard.Jewson
@@ -19,7 +20,7 @@ package com.br.as3ufw.task {
 
 		function cancel() : Boolean;
 
-		function get resultSet(): Object;
+		function get taskPipeline(): TaskPipeline;
 
 		function exec( fn:Function , execCtx:Boolean, args:Array ):void;
 
