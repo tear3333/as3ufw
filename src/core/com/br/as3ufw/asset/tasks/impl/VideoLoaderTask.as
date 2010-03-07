@@ -31,7 +31,7 @@ package com.br.as3ufw.asset.tasks.impl {
 			_netConnection = new NetConnection();
 			_netConnection.connect(null);
 			_netStream = new NetStream(_netConnection);
-			_netStream.bufferTime = params.bufferTime;
+			_netStream.bufferTime = params["bufferTime"];
 			_netStream.addEventListener(IOErrorEvent.IO_ERROR, onErrorHandler, false, 0, true);
 			_netStream.addEventListener(NetStatusEvent.NET_STATUS, onNetStatus, false, 0, true);
 			_netStream.addEventListener(AsyncErrorEvent.ASYNC_ERROR, onAsyncError, false, 0, true);
@@ -55,7 +55,7 @@ package com.br.as3ufw.asset.tasks.impl {
 		}
 
 		private function onNetStatus(event : NetStatusEvent) : void {
-			if (event.info.code == "NetStream.Buffer.Full") {
+			if (event.info["code"] == "NetStream.Buffer.Full") {
 				_netStream.pause();
 				_exec.complete();
 			}

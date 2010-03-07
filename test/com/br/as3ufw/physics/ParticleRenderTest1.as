@@ -21,7 +21,7 @@ package com.br.as3ufw.physics {
 
 			_engine = new ParticleEngine();
 			_engine.damping = 0.99;
-			_engine.graphics = _particleLayer.graphics;
+			//_engine.graphics = _particleLayer.graphics;
 			_group = new ParticleGroup();
 			
 			_group.addParticle(new Particle(new Vector2D(120,100)));
