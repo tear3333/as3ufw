@@ -1,4 +1,6 @@
 package taskTestSuite.tests {
+	import org.flexunit.asserts.assertEquals;
+	import com.br.as3ufw.utils.ObjectUtils;
 	import com.br.as3ufw.logging.ILogger;
 	import com.br.as3ufw.logging.Log;
 	import taskTestSuite.support.TestTask;
@@ -22,10 +24,10 @@ package taskTestSuite.tests {
 			concurrentMgr = new ConcurrentTaskManager();
 			
 			concurrentMgr.addTask( new TestTask("1", 20) );
-			concurrentMgr.addTask( new TestTask("2", 20) );
-			concurrentMgr.addTask( new TestTask("3", 20) );
+			//concurrentMgr.addTask( new TestTask("2", 20) );
+			//concurrentMgr.addTask( new TestTask("3", 20) );
 			
-			expectedResults = ["C1","C2","C3"];
+			expectedResults = ["S1","C1","S2","C2","S3","C3"];
 		}
 
 		[After]
@@ -42,7 +44,7 @@ package taskTestSuite.tests {
 		}
 		
 		protected function handleComplete( event:TaskEvent, passThroughData:Object ):void {
-			compareResults(concurrentMgr.taskPipeline["testResultList"],expectedResults);
+			compareResults(concurrentMgr.taskPipeline.resultSet["testResultList"],expectedResults);
 		}
  
 		protected function handleTimeout( passThroughData:Object ):void {
@@ -62,6 +64,7 @@ package taskTestSuite.tests {
 						Assert.fail( "Actual output did not match Expected output item");
 				}
 			}
+			Assert.assertEquals();
 		}
 	
 		protected static var log:ILogger = Log.getClassLogger(TestCase1);
