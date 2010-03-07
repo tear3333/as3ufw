@@ -2,13 +2,17 @@
 
     <!-- import our build properties file -->
     <property file="${basedir}/build/build.properties" />
+	
+	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar" />
+	<taskdef resource="flexUnitTasks.tasks" classpath="${basedir}/lib/flexUnitTasks-4.0.0.jar"/>
 
     <property name="windowtitle" value="Blastradius AS3 Utility Framework Documentation" />
     <property name="maintitle" value="Blastradius AS3 Utility Framework Documentation" />
     <property name="footer" value="" />
 
     <property name="bindir" value="${basedir}/bin" />
-    <property name="classesdir" value="${basedir}/src" />
+    <property name="source.dir" value="${basedir}/src/core" />
+    <property name="lib.dir" value="${basedir}/lib" />
 
     <property name="flex3bindir" value="${flex3dir}/bin" />
     <property name="flex3libsdir" value="${flex3dir}/frameworks/libs" />
@@ -32,5 +36,62 @@
         	<arg line="-library-path ${flex3libsdir}" />
         </exec>
     </target>
+	
+	
+	<target name="cleanFlexUnitReport" description="Cleans the Report file">
+        <echo>Deleting FlexUnit Report Directory...</echo>
+        <delete dir="${FlexUnitReport.dir}" failOnError="false"
+            includeEmptyDirs="true" />
+        <echo>Deleted FlexUnit Report Directory</echo>
+        <echo>Creating FlexUnit Report Directory...</echo>
+        <mkdir dir="${FlexUnitReport.dir}" />
+        <echo>Created FlexUnit Report Directory</echo>
+    </target>
+	   
+    <target name="cleanTestUnit" description="Cleans the Test file">
+        <echo>Deleting Test Directory...</echo>
+        <delete dir="${Test.dir}" failOnError="false"
+            includeEmptyDirs="true" />
+        <echo>Deleted Test Directory</echo>
+        <echo>Creating Test Directory...</echo>
+        <mkdir dir="${Test.dir}" />
+        <echo>Created Test Directory</echo>
+    </target>
+	
+	<target name="compileTestRunner">
+	    <echo>Compiling Test Runner SWF To Test</echo>
+	    <mxmlc file="${TestRunnerSrc.dir}/${TestRunner.name}.mxml" output="${Test.dir}/${TestRunner.name}.swf" >
+	        <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+	        <compiler.source-path path-element="${source.dir}" />
+	        <compiler.library-path dir="${lib.dir}/" append="true">
+	            <include name="*.swc"/>
+	        </compiler.library-path>
+	        <compiler.library-path dir="${TestRunnerLib.dir}" append="true">
+	            <include name="*.swc"/>
+	        </compiler.library-path>
+	        <compiler.verbose-stacktraces>true</compiler.verbose-stacktraces>
+	        <compiler.headless-server>true</compiler.headless-server>
+	    </mxmlc>
+	    <echo>Compiled Test Runner SWF To Test</echo>
+	</target>	
 
+    <target name="executeTestRunner" description="executes the test runner app">
+        <echo>Running Test Runner SWF</echo>
+        <flexunit swf="${Test.dir}/${TestRunner.name}.swf"
+            toDir="${FlexUnitReport.dir}"
+            haltonfailure="false"
+            verbose="true"
+            localTrusted="true"/>
+        <echo>Ran Test Runner SWF</echo>
+       
+        <echo>Generate Readable Tests</echo>
+        <junitreport todir="${FlexUnitReport.dir}">
+            <fileset dir="${FlexUnitReport.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${FlexUnitReport.dir}/html"/>
+        </junitreport>
+        <echo>Generated Readable Tests</echo>
+    </target>	
+	
 </project>
