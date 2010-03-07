@@ -21,18 +21,17 @@ package taskTestSuite.tests {
 
 		[Before]
 		public function setUp():void {
-			concurrentMgr = new ConcurrentTaskManager();
+			concurrentMgr = new ConcurrentTaskManager(1);
 			
 			concurrentMgr.addTask( new TestTask("1", 20) );
-			//concurrentMgr.addTask( new TestTask("2", 20) );
-			//concurrentMgr.addTask( new TestTask("3", 20) );
+			concurrentMgr.addTask( new TestTask("2", 20) );
+			concurrentMgr.addTask( new TestTask("3", 20) );
 			
 			expectedResults = ["S1","C1","S2","C2","S3","C3"];
 		}
 
 		[After]
 		public function tearDown():void {
-			concurrentMgr.cancel();
 			concurrentMgr = null;
 		}
 
