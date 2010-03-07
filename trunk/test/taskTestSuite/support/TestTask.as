@@ -24,9 +24,11 @@ package taskTestSuite.support {
 			this._id = id;
 			this._time = time;
 			_dummyTimer = new Timer(_time, 1);
-			_dummyTimer.addEventListener(TimerEvent.TIMER, function(e : Event):void {
-				_exec.complete();
-			},false,0,true);
+			_dummyTimer.addEventListener(TimerEvent.TIMER, onTimer,false,0,true);
+		}
+		
+		public function onTimer(e:Event) : void {
+			_exec.complete();		
 		}
 
 		public function onStart() : void {

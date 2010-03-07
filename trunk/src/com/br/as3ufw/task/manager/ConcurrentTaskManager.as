@@ -15,7 +15,7 @@ package com.br.as3ufw.task.manager {
 		private var _concurrency : int;
 		private var _runningCount : int;
 		
-		public function ConcurrentTaskManager(concurrency:int = 1) {
+		public function ConcurrentTaskManager(concurrency:int = 10) {
 			this._concurrency = concurrency;
 			_runningCount = 0;
 		}
@@ -32,7 +32,7 @@ package com.br.as3ufw.task.manager {
 		private function startConcurrentTasks() : Boolean {
 			//First, sort all the tasks
 			//TODO This could be optimized
-			executors.sort(sortByPriority);
+//			executors.sort(sortByPriority);
 			
 			var finished:Boolean = true;
 			for each (var executor:TaskExecutor in executors) {
