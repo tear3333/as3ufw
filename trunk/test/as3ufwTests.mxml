@@ -11,10 +11,16 @@
  		import taskTestSuite.TaskTestSuite;
 		import org.flexunit.listeners.UIListener;
 		import org.flexunit.runner.FlexUnitCore;
+		import com.br.as3ufw.logging.appenders.TraceAppender;
+		import com.br.as3ufw.logging.Log;	
 			
 		private var core:FlexUnitCore;
 
 		public function runMe():void {
+			
+			var traceAppender:TraceAppender = new TraceAppender();
+			Log.addApender(traceAppender);
+			
 			core = new FlexUnitCore();
 			core.addListener(new UIListener(uiListener));
 			core.run( taskTestSuite.TaskTestSuite );

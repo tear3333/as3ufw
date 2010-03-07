@@ -1,4 +1,5 @@
 package taskTestSuite.support {
+	import com.br.as3ufw.task.ITaskCancelable;
 	import com.br.as3ufw.logging.ILogger;
 	import com.br.as3ufw.logging.Log;
 	import com.br.as3ufw.task.ITaskExecutor;
@@ -11,7 +12,7 @@ package taskTestSuite.support {
 	/**
 	 * @author Richard.Jewson
 	 */
-	public class TestTask implements ITaskRunnable {
+	public class TestTask implements ITaskRunnable, ITaskCancelable {
 
 		private var _exec : ITaskExecutor;
 
@@ -25,21 +26,45 @@ package taskTestSuite.support {
 			_dummyTimer = new Timer(_time, 1);
 			_dummyTimer.addEventListener(TimerEvent.TIMER, function(e : Event):void {
 				_exec.complete();
-			});
+			},false,0,true);
 		}
 
 		public function onStart() : void {
 			_dummyTimer.start();
-			_log.info(this + " starting...");			
+			_log.info(this + " starting...");
+			storeResult("S");		
 		}
 
 		public function onComplete() : void {
 			_log.info(this + " complete ( " + _exec.runningTime + " ms)");
-			_exec.resultSet[_id] = "...done";
+			storeResult("C");
+		}
+
+		
+		public function onCancel() : void {
+			_dummyTimer.stop();
+			_log.info(this + " canceled...");
+			storeResult("CX");
+		}
+		
+		public function onTimeOut() : void {
+			_log.info(this + " timed out...");
+			storeResult("TO");
+		}
+		
+		public function get timeOut() : int {
+			return 0;
 		}
 
 		public function set executor(executor : ITaskExecutor) : void {
 			this._exec = executor;
+		}
+
+		private function storeResult(prefix:String):void {
+			if (!_exec.taskPipeline.resultSet.hasOwnProperty("testResultList")) {
+				_exec.taskPipeline.resultSet["testResultList"] = [];
+			}
+			_exec.taskPipeline.resultSet["testResultList"].push(prefix+_exec.id);			
 		}
 
 		public function toString() : String {
@@ -47,5 +72,6 @@ package taskTestSuite.support {
 		}
 
 		private var _log : ILogger = Log.getClassLogger(TestTask);
+
 	}
 }
