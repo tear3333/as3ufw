@@ -48,14 +48,15 @@ package com.br.as3ufw.asset.tasks {
 			} else {
 				throw new Error("URL must be a String or URLRequst");
 			}
+			
 			this._assetSet = assetSet;
 			this._type = type;
 			this.params = ObjectUtils.merge(defaultParams, params);
-			if(this.params.forceReload) {
-				if (!url.data) {
-					url.data = new URLVariables();
+			if(this.params["forceReload"]) {
+				if (!_url.data) {
+					_url.data = new URLVariables();
 				}
-				url.data.nonce = new Date().getTime();
+				_url.data["nonce"] = new Date().getTime();
 			}
 		}
 
@@ -84,7 +85,7 @@ package com.br.as3ufw.asset.tasks {
 		}
 
 		virtual public function get timeOut() : int {
-			return params.timeout;
+			return params["timeout"];
 		}
 
 		

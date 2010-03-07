@@ -55,7 +55,7 @@ package com.br.as3ufw.physics {
 			
 			_engine = new ParticleEngine();
 			_engine.damping = 0.99;
-			_engine.graphics = _particleLayer.graphics;
+			//_engine.graphics = _particleLayer.graphics;
 			var group:ParticleGroup = new ParticleGroup();
 			_engine.addGroup(group);
 			e = new RectangularRandomEmitter(new Rectangle(0,0,stage.width,stage.height));
