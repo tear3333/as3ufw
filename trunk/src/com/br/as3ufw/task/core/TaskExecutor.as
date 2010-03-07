@@ -128,17 +128,17 @@ package com.br.as3ufw.task.core {
 			_totalRunningTime += getTimer() - _runningTimeCounter;
 			if (_timer) {
 				_timer.removeEventListener(TimerEvent.TIMER, onTimeOutEvent);
-				_timer.reset();
+				_timer.stop();
 				_timer = null;
 			}
 		}
 
 		private function onTimeOutEvent(e : TimerEvent) : void {
+			_log.warn("timeout...");
 			_state = TaskState.FINISHED;
 			stopTimer();
 			ITaskCancelable(_task).onTimeOut();
 			dispatchEvent(new TaskEvent(TaskEvent.ERROR, this));
-			//_log.warn(this + " timed out after " + totalRunningTime + "ms (timeout=" + _timeOut + ")");
 		}
 
 		public function get taskPipeline() : TaskPipeline {
