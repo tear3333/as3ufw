@@ -69,8 +69,12 @@
 	        <compiler.library-path dir="${TestRunnerLib.dir}" append="true">
 	            <include name="*.swc"/>
 	        </compiler.library-path>
+	    	<compiler.library-path  dir="${FLEX_HOME}" append="true">
+	    		<include name="frameworks/libs" />
+	    	</compiler.library-path>
 	        <compiler.verbose-stacktraces>true</compiler.verbose-stacktraces>
 	        <compiler.headless-server>true</compiler.headless-server>
+	    	<use-network>true</use-network>
 	    </mxmlc>
 	    <echo>Compiled Test Runner SWF To Test</echo>
 	</target>	
