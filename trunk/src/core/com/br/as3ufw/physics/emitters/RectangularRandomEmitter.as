@@ -16,10 +16,11 @@ package com.br.as3ufw.physics.emitters {
 			this._rectangle = rectangle;
 		}
 
-		override public function emit(params:Object) : void {
+		override public function emit(params:Object = null) : Particle {
 			var p:Particle = Particle.GetParticle(new Vector2D(Random.integer(_rectangle.left, _rectangle.right),Random.integer(_rectangle.top, _rectangle.bottom)));
 			p.ttl = Random.integer(5000, 20000);
 			group.addParticle(p);
+			return p;
 		}
 	}
 }

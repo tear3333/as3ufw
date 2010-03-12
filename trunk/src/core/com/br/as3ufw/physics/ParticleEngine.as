@@ -18,7 +18,7 @@ package com.br.as3ufw.physics {
 		public function ParticleEngine() {
 			forceGenerator = [];
 			groups = [];
-			damping = 0;
+			damping = 1;
 		}
 
 		public function update() : void {

@@ -30,21 +30,26 @@ package com.br.as3ufw.task.core {
 			//_isCancelable 	= _isCancelable && executor._isCancelable;
 			//_isPausable 	= _isPausable   && executor._isPausable;
 
-			executor.addEventListener(TaskEvent.COMPLETE, function(event : TaskEvent):void {
-				onSubTaskComplete(event.task);
-			},false,0,false);
-			executor.addEventListener(TaskEvent.CANCEL, function(event : TaskEvent):void {
-				onSubTaskCancel(event.task);
-			},false,0,false);
-			executor.addEventListener(TaskEvent.ERROR, function(event : TaskEvent):void {
-				onSubTaskError(event.task);
-			},false,0,false);
-			executor.addEventListener(TaskEvent.PRIORITIZE, function(event : TaskEvent):void {
-				onSubTaskPrioritize(event.task);
-			},false,0,false);
+			executor.addEventListener(TaskEvent.COMPLETE,	taskComplete	,false,0,false);
+			executor.addEventListener(TaskEvent.CANCEL,		taskCanceled	,false,0,false);
+			executor.addEventListener(TaskEvent.ERROR,		taskError		,false,0,false);
+			executor.addEventListener(TaskEvent.PRIORITIZE, taskPrioritize	,false,0,false);
 			
 			onAddTask(task);
 			return true;
+			
+			function taskComplete(event : TaskEvent):void {
+				onSubTaskComplete(event.task);
+			}
+			function taskCanceled(event : TaskEvent):void {
+				onSubTaskCancel(event.task);
+			}
+			function taskError(event : TaskEvent):void {
+				onSubTaskError(event.task);
+			}
+			function taskPrioritize(event : TaskEvent):void {
+				onSubTaskPrioritize(event.task);
+			}
 		}
 
 		virtual protected function onAddTask(task : ITaskRunnable) : void {

@@ -61,7 +61,17 @@ package com.br.as3ufw.physics {
 			
 		}
 
-		public function renderCurveLine(graphics : Graphics,width : Number,colour : uint, alpha:Number) : void {
+		public function renderPoints(graphics : Graphics,size : Number,colour : uint = 0, alpha:Number = 1) : void {
+			graphics.lineStyle(1,colour,alpha);
+			graphics.beginFill(colour,alpha);
+			var particle:Particle = particles;
+			while (particle) {
+				graphics.drawCircle(particle.pos.x, particle.pos.y, size);
+				particle = particle.next;
+			}
+		}
+
+		public function renderCurveLine(graphics : Graphics,width : Number,colour : uint = 0, alpha:Number = 1) : void {
 			if (!particles || particleCount<3) return;
 
 			graphics.lineStyle(width,colour,alpha);

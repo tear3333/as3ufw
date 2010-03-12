@@ -327,5 +327,9 @@ package com.br.as3ufw.utils {
 			return target;
 		}
 		
+		public static function set(target:Object, params:Object):void {
+			
+		}
+		
 	}
 }

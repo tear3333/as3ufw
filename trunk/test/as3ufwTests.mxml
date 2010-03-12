@@ -23,7 +23,7 @@
 			Log.addApender(traceAppender);
 			
 			core = new FlexUnitCore();
-			core.addListener(new CIListener());
+			//core.addListener(new CIListener());
 			core.addListener(new UIListener(uiListener));
 			core.run( taskTestSuite.TaskTestSuite );
 		}
