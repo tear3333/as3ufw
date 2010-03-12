@@ -7,7 +7,7 @@ package com.br.as3ufw.physics {
 	/**
 	 * @author Richard.Jewson
 	 */
-	public class ParticleRenderTest1 extends Sprite {
+	public class ParticleRenderBase extends Sprite {
 
 		[SWF(width=500, height=500, backgroundColor=0x000000)]
 
@@ -15,7 +15,7 @@ package com.br.as3ufw.physics {
 		private var _particleLayer : Sprite;
 		private var _group : ParticleGroup;
 		
-		public function ParticleRenderTest1() {
+		public function ParticleRenderBase() {
 			_particleLayer = new Sprite();
 			addChild(_particleLayer);
 

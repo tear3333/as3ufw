@@ -61,7 +61,7 @@ package com.br.as3ufw.physics {
 			e = new RectangularRandomEmitter(new Rectangle(0,0,stage.width,stage.height));
 			e.group = group;
 			for (var i : int = 0; i < 100; i++) {
-				e.emit(null);
+				e.emit();
 			}
 			var bitmapField:BitmapField = new BitmapField(_bitmapData,0,0,1);
 			_engine.addForceGenerator(bitmapField);
@@ -84,7 +84,7 @@ package com.br.as3ufw.physics {
 		}
 
 		private function onSpriteEnterFrame(event:Event):void {
-			e.emit(null);
+			e.emit();
 			_particleLayer.graphics.clear();
 			_engine.update();
 //			var point:Point;

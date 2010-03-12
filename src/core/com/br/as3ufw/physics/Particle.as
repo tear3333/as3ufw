@@ -74,7 +74,7 @@
 		}
 		
 		public function update(now:uint, damping : Number = 1) : Boolean {
-			if (ttl && now-birth > ttl ) return false;
+			if (ttl>0 && now-birth > ttl ) return false;
 			if (fixed) return true;
 			//Optimization
 			//forces.multEquals(_invMass);
@@ -89,8 +89,8 @@
 			//Optimization                    
 			//var vel : Vector2D = velocity.plus(forces.multEquals(deltaT));
 			//pos.plusEquals(vel.multEquals(damping));
-			pos.x += ((velocity.x + forces.x*deltaT) * damping);
-			pos.y += ((velocity.y + forces.y*deltaT) * damping);
+			pos.x += (((pos.x - oldPos.x) + forces.x * deltaT) * damping);
+			pos.y += (((pos.y - oldPos.y) + forces.y  *deltaT) * damping);
 			
 			//Optimization  			
 			//oldPos.copy(temp);
@@ -102,11 +102,6 @@
 			forces.x = forces.y = 0;
 			
 			return true;
-		}
-		
-		virtual public function render(g:Graphics,colour:uint,size:Number):void {
-			g.lineStyle(1,colour);
-			g.drawRect(pos.x-size, pos.y-size, size*2, size*2);	
 		}
 		
 		public function get velocity() : Vector2D {
@@ -144,7 +139,7 @@
 		
 		public static function GetParticle(pos : Vector2D):Particle {
 			if (_particlePool) {
-				trace("from pool");
+				//trace("from pool");
 				var p:Particle = _particlePool;
 				_particlePool = p.next;
 				p.reset(pos);
