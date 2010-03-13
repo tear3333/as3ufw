@@ -1,4 +1,6 @@
-package com.br.as3ufw.physics {
+package com.br.as3ufw.physics.tests {
+	import com.br.as3ufw.physics.Particle;
+	import com.br.as3ufw.physics.ParticleTestBase;
 	import com.br.as3ufw.geom.Vector2D;
 	import com.br.as3ufw.physics.emitters.PointEmitter;
 	import flash.events.Event;
@@ -6,11 +8,11 @@ package com.br.as3ufw.physics {
 	/**
 	 * @author Richard.Jewson
 	 */
-	public class ParticleTestA extends ParticleTestBase {
+	public class ParticleTestB extends ParticleTestBase {
 		
 		public var emitter:PointEmitter;
 
-		public function ParticleTestA() {
+		public function ParticleTestB() {
 			super();
 			emitter = new PointEmitter();
 			emitter.position = new Vector2D(300,200);
@@ -23,7 +25,7 @@ package com.br.as3ufw.physics {
 		
 		override public function onEnterFrame(event : Event) : void {
 			graphics.clear();
-			emitter.angle+=0.5;
+			emitter.angle+=1;
 			var p:Particle = emitter.emit();
 			//p.ttl = 3000;
 			engine.update();

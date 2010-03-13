@@ -31,6 +31,7 @@
 		public var next:Particle;
 		public var birth : uint;
 		public var ttl : uint;
+		public var decay : Number;
 		public var active : Boolean;
 
 		/*
@@ -60,6 +61,7 @@
 			mass = 1;
 			birth = getTimer();
 			ttl = 0;
+			decay = 1;
 			active = false;
 			mask = 0;
 			_deltaT = 0.0625;			
@@ -89,8 +91,8 @@
 			//Optimization                    
 			//var vel : Vector2D = velocity.plus(forces.multEquals(deltaT));
 			//pos.plusEquals(vel.multEquals(damping));
-			pos.x += (((pos.x - oldPos.x) + forces.x * deltaT) * damping);
-			pos.y += (((pos.y - oldPos.y) + forces.y  *deltaT) * damping);
+			pos.x += ( ( ( pos.x - oldPos.x ) + forces.x * deltaT ) * damping * decay );
+			pos.y += ( ( ( pos.y - oldPos.y ) + forces.y * deltaT ) * damping * decay );
 			
 			//Optimization  			
 			//oldPos.copy(temp);
@@ -145,7 +147,7 @@
 				p.reset(pos);
 				return p;
 			}
-			trace(++_maxPoolCount);
+			//trace(++_maxPoolCount);
 			return new Particle(pos);
 		}
 		

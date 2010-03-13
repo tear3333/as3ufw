@@ -1,4 +1,5 @@
 package com.br.as3ufw.physics.emitters {
+	import com.br.as3ufw.utils.ObjectUtils;
 	import com.br.as3ufw.physics.Particle;
 	import com.br.as3ufw.geom.Vector2D;
 
@@ -21,6 +22,7 @@ package com.br.as3ufw.physics.emitters {
 			var v:Vector2D = new Vector2D(0,-velocity);
 			v.angle = angle;
 			p.velocity = v;
+			ObjectUtils.set(p, params);
 			group.addParticle(p);
 			return p;
 		}
