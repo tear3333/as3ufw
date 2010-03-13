@@ -6,7 +6,7 @@ package com.br.as3ufw.physics.emitters {
 	/**
 	 * @author Richard.Jewson
 	 */
-	public class PointEmitter extends Emitter {
+	public class PointEmitter extends AbstractEmitter {
 
 		public var position : Vector2D;
 		public var angle : Number;
