@@ -6,11 +6,11 @@ package com.br.as3ufw.physics.emitters {
 	/**
 	 * @author Richard.Jewson
 	 */
-	public class Emitter {
+	public class AbstractEmitter implements IEmitter {
 
 		private var _group : ParticleGroup;
 
-		public function Emitter() {
+		public function AbstractEmitter() {
 		}
 
 		virtual public function emit(params:Object = null) : Particle {
@@ -20,11 +20,11 @@ package com.br.as3ufw.physics.emitters {
 		virtual public function update() : void {
 		}
 
-		public function set group(group : ParticleGroup) : void {
+		virtual public function set group(group : ParticleGroup) : void {
 			_group = group;
 		}
 
-		public function get group() : ParticleGroup {
+		virtual public function get group() : ParticleGroup {
 			return _group;
 		}
 	}

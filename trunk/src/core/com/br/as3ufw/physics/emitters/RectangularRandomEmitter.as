@@ -2,14 +2,14 @@ package com.br.as3ufw.physics.emitters {
 	import com.br.as3ufw.utils.Random;
 	import com.br.as3ufw.geom.Vector2D;
 	import com.br.as3ufw.physics.Particle;
-	import com.br.as3ufw.physics.emitters.Emitter;
+	import com.br.as3ufw.physics.emitters.AbstractEmitter;
 
 	import flash.geom.Rectangle;
 
 	/**
 	 * @author Richard.Jewson
 	 */
-	public class RectangularRandomEmitter extends Emitter {
+	public class RectangularRandomEmitter extends AbstractEmitter {
 		private var _rectangle : Rectangle;
 		
 		public function RectangularRandomEmitter( rectangle : Rectangle ) {

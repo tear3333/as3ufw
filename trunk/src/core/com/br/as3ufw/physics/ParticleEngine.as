@@ -1,8 +1,6 @@
 package com.br.as3ufw.physics {
-	import com.br.as3ufw.physics.emitters.Emitter;
 	import com.br.as3ufw.physics.forces.IForceGenerator;
 
-	import flash.display.Graphics;
 	import flash.utils.getTimer;
 
 	/**
@@ -59,6 +57,5 @@ package com.br.as3ufw.physics {
 		public function addForceGenerator(f : IForceGenerator) : void {
 			forceGenerator.push(f);
 		}
-
 	}
 }

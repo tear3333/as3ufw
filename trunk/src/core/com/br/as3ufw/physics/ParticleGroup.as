@@ -1,6 +1,6 @@
 package com.br.as3ufw.physics {
+	import com.br.as3ufw.physics.emitters.IEmitter;
 	import com.br.as3ufw.physics.forces.IForceGenerator;
-	import com.br.as3ufw.physics.emitters.Emitter;
 
 	import flash.display.Graphics;
 
@@ -13,10 +13,10 @@ package com.br.as3ufw.physics {
 		public var springs : Array;
 		public var emitters : Array;
 		public var forceGenerators : Array;
-		
-		public var particleCount:int;
 
-		public var doRender:Boolean;
+		public var particleCount : int;
+
+		public var doRender : Boolean;
 
 		private var _id : int;
 		private static var _nextid : int = 0;
@@ -48,7 +48,7 @@ package com.br.as3ufw.physics {
 			//_springs.push(s);
 		}
 
-		public function addEmitter(e : Emitter) : void {
+		public function addEmitter(e : IEmitter) : void {
 			e.group = this;
 			emitters.push(e);
 		}
@@ -57,30 +57,29 @@ package com.br.as3ufw.physics {
 			forceGenerators.push(f);
 		}
 
-		virtual public function render():void {
-			
+		virtual public function render() : void {
 		}
 
-		public function renderPoints(graphics : Graphics,size : Number,colour : uint = 0, alpha:Number = 1) : void {
-			graphics.lineStyle(1,colour,alpha);
+		public function renderPoints(graphics : Graphics,size : Number,colour : uint = 0, alpha : Number = 1) : void {
+			graphics.lineStyle(1, colour, alpha);
 			
-			var particle:Particle = particles;
+			var particle : Particle = particles;
 			while (particle) {
 				graphics.drawCircle(particle.pos.x, particle.pos.y, size);
 				particle = particle.next;
 			}
 		}
 
-		public function renderCurveLine(graphics : Graphics,width : Number,colour : uint = 0, alpha:Number = 1) : void {
-			if (!particles || particleCount<3) return;
+		public function renderCurveLine(graphics : Graphics,width : Number,colour : uint = 0, alpha : Number = 1) : void {
+			if (!particles || particleCount < 3) return;
 
-			graphics.lineStyle(width,colour,alpha);
-			graphics.moveTo(particles.pos.x , particles.pos.y);
+			graphics.lineStyle(width, colour, alpha);
+			graphics.moveTo(particles.pos.x, particles.pos.y);
 
-			var particle:Particle = particles.next;
+			var particle : Particle = particles.next;
 			while (particle) {
 				if (particle.next.next) {
-					graphics.curveTo(particle.pos.x, particle.pos.y, (particle.pos.x + particle.next.pos.x)/2, (particle.pos.y + particle.next.pos.y)/2);
+					graphics.curveTo(particle.pos.x, particle.pos.y, (particle.pos.x + particle.next.pos.x) / 2, (particle.pos.y + particle.next.pos.y) / 2);
 				} else {
 					graphics.curveTo(particle.pos.x, particle.pos.y, particle.next.pos.x, particle.next.pos.y);
 					return;
