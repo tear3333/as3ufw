@@ -63,7 +63,7 @@ package com.br.as3ufw.physics {
 
 		public function renderPoints(graphics : Graphics,size : Number,colour : uint = 0, alpha:Number = 1) : void {
 			graphics.lineStyle(1,colour,alpha);
-			graphics.beginFill(colour,alpha);
+			
 			var particle:Particle = particles;
 			while (particle) {
 				graphics.drawCircle(particle.pos.x, particle.pos.y, size);

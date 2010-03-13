@@ -328,7 +328,11 @@ package com.br.as3ufw.utils {
 		}
 		
 		public static function set(target:Object, params:Object):void {
-			
+			if (params) {
+				for (var name : String in params) {
+					if (target.hasOwnProperty(name)) target[name] = params[name];				
+				}
+			}
 		}
 		
 	}
