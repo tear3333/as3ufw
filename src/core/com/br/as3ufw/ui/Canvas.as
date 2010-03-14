@@ -6,10 +6,9 @@ package com.br.as3ufw.ui {
 	 */
 	public class Canvas extends Sprite {
 		
-		
-		
 		public function Canvas() {
 		
 		}
+		
 	}
 }
