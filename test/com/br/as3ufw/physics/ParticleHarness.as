@@ -32,7 +32,9 @@ package com.br.as3ufw.physics {
 
 		private function runTest(index:int):void {
 			var clazz:Class = tests[index];
-			if (currentTest) removeChild(currentTest);
+			if (currentTest) {
+				removeChild(currentTest);
+			}
 			currentTest = Sprite(addChild(new clazz()));
 		}
 
