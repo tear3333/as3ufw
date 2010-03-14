@@ -22,9 +22,10 @@ package com.br.as3ufw.physics {
 
 		public function start() : void {
 			addEventListener(Event.ENTER_FRAME, onEnterFrame);
+			addEventListener(Event.REMOVED_FROM_STAGE, stop)
 		}
 
-		public function stop() : void {
+		public function stop(e:Event=null) : void {
 			removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 		}
 

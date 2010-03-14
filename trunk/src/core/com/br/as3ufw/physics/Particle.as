@@ -31,8 +31,10 @@
 		public var next:Particle;
 		public var birth : uint;
 		public var ttl : uint;
+		public var colour : uint;
 		public var decay : Number;
 		public var active : Boolean;
+		public var params : Object;
 
 		/*
 		 * Constructs the particle
@@ -44,25 +46,26 @@
 		 */
 		public function Particle(pos : Vector2D) {
 			this.pos = new Vector2D();
-			this.oldPos = new Vector2D();
-			this.initPos = new Vector2D();
-			this.forces = new Vector2D();
-			this.temp = new Vector2D();
+			oldPos = new Vector2D();
+			initPos = new Vector2D();
+			forces = new Vector2D();
+			temp = new Vector2D();
 			reset(pos);
 		}
 
 		public function reset(pos : Vector2D):void {
 			this.pos.copy(pos);
-			this.oldPos.copy(pos);
-			this.initPos.copy(pos);
-			this.forces.setTo(0, 0);
-			this.mass = mass;
-			this.prev = this.next = null;
+			oldPos.copy(pos);
+			initPos.copy(pos);
+			forces.setTo(0, 0);
+			prev = next = null;
 			mass = 1;
 			birth = getTimer();
 			ttl = 0;
+			colour = 0x000000;
 			decay = 1;
 			active = false;
+			//params = {}
 			mask = 0;
 			_deltaT = 0.0625;			
 		}

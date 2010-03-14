@@ -42,7 +42,7 @@ package com.br.as3ufw.physics {
 				for each (var spring : Spring in group.springs) {
 					spring.resolve();
 				}
-				if (group.doRender) group.render();
+				group.render();
 			}
 		}
 
