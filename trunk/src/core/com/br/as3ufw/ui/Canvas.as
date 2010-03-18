@@ -8,6 +8,7 @@ package com.br.as3ufw.ui {
 		
 		public function Canvas() {
 		
+		
 		}
 		
 	}
