@@ -1,6 +1,4 @@
 package com.br.as3ufw.physics {
-	import flash.display.Graphics;
-
 	import com.br.as3ufw.geom.Vector2D;
 
 	/**
@@ -33,16 +31,12 @@ package com.br.as3ufw.physics {
 			return true;
 		}      
 
-		
 		public function get length() : Number {
 			return p1.pos.distance(p2.pos);
 		}
-		
-		public function render(g:Graphics,colour:uint):void {
-			g.lineStyle(1,colour);
-			g.moveTo(p1.pos.x,p1.pos.y);
-			g.lineTo(p2.pos.x, p2.pos.y);
+
+		public function set length(len : Number) : void {
+			_restLength = len;
 		}
-		
 	}
 }
