@@ -6,9 +6,9 @@ package com.br.as3ufw.ui.events {
 	 */
 	public class ScrollEvent extends Event {
 		
-		public static var Previous = "previous";
-		public static var Next = "next";
-		public static var Drag = "drag";
+		public static var Previous:String = "previous";
+		public static var Next:String = "next";
+		public static var Drag:String = "drag";
 		
 		public function ScrollEvent(type : String) {
 			super(type, false, false);

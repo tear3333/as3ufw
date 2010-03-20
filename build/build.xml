@@ -14,8 +14,8 @@
     <property name="source.dir" value="${basedir}/src/core" />
     <property name="lib.dir" value="${basedir}/lib" />
 
-    <property name="flex3bindir" value="${flex3dir}/bin" />
-    <property name="flex3libsdir" value="${flex3dir}/frameworks/libs" />
+    <property name="flex3bindir" value="${FLEX_HOME}/bin" />
+    <property name="flex3libsdir" value="${FLEX_HOME}/frameworks/libs" />
     <property name="asdoc" value="${flex3bindir}/${asdoc.exe}" />
     <property name="compc" value="${flex3bindir}/${compc.exe}" />
 
@@ -30,9 +30,9 @@
     <target name="generateSWC" description="Generates a swc of the AS3 Utility Framework">
         <echo>Generating swc using '${classesdir}'</echo>
         <exec executable="${compc}">
-            <arg line="-source-path ${classesdir}" />
+            <arg line="-source-path ${source.dir}" />
             <arg line="-output ${bindir}/as3ufw.swc" />
-            <arg line="-include-sources ${classesdir}" />
+            <arg line="-include-sources ${source.dir}" />
         	<arg line="-library-path ${flex3libsdir}" />
         </exec>
     </target>
