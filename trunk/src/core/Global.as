@@ -3,4 +3,4 @@ package {
 	}
 }
 
-public function log():void {}
+function log():void {}
