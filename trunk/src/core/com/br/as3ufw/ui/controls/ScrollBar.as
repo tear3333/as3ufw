@@ -1,6 +1,5 @@
 package com.br.as3ufw.ui.controls {
-	import com.br.as3ufw.ui.events.ScrollEvent;
-	import flash.events.MouseEvent;
+	import flash.display.Graphics;
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 
@@ -9,45 +8,47 @@ package com.br.as3ufw.ui.controls {
 	 */
 	public class ScrollBar extends Sprite {
 
-		private var orientation : String;
-		private var prev : DisplayObject;
-		private var next : DisplayObject;
-		private var track : DisplayObject;
-		private var thumb : DisplayObject;
+		public var prev : DisplayObject;
+		public var next : DisplayObject;
+		public var track : DisplayObject;
+		public var thumb : DisplayObject;
+		
+		protected var _barLength : Number;
+		protected var _barWidth : Number;
+		protected var _thumbLength : Number;
+		
+		protected var _controller : ScrollBarController;
+		
+		private var _orientation : String;
 
-		public function ScrollBar( orientation : String, prev : DisplayObject, next : DisplayObject, track : DisplayObject, thumb : DisplayObject ) {
-			
-			this.orientation = orientation;
-			this.prev = prev;
-			this.next = next;
-			this.track = track;
-			this.thumb = thumb;
-			
+		public function ScrollBar(orientation:String) {
+			_orientation = orientation;
 			init();
 		}
 
-		private function init() : void {
-			if (prev) prev.addEventListener(MouseEvent.MOUSE_DOWN, onPrevDown);
-			if (next) next.addEventListener(MouseEvent.MOUSE_DOWN, onNextDown);
-			track.addEventListener(MouseEvent.MOUSE_DOWN, onTrackDown);
-			thumb.addEventListener(MouseEvent.MOUSE_DOWN, onThumbDown);
+		virtual public function init() : void {
+			_controller = new ScrollBarController(_orientation, this);
 		}
 
-		private function onPrevDown(event : MouseEvent) : void {
-			repeatEvent(new ScrollEvent(ScrollEvent.Previous));
+		virtual public function redraw() : void {
+		}
+		
+		virtual public function set barLength(barLength:Number):void {
+			_barLength = barLength;
+			redraw();
 		}
 
-		private function onNextDown(event : MouseEvent) : void {
-			repeatEvent(new ScrollEvent(ScrollEvent.Next));
+		public function set barWidth(barWidth : Number) : void {
+			_barWidth = barWidth;
+			redraw();
 		}
-
-		private function onTrackDown(event : MouseEvent) : void {
+		
+		public function set thumbLength(thumbLength : Number) : void {
+			_thumbLength = thumbLength;
 		}
-
-		private function onThumbDown(event : MouseEvent) : void {
-		}
-
-		private function repeatEvent(scrollEvent : ScrollEvent) : void {
+		
+		public function get useNextPrevButtons() : Boolean {
+			return (next!=null&&prev!=null);
 		}
 	}
 }

@@ -1,4 +1,6 @@
 package com.br.as3ufw.physics {
+	import com.br.as3ufw.geom.Vector2D;
+
 	import flash.display.Sprite;
 	import flash.events.Event;
 
@@ -9,7 +11,8 @@ package com.br.as3ufw.physics {
 
 		public var engine : ParticleEngine;
 		public var group : ParticleGroup;
-
+		public var mousePos:Vector2D;
+		
 		public function ParticleTestBase() {
 			init();
 		}
@@ -18,6 +21,7 @@ package com.br.as3ufw.physics {
 			engine = new ParticleEngine();
 			group = new ParticleGroup();
 			engine.addGroup(group);
+			mousePos = new Vector2D();
 		}
 
 		public function start() : void {

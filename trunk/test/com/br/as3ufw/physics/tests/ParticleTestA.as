@@ -1,4 +1,5 @@
 package com.br.as3ufw.physics.tests {
+	import com.br.as3ufw.physics.renderers.PointRenderer;
 	import com.br.as3ufw.physics.forces.RelativeAttractor;
 	import com.br.as3ufw.physics.renderers.CurveRenderer;
 	import com.br.as3ufw.utils.Random;
@@ -14,8 +15,6 @@ package com.br.as3ufw.physics.tests {
 	public class ParticleTestA extends ParticleTestBase {
 		
 		public var emitter:PointEmitter;
-		public var mousePos:Vector2D;
-
 
 		public function ParticleTestA() {
 			super();
@@ -25,8 +24,7 @@ package com.br.as3ufw.physics.tests {
 			
 			group.addEmitter(emitter);
 			group.addRenderer(new CurveRenderer(graphics,3));
-			
-			mousePos = new Vector2D();
+			//group.addRenderer(new PointRenderer(graphics,3));
 			
 			group.addForceGenerator(new RelativeAttractor(mousePos, 20, 10));
 			
