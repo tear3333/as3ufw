@@ -17,13 +17,18 @@ package com.br.as3ufw.ui {
 
 		public function add(item:DisplayObject) : LayoutItemProxy {
 			var layoutItemProxy : LayoutItemProxy = new LayoutItemProxy( item );
+			layoutItemProxy.referenceItem = _referenceDOC;
 			_layoutItemProxies.push(layoutItemProxy);
 			return layoutItemProxy;
+		}
+
+		public function remove(child : DisplayObject) : void {
 		}
 
 		public function refresh() : void {
 			for each (var layoutItemProxy : LayoutItemProxy in _layoutItemProxies) 
 				layoutItemProxy.update();
 		}
+
 	}
 }

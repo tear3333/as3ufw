@@ -1,4 +1,5 @@
 package com.br.as3ufw.physics {
+	import com.br.as3ufw.physics.tests.ParticleTestC;
 	import com.br.as3ufw.physics.tests.ParticleTestB;
 	import com.br.as3ufw.physics.tests.ParticleTestA;
 	import flash.ui.Keyboard;
@@ -10,7 +11,7 @@ package com.br.as3ufw.physics {
 	 */
 	public class ParticleHarness extends Sprite {
 		
-		private var tests:Array = [ParticleTestA,ParticleTestB];
+		private var tests:Array = [ParticleTestA,ParticleTestB,ParticleTestC];
 		private var testIndex:int = 0;
 		private var currentTest:Sprite;
 		
