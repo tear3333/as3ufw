@@ -39,8 +39,8 @@ package com.br.as3ufw.utils {
 			
 			var tf:TextField = new TextField();
 			var proxy:LayoutItemProxy = c.addManagedChild(tf);
-			proxy.top = 20;
-			proxy.left = 20;
+			proxy.btoom = 20;
+			proxy.right = 20;
 			proxy.width = 200;
 			tf.multiline = true;
 			tf.wordWrap = true;

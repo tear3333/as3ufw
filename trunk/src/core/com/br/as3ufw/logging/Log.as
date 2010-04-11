@@ -40,8 +40,8 @@ package com.br.as3ufw.logging {
 			}
 		}
 		
-		public static function trace( text:String, ...params : * ):void {
-			append(NONE,null,text,params);
+		public static function trace(level:int, text:String, ...params : * ):void {
+			append(level,null,text,params);
 		}
 		
 		public static function getClassLogger(clazz:Class):ILogger {
