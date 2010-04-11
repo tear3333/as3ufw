@@ -10,14 +10,11 @@ package app
 
 	import flash.display.DisplayObjectContainer;
 
-	import org.robotlegs.base.ContextEvent;
+	import org.robotlegs.base.ContextEvent;fo
 	import org.robotlegs.mvcs.Context;
 
 	public class AppContext extends Context
 	{
-		/*******************************************************************************************
-		*								public methods											   *
-		*******************************************************************************************/
 		public function AppContext(
 			contextView : DisplayObjectContainer = null, autoStartup : Boolean = true)
 		{
@@ -42,9 +39,6 @@ package app
 		}
 
 
-		/*******************************************************************************************
-		*								protected/ private methods								   *
-		*******************************************************************************************/
 		/**
 		 * Used to inform the preloader about successful data load
 		 * @param event
