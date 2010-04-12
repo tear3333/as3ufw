@@ -14,7 +14,7 @@ package app.view.mediators {
 		}
 
 		override public function onRegister() : void {
-			log('i app should probably implement some initial display');
+			log('Implement application mediator');
 			applicationView.initialize();
 		}
 	}
