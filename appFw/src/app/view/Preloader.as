@@ -36,8 +36,8 @@ package app.view {
 			m_application = new appClass();
 			addChildAt(m_application, 0);
 			m_application.addEventListener(InitialDataServiceEvent.DATA_LOADED, initialData_complete);
-			log('w Change app name here!');
-			log('i The preloader won\'t be hidden until the DATA_LOADED event takes at least one frame to be fired');
+			log('Change app name here!');
+			log('The preloader won\'t be hidden until the DATA_LOADED event takes at least one frame to be fired');
 		}
 
 		private function initialData_complete(event : InitialDataServiceEvent) : void {
