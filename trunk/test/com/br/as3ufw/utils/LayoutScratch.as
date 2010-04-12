@@ -1,8 +1,8 @@
 package com.br.as3ufw.utils {
-	import flash.text.TextFieldAutoSize;
-
-	import com.br.as3ufw.ui.LayoutItemProxy;
+	import com.br.as3ufw.logging.Log;
+	import com.br.as3ufw.logging.appenders.TraceAppender;
 	import com.br.as3ufw.ui.Canvas;
+	import com.br.as3ufw.ui.LayoutItemProxy;
 
 	import org.bytearray.display.ScaleBitmapSprite;
 
@@ -11,6 +11,7 @@ package com.br.as3ufw.utils {
 	import flash.events.MouseEvent;
 	import flash.geom.Rectangle;
 	import flash.text.TextField;
+	import flash.text.TextFieldAutoSize;
 
 	/**
 	 * @author Richard.Jewson
@@ -21,6 +22,10 @@ package com.br.as3ufw.utils {
 		private var bg : Class;
 
 		public function LayoutScratch() {
+			
+			var traceAppender : TraceAppender = new TraceAppender();
+			traceAppender.useDate = false;
+			Log.addApender(traceAppender);
 			
 			var bgbm : Bitmap = new bg();
 			var bgSprt : ScaleBitmapSprite = new ScaleBitmapSprite(bgbm.bitmapData, new Rectangle(10, 10, 157, 12));
@@ -37,9 +42,9 @@ package com.br.as3ufw.utils {
 				c.backgroundImage = null;
 			});
 			
-			var tf:TextField = new TextField();
-			var proxy:LayoutItemProxy = c.addManagedChild(tf);
-			proxy.btoom = 20;
+			var tf : TextField = new TextField();
+			var proxy : LayoutItemProxy = c.addManagedChild(tf);
+			proxy.top = 20;
 			proxy.right = 20;
 			proxy.width = 200;
 			tf.multiline = true;
@@ -49,8 +54,7 @@ package com.br.as3ufw.utils {
 			tf.background = true;
 			tf.backgroundColor = 0x10FF0000;
 			c.refresh();
-			trace(tf.width);
+			log(tf.width);
 		}
-
 	}
 }
