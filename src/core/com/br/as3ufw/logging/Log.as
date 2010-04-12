@@ -34,13 +34,13 @@ package com.br.as3ufw.logging {
 			appenders.push(apender);
 		}
 		
-		br_internal static function append(level:int, className:String, text:String, params : Array ):void {
+		br_internal static function append(level:int, className:String, message:*, params : Array ):void {
 			for each (var appender : IAppender in appenders) {
-				appender.write(level, className, text, params);
+				appender.write(level, className, String(message), params);
 			}
 		}
 		
-		public static function trace(level:int, text:String, ...params : * ):void {
+		public static function log(level:int, text:*, params : Array ):void {
 			append(level,null,text,params);
 		}
 		

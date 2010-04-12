@@ -14,23 +14,23 @@ package com.br.as3ufw.logging {
 			this.className = className;
 		}
 
-		public function debug(message : String, ...params : *) : void {
+		public function debug(message : *, ...params) : void {
 			Log.append(Log.DEBUG, className, message, params);
 		}
 
-		public function info(message : String, ...params : *) : void {
-			Log.append(Log.INFO, className, message, params);
+		public function info(message : *, ...params) : void {
+			Log.append(Log.INFO, className, message,params);
 		}
 
-		public function warn(message : String, ...params : *) : void {
+		public function warn(message : *, ...params) : void {
 			Log.append(Log.WARN, className, message, params);
 		}
 
-		public function error(message : String, ...params : *) : void {
+		public function error(message : *, ...params) : void {
 			Log.append(Log.ERROR, className, message, params);
 		}
 
-		public function fatal(message : String, ...params : *) : void {
+		public function fatal(message : *, ...params) : void {
 			Log.append(Log.FATAL, className, message, params);
 		}
 	}

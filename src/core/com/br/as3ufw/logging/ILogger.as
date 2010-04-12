@@ -1,11 +1,11 @@
 package com.br.as3ufw.logging {
 	public interface ILogger {
 		
-		function debug(message:String, ... params):void;
-		function info(message:String, ... params):void;
-		function warn(message:String, ... params):void;
-		function error(message:String, ... params):void;
-		function fatal(message:String, ... params):void;
+		function debug(message:*, ... params):void;
+		function info(message:*, ... params):void;
+		function warn(message:*, ... params):void;
+		function error(message:*, ... params):void;
+		function fatal(message:*, ... params):void;
 	
 	}
 }

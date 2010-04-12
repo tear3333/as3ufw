@@ -10,7 +10,7 @@ package app
 
 	import flash.display.DisplayObjectContainer;
 
-	import org.robotlegs.base.ContextEvent;fo
+	import org.robotlegs.base.ContextEvent;
 	import org.robotlegs.mvcs.Context;
 
 	public class AppContext extends Context
