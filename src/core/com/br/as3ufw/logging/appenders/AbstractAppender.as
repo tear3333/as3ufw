@@ -18,8 +18,8 @@ package com.br.as3ufw.logging.appenders {
 
 		public function AbstractAppender() {
 			logLevel = Log.ALL;
-			useTime  = true;
-			useDate  = true;
+			useTime  = false;
+			useDate  = false;
 			useLevel = true;
 			useClass = true;
 		}
