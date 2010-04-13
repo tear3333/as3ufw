@@ -1,4 +1,6 @@
 package app {
+	import com.br.as3ufw.logging.appenders.ChainsawAppender;
+	import com.br.as3ufw.logging.appenders.SOSAppender;
 	import com.br.as3ufw.logging.Log;
 	import com.br.as3ufw.logging.appenders.TraceAppender;
 
@@ -14,8 +16,10 @@ package app {
 		public function App() {
 
 			var traceAppender : TraceAppender = new TraceAppender();
+			//var sosAppender : ChainsawAppender = new ChainsawAppender();
 			traceAppender.useClass = false;
 			Log.addApender(traceAppender);
+			//Log.addApender(sosAppender);
 
 			if (stage) {
 				stage.align = StageAlign.TOP_LEFT;
