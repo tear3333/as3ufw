@@ -14,13 +14,13 @@ package com.br.as3ufw.logging.appenders {
 		override public function write(level : int, className : String, text : String, params : Array) : Boolean {
 			if (!super.write(level, className, text, params)) return false;
 			
-			var msg:String = "";
+			var msg:String = '';
 				
-			if (useDate) msg += (new Date()).toString() + " ";
+			if (useDate) msg += (new Date()).toString();
 				
-			if (level) msg += Log.levelToString(level) + " - ";
+			if (useLevel&&level) msg += Log.levelToString(level) + ' - ';
 			
-			if (className) msg += className + " - ";
+			if (useClass) msg += '[' + className + '] - ';
 				
 			msg += text ;//MessageUtil.toString(message, params);
 				

@@ -40,8 +40,8 @@ package com.br.as3ufw.logging {
 			}
 		}
 		
-		public static function log(level:int, text:*, params : Array ):void {
-			append(level,null,text,params);
+		public static function log(level:int, className:String, text:*, params : Array ):void {
+			append(level,className,text,params);
 		}
 		
 		public static function getClassLogger(clazz:Class):ILogger {
@@ -70,6 +70,9 @@ package com.br.as3ufw.logging {
 				
 				case Log.FATAL:
 					return "FATAL";
+				
+				case Log.NONE:
+					return "";
 			}
 			return "???";
 		}	
