@@ -1,10 +1,10 @@
-package com.br.as3ufw.asset.tasks.impl {
-	import com.br.as3ufw.asset.enum.LoaderTypes;
-	import com.br.as3ufw.asset.manager.AssetSet;
-	import com.br.as3ufw.asset.tasks.AbstractAssetLoaderTask;
-	import com.br.as3ufw.logging.ILogger;
-	import com.br.as3ufw.logging.Log;
-	import com.br.as3ufw.utils.ObjectUtils;
+package as3ufw.asset.tasks.impl {
+	import as3ufw.asset.enum.LoaderTypes;
+	import as3ufw.asset.manager.AssetSet;
+	import as3ufw.asset.tasks.AbstractAssetLoaderTask;
+	import as3ufw.logging.ILogger;
+	import as3ufw.logging.Log;
+	import as3ufw.utils.ObjectUtils;
 
 	import flash.events.AsyncErrorEvent;
 	import flash.events.IOErrorEvent;

@@ -1,11 +1,11 @@
-package com.br.as3ufw.physics.forces.field {
-	import com.br.as3ufw.geom.Vector2D;
+package as3ufw.physics.forces.field {
+	import as3ufw.geom.Vector2D;
 
 	import flash.display.BitmapData;
 
-	import com.br.as3ufw.physics.Particle;
-	import com.br.as3ufw.physics.forces.AbstractForce;
-	import com.br.as3ufw.physics.forces.IForceGenerator;
+	import as3ufw.physics.Particle;
+	import as3ufw.physics.forces.AbstractForce;
+	import as3ufw.physics.forces.IForceGenerator;
 
 	/**
 	 * @author Richard.Jewson

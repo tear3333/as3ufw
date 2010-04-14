@@ -1,4 +1,4 @@
-package com.br.as3ufw.utils {
+package as3ufw.utils {
 	import flash.geom.Rectangle;
 	import flash.display.DisplayObject;
 	import flash.events.MouseEvent;

@@ -1,8 +1,8 @@
-package com.br.as3ufw.asset.tasks.impl {
-	import com.br.as3ufw.utils.ObjectUtils;
-	import com.br.as3ufw.asset.enum.LoaderTypes;
-	import com.br.as3ufw.asset.manager.AssetSet;
-	import com.br.as3ufw.asset.tasks.URLLoaderTask;
+package as3ufw.asset.tasks.impl {
+	import as3ufw.utils.ObjectUtils;
+	import as3ufw.asset.enum.LoaderTypes;
+	import as3ufw.asset.manager.AssetSet;
+	import as3ufw.asset.tasks.URLLoaderTask;
 
 	import flash.text.StyleSheet;
 

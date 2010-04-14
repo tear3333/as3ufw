@@ -1,6 +1,6 @@
-package com.br.as3ufw.physics.renderers {
-	import com.br.as3ufw.physics.Particle;
-	import com.br.as3ufw.physics.ParticleGroup;
+package as3ufw.physics.renderers {
+	import as3ufw.physics.Particle;
+	import as3ufw.physics.ParticleGroup;
 
 	import flash.display.Graphics;
 

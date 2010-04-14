@@ -1,7 +1,7 @@
-package com.br.as3ufw.physics.emitters {
-	import com.br.as3ufw.physics.Particle;
-	import com.br.as3ufw.physics.ParticleEngine;
-	import com.br.as3ufw.physics.ParticleGroup;
+package as3ufw.physics.emitters {
+	import as3ufw.physics.Particle;
+	import as3ufw.physics.ParticleEngine;
+	import as3ufw.physics.ParticleGroup;
 
 	/**
 	 * @author Richard.Jewson

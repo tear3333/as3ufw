@@ -1,4 +1,4 @@
-package com.br.as3ufw.utils {
+package as3ufw.utils {
 	import flash.utils.Dictionary;
 	import flash.utils.describeType;
 	import flash.utils.getDefinitionByName;

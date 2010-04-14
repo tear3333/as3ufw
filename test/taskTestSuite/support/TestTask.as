@@ -1,9 +1,9 @@
 package taskTestSuite.support {
-	import com.br.as3ufw.task.ITaskCancelable;
-	import com.br.as3ufw.logging.ILogger;
-	import com.br.as3ufw.logging.Log;
-	import com.br.as3ufw.task.ITaskExecutor;
-	import com.br.as3ufw.task.ITaskRunnable;
+	import as3ufw.task.ITaskCancelable;
+	import as3ufw.logging.ILogger;
+	import as3ufw.logging.Log;
+	import as3ufw.task.ITaskExecutor;
+	import as3ufw.task.ITaskRunnable;
 
 	import flash.events.Event;
 	import flash.events.TimerEvent;

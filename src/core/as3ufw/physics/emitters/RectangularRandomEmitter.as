@@ -1,8 +1,8 @@
-package com.br.as3ufw.physics.emitters {
-	import com.br.as3ufw.utils.Random;
-	import com.br.as3ufw.geom.Vector2D;
-	import com.br.as3ufw.physics.Particle;
-	import com.br.as3ufw.physics.emitters.AbstractEmitter;
+package as3ufw.physics.emitters {
+	import as3ufw.utils.Random;
+	import as3ufw.geom.Vector2D;
+	import as3ufw.physics.Particle;
+	import as3ufw.physics.emitters.AbstractEmitter;
 
 	import flash.geom.Rectangle;
 

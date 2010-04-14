@@ -1,11 +1,11 @@
-package com.br.as3ufw.task.manager {
-	import com.br.as3ufw.task.ITaskExecutor;
-	import com.br.as3ufw.logging.ILogger;
-	import com.br.as3ufw.logging.Log;
-	import com.br.as3ufw.task.ITaskRunnable;
-	import com.br.as3ufw.task.core.TaskExecutor;
-	import com.br.as3ufw.task.core.TaskManagerExecutor;
-	import com.br.as3ufw.task.enum.TaskState;
+package as3ufw.task.manager {
+	import as3ufw.task.ITaskExecutor;
+	import as3ufw.logging.ILogger;
+	import as3ufw.logging.Log;
+	import as3ufw.task.ITaskRunnable;
+	import as3ufw.task.core.TaskExecutor;
+	import as3ufw.task.core.TaskManagerExecutor;
+	import as3ufw.task.enum.TaskState;
 
 	/**
 	 * @author Richard.Jewson

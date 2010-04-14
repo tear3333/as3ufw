@@ -1,5 +1,5 @@
 package org.rje.graphics.vector {
-	import com.br.as3ufw.geom.Vector2D;
+	import as3ufw.geom.Vector2D;
 
 	import org.rje.graphics.vector.brushes.CrossHatching;
 	import org.rje.graphics.vector.brushes.CrossShader;

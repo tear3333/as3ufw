@@ -1,8 +1,8 @@
 package app {
-	import com.br.as3ufw.logging.appenders.ChainsawAppender;
-	import com.br.as3ufw.logging.appenders.SOSAppender;
-	import com.br.as3ufw.logging.Log;
-	import com.br.as3ufw.logging.appenders.TraceAppender;
+	import as3ufw.logging.appenders.ChainsawAppender;
+	import as3ufw.logging.appenders.SOSAppender;
+	import as3ufw.logging.Log;
+	import as3ufw.logging.appenders.TraceAppender;
 
 	import flash.display.Sprite;
 	import flash.display.StageAlign;

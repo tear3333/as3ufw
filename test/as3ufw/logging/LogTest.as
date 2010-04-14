@@ -1,5 +1,5 @@
-package com.br.as3ufw.logging {
-	import com.br.as3ufw.logging.appenders.TraceAppender;
+package as3ufw.logging {
+	import as3ufw.logging.appenders.TraceAppender;
 	import flash.display.Sprite;
 
 	/**
@@ -20,7 +20,7 @@ package com.br.as3ufw.logging {
 			log.info("info");
 			log.warn("warn");
 			
-			Log.trace("this is a trace...");
+			log("this is a trace...");
 		}
 	}
 }

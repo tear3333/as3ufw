@@ -1,6 +1,6 @@
-package com.br.as3ufw.logging.appenders {
-	import com.br.as3ufw.logging.IAppender;
-	import com.br.as3ufw.logging.Log;
+package as3ufw.logging.appenders {
+	import as3ufw.logging.IAppender;
+	import as3ufw.logging.Log;
 
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;

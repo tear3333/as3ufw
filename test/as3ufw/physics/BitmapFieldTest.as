@@ -1,7 +1,7 @@
-package com.br.as3ufw.physics {
+package as3ufw.physics {
 	import flash.geom.Rectangle;
-	import com.br.as3ufw.physics.emitters.RectangularRandomEmitter;
-	import com.br.as3ufw.physics.forces.field.BitmapField;
+	import as3ufw.physics.emitters.RectangularRandomEmitter;
+	import as3ufw.physics.forces.field.BitmapField;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.BitmapDataChannel;

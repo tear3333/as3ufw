@@ -1,4 +1,4 @@
-package com.br.as3ufw.geom {
+package as3ufw.geom {
 	import flash.geom.Point;
 
 	/**

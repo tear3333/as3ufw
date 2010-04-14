@@ -1,8 +1,8 @@
-package com.br.as3ufw.physics.tests {
-	import com.br.as3ufw.geom.Vector2D;
-	import com.br.as3ufw.physics.ParticleTestBase;
-	import com.br.as3ufw.physics.emitters.PointEmitter;
-	import com.br.as3ufw.physics.renderers.CurveRenderer;
+package as3ufw.physics.tests {
+	import as3ufw.geom.Vector2D;
+	import as3ufw.physics.ParticleTestBase;
+	import as3ufw.physics.emitters.PointEmitter;
+	import as3ufw.physics.renderers.CurveRenderer;
 
 	import flash.events.Event;
 

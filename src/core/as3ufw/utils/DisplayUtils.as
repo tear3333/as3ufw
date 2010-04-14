@@ -1,4 +1,4 @@
-package com.br.as3ufw.utils {
+package as3ufw.utils {
 
 	/**
 	 * @author Richard.Jewson

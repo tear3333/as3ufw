@@ -1,11 +1,11 @@
-package com.br.as3ufw.logging.appenders {
+package as3ufw.logging.appenders {
 	import flash.events.SecurityErrorEvent;
 	import flash.events.IOErrorEvent;
 	import flash.events.Event;
 	import flash.net.XMLSocket;
 
-	import com.br.as3ufw.logging.Log;
-	import com.br.as3ufw.logging.IAppender;
+	import as3ufw.logging.Log;
+	import as3ufw.logging.IAppender;
 
 	/**
 	 * @author Richard.Jewson

@@ -1,5 +1,5 @@
-package com.br.as3ufw.task {
-	import com.br.as3ufw.task.core.TaskPipeline;
+package as3ufw.task {
+	import as3ufw.task.core.TaskPipeline;
 
 	/**
 	 * @author Richard.Jewson

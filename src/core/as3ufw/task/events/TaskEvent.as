@@ -1,7 +1,7 @@
-package com.br.as3ufw.task.events {
-	import com.br.as3ufw.task.ITaskExecutor;
-	import com.br.as3ufw.task.core.TaskExecutor;
-	import com.br.as3ufw.task.ITaskRunnable;
+package as3ufw.task.events {
+	import as3ufw.task.ITaskExecutor;
+	import as3ufw.task.core.TaskExecutor;
+	import as3ufw.task.ITaskRunnable;
 	import flash.events.Event;
 
 	/**

@@ -1,11 +1,11 @@
 package taskTestSuite.tests {
 	import org.flexunit.asserts.assertEquals;
-	import com.br.as3ufw.utils.ObjectUtils;
-	import com.br.as3ufw.logging.ILogger;
-	import com.br.as3ufw.logging.Log;
+	import as3ufw.utils.ObjectUtils;
+	import as3ufw.logging.ILogger;
+	import as3ufw.logging.Log;
 	import taskTestSuite.support.TestTask;
-	import com.br.as3ufw.task.events.TaskEvent;
-	import com.br.as3ufw.task.manager.ConcurrentTaskManager;
+	import as3ufw.task.events.TaskEvent;
+	import as3ufw.task.manager.ConcurrentTaskManager;
 
 	import org.flexunit.Assert;
 	import org.flexunit.async.Async;

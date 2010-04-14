@@ -1,5 +1,5 @@
 package {
-	import com.br.as3ufw.logging.Log;
+	import as3ufw.logging.Log;
 	
 	public function log(message : *,... rest) : void {
 	

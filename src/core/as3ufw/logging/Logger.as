@@ -1,5 +1,5 @@
-package com.br.as3ufw.logging {
-	import com.br.as3ufw.ns.br_internal;
+package as3ufw.logging {
+	import as3ufw.ns.br_internal;
 
 	/**
 	 * @author Richard.Jewson

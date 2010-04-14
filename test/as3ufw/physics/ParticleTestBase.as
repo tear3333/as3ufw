@@ -1,5 +1,5 @@
-package com.br.as3ufw.physics {
-	import com.br.as3ufw.geom.Vector2D;
+package as3ufw.physics {
+	import as3ufw.geom.Vector2D;
 
 	import flash.display.Sprite;
 	import flash.events.Event;

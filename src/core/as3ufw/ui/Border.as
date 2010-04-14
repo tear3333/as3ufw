@@ -1,4 +1,4 @@
-package com.br.as3ufw.ui {
+package as3ufw.ui {
 
 	/**
 	 * @author Richard.Jewson

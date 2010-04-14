@@ -1,4 +1,4 @@
-package com.br.as3ufw.asset {
+package as3ufw.asset {
 
 	/**
 	 * @author Richard.Jewson
