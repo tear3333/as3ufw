@@ -32,7 +32,7 @@ package taskTestSuite.support {
 		}
 
 		public function onStart() : void {
-			_dummyTimer.start();
+			if (_time>0) _dummyTimer.start();
 			_log.info(this + " starting...");
 			storeResult("S");		
 		}
