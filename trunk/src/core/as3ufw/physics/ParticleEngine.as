@@ -1,5 +1,5 @@
-package com.br.as3ufw.physics {
-	import com.br.as3ufw.physics.forces.IForceGenerator;
+package as3ufw.physics {
+	import as3ufw.physics.forces.IForceGenerator;
 
 	import flash.utils.getTimer;
 

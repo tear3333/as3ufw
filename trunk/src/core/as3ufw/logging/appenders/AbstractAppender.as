@@ -1,6 +1,6 @@
-package com.br.as3ufw.logging.appenders {
-	import com.br.as3ufw.logging.Log;
-	import com.br.as3ufw.logging.IAppender;
+package as3ufw.logging.appenders {
+	import as3ufw.logging.Log;
+	import as3ufw.logging.IAppender;
 
 	/**
 	 * @author Richard.Jewson

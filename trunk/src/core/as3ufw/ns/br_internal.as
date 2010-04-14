@@ -1,4 +1,4 @@
-package com.br.as3ufw.ns {
+package as3ufw.ns {
 /**
  * @author Richard.Jewson
  */

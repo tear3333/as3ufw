@@ -1,10 +1,10 @@
 package taskTestSuite.tests {
-	import com.br.as3ufw.task.manager.OrderedTaskManager;
+	import as3ufw.task.manager.OrderedTaskManager;
 	import taskTestSuite.support.TestTask;
 
-	import com.br.as3ufw.logging.Log;
-	import com.br.as3ufw.logging.appenders.TraceAppender;
-	import com.br.as3ufw.task.manager.ConcurrentTaskManager;
+	import as3ufw.logging.Log;
+	import as3ufw.logging.appenders.TraceAppender;
+	import as3ufw.task.manager.ConcurrentTaskManager;
 
 	import flash.display.Sprite;
 

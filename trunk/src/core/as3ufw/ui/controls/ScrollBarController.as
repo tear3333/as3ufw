@@ -1,5 +1,5 @@
-package com.br.as3ufw.ui.controls {
-	import com.br.as3ufw.ui.events.ScrollEvent;
+package as3ufw.ui.controls {
+	import as3ufw.ui.events.ScrollEvent;
 
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;

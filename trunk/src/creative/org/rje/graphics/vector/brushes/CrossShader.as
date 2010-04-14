@@ -1,6 +1,6 @@
 package org.rje.graphics.vector.brushes {
-	import com.br.as3ufw.utils.Random;
-	import com.br.as3ufw.geom.Vector2D;
+	import as3ufw.utils.Random;
+	import as3ufw.geom.Vector2D;
 
 	/**
 	 * @author Richard.Jewson

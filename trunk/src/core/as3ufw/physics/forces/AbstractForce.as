@@ -1,5 +1,5 @@
-package com.br.as3ufw.physics.forces {
-	import com.br.as3ufw.physics.Particle;
+package as3ufw.physics.forces {
+	import as3ufw.physics.Particle;
 
 	/**
 	 * @author Richard.Jewson

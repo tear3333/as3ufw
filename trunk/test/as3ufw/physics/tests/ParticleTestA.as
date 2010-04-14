@@ -1,12 +1,12 @@
-package com.br.as3ufw.physics.tests {
-	import com.br.as3ufw.physics.renderers.PointRenderer;
-	import com.br.as3ufw.physics.forces.RelativeAttractor;
-	import com.br.as3ufw.physics.renderers.CurveRenderer;
-	import com.br.as3ufw.utils.Random;
-	import com.br.as3ufw.physics.Particle;
-	import com.br.as3ufw.physics.ParticleTestBase;
-	import com.br.as3ufw.geom.Vector2D;
-	import com.br.as3ufw.physics.emitters.PointEmitter;
+package as3ufw.physics.tests {
+	import as3ufw.physics.renderers.PointRenderer;
+	import as3ufw.physics.forces.RelativeAttractor;
+	import as3ufw.physics.renderers.CurveRenderer;
+	import as3ufw.utils.Random;
+	import as3ufw.physics.Particle;
+	import as3ufw.physics.ParticleTestBase;
+	import as3ufw.geom.Vector2D;
+	import as3ufw.physics.emitters.PointEmitter;
 	import flash.events.Event;
 
 	/**

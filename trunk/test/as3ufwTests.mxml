@@ -12,8 +12,8 @@
 		import org.flexunit.listeners.UIListener;
 		import org.flexunit.listeners.CIListener;
 		import org.flexunit.runner.FlexUnitCore;
-		import com.br.as3ufw.logging.appenders.TraceAppender;
-		import com.br.as3ufw.logging.Log;	
+		import as3ufw.logging.appenders.TraceAppender;
+		import as3ufw.logging.Log;	
 			
 		private var core:FlexUnitCore;
 

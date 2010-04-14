@@ -1,7 +1,7 @@
-package com.br.as3ufw.physics {
-	import com.br.as3ufw.physics.emitters.IEmitter;
-	import com.br.as3ufw.physics.forces.IForceGenerator;
-	import com.br.as3ufw.physics.renderers.IRenderer;
+package as3ufw.physics {
+	import as3ufw.physics.emitters.IEmitter;
+	import as3ufw.physics.forces.IForceGenerator;
+	import as3ufw.physics.renderers.IRenderer;
 
 	import flash.display.Graphics;
 

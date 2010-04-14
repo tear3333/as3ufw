@@ -1,8 +1,8 @@
-package com.br.as3ufw.asset.manager {
+package as3ufw.asset.manager {
 	import flash.text.StyleSheet;
 	import flash.display.MovieClip;
 
-	import com.br.as3ufw.asset.IAssetSet;
+	import as3ufw.asset.IAssetSet;
 
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;

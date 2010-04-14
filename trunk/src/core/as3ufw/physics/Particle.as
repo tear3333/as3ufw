@@ -1,7 +1,7 @@
- package com.br.as3ufw.physics {
+ package as3ufw.physics {
 	import flash.utils.getTimer;
 
-	import com.br.as3ufw.geom.Vector2D;
+	import as3ufw.geom.Vector2D;
 
 	import flash.display.Graphics;
 

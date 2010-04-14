@@ -1,7 +1,7 @@
-package com.br.as3ufw.physics {
-	import com.br.as3ufw.physics.tests.ParticleTestC;
-	import com.br.as3ufw.physics.tests.ParticleTestB;
-	import com.br.as3ufw.physics.tests.ParticleTestA;
+package as3ufw.physics {
+	import as3ufw.physics.tests.ParticleTestC;
+	import as3ufw.physics.tests.ParticleTestB;
+	import as3ufw.physics.tests.ParticleTestA;
 	import flash.ui.Keyboard;
 	import flash.events.KeyboardEvent;
 	import flash.display.Sprite;

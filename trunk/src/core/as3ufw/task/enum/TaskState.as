@@ -1,4 +1,4 @@
-package com.br.as3ufw.task.enum {
+package as3ufw.task.enum {
 
 	/**
 	 * @author Richard.Jewson

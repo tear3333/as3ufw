@@ -1,5 +1,5 @@
-package com.br.as3ufw.asset.tasks {
-	import com.br.as3ufw.asset.manager.AssetSet;
+package as3ufw.asset.tasks {
+	import as3ufw.asset.manager.AssetSet;
 
 	import flash.events.Event;
 	import flash.events.HTTPStatusEvent;

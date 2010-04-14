@@ -1,4 +1,4 @@
-package com.br.as3ufw.asset.enum {
+package as3ufw.asset.enum {
 
 	/**
 	 * @author Richard.Jewson

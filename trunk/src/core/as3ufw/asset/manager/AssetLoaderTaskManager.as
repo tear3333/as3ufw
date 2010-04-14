@@ -1,5 +1,5 @@
-package com.br.as3ufw.asset.manager {
-	import com.br.as3ufw.task.manager.ConcurrentTaskManager;
+package as3ufw.asset.manager {
+	import as3ufw.task.manager.ConcurrentTaskManager;
 
 	/**
 	 * @author Richard.Jewson

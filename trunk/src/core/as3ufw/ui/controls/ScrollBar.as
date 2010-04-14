@@ -1,4 +1,4 @@
-package com.br.as3ufw.ui.controls {
+package as3ufw.ui.controls {
 	import flash.display.Graphics;
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;

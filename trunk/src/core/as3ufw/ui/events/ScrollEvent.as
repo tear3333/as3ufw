@@ -1,4 +1,4 @@
-package com.br.as3ufw.ui.events {
+package as3ufw.ui.events {
 	import flash.events.Event;
 
 	/**

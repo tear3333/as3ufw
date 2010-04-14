@@ -1,4 +1,4 @@
-package com.br.as3ufw.asset {
+package as3ufw.asset {
 	import flash.text.StyleSheet;
 	import flash.display.MovieClip;
 	import flash.display.Bitmap;

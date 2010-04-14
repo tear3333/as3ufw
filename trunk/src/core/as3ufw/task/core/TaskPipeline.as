@@ -1,4 +1,4 @@
-package com.br.as3ufw.task.core {
+package as3ufw.task.core {
 
 	/**
 	 * @author Richard.Jewson

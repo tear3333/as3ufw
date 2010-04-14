@@ -1,8 +1,8 @@
-package com.br.as3ufw.utils {
-	import com.br.as3ufw.logging.Log;
-	import com.br.as3ufw.logging.appenders.TraceAppender;
-	import com.br.as3ufw.ui.Canvas;
-	import com.br.as3ufw.ui.LayoutItemProxy;
+package as3ufw.utils {
+	import as3ufw.logging.Log;
+	import as3ufw.logging.appenders.TraceAppender;
+	import as3ufw.ui.Canvas;
+	import as3ufw.ui.LayoutItemProxy;
 
 	import org.bytearray.display.ScaleBitmapSprite;
 

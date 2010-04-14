@@ -1,4 +1,4 @@
-package com.br.as3ufw.asset.manager {
+package as3ufw.asset.manager {
 	//import org.as3commons.logging.ILogger;
 	//import org.as3commons.logging.LoggerFactory;
 

@@ -1,4 +1,4 @@
-package com.br.as3ufw.logging {
+package as3ufw.logging {
 	public interface ILogger {
 		
 		function debug(message:*, ... params):void;

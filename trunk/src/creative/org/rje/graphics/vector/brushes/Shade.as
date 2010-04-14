@@ -1,5 +1,5 @@
 package org.rje.graphics.vector.brushes {
-	import com.br.as3ufw.geom.Vector2D;
+	import as3ufw.geom.Vector2D;
 
 	import flash.display.Shape;
 

@@ -1,6 +1,6 @@
-package com.br.as3ufw.task.manager {
-	import com.br.as3ufw.logging.ILogger;
-	import com.br.as3ufw.logging.Log;
+package as3ufw.task.manager {
+	import as3ufw.logging.ILogger;
+	import as3ufw.logging.Log;
 
 	/**
 	 * @author Richard.Jewson

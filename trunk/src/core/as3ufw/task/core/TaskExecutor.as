@@ -1,12 +1,12 @@
-package com.br.as3ufw.task.core {
-	import com.br.as3ufw.logging.ILogger;
-	import com.br.as3ufw.logging.Log;
-	import com.br.as3ufw.task.ITaskCancelable;
-	import com.br.as3ufw.task.ITaskExecutor;
-	import com.br.as3ufw.task.ITaskPausable;
-	import com.br.as3ufw.task.ITaskRunnable;
-	import com.br.as3ufw.task.enum.TaskState;
-	import com.br.as3ufw.task.events.TaskEvent;
+package as3ufw.task.core {
+	import as3ufw.logging.ILogger;
+	import as3ufw.logging.Log;
+	import as3ufw.task.ITaskCancelable;
+	import as3ufw.task.ITaskExecutor;
+	import as3ufw.task.ITaskPausable;
+	import as3ufw.task.ITaskRunnable;
+	import as3ufw.task.enum.TaskState;
+	import as3ufw.task.events.TaskEvent;
 
 	import flash.events.EventDispatcher;
 	import flash.events.TimerEvent;

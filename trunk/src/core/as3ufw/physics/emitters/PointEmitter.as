@@ -1,7 +1,7 @@
-package com.br.as3ufw.physics.emitters {
-	import com.br.as3ufw.utils.ObjectUtils;
-	import com.br.as3ufw.physics.Particle;
-	import com.br.as3ufw.geom.Vector2D;
+package as3ufw.physics.emitters {
+	import as3ufw.utils.ObjectUtils;
+	import as3ufw.physics.Particle;
+	import as3ufw.geom.Vector2D;
 
 	/**
 	 * @author Richard.Jewson

@@ -1,5 +1,5 @@
-package com.br.as3ufw.controls {
-	import com.br.as3ufw.ui.controls.ScrollBarController;
+package as3ufw.controls {
+	import as3ufw.ui.controls.ScrollBarController;
 
 	import flash.display.Sprite;
 

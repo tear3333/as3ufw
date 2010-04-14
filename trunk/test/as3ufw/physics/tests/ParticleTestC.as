@@ -1,16 +1,16 @@
-package com.br.as3ufw.physics.tests {
+package as3ufw.physics.tests {
 	import flash.filters.BlurFilter;
 	import flash.geom.Point;
-	import com.br.as3ufw.physics.renderers.BitmapRenderer;
+	import as3ufw.physics.renderers.BitmapRenderer;
 
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
-	import com.br.as3ufw.physics.forces.RelativeAttractor;
-	import com.br.as3ufw.geom.Vector2D;
-	import com.br.as3ufw.physics.Particle;
-	import com.br.as3ufw.physics.forces.InitialPositionAttractor;
-	import com.br.as3ufw.physics.ParticleTestBase;
-	import com.br.as3ufw.physics.renderers.PointRenderer;
+	import as3ufw.physics.forces.RelativeAttractor;
+	import as3ufw.geom.Vector2D;
+	import as3ufw.physics.Particle;
+	import as3ufw.physics.forces.InitialPositionAttractor;
+	import as3ufw.physics.ParticleTestBase;
+	import as3ufw.physics.renderers.PointRenderer;
 
 	import flash.events.Event;
 
