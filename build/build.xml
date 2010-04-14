@@ -31,6 +31,7 @@
         <echo>Generating swc using '${classesdir}'</echo>
         <exec executable="${compc}">
             <arg line="-source-path ${source.dir}" />
+        	<arg line="-source-path ${lib.dir}" />
             <arg line="-output ${bindir}/as3ufw.swc" />
             <arg line="-include-sources ${source.dir}" />
         	<arg line="-library-path ${flex3libsdir}" />
