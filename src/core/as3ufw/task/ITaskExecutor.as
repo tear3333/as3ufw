@@ -1,4 +1,5 @@
 package as3ufw.task {
+	import as3ufw.task.core.TaskMetrics;
 	import as3ufw.task.core.TaskPipeline;
 
 	/**
@@ -10,7 +11,7 @@ package as3ufw.task {
 		
 		function error(errorMsg : String) : void;
 
-		function update(pcentComplete : Number) : void;
+		function update(completeSize : Number) : void;
 
 		function destroy() : void;
 		
@@ -35,6 +36,11 @@ package as3ufw.task {
 		function get priority() : Number;
 
 		function set priority(priority : Number) : void;
+
+		function set totalSize(size : Number) : void;
+		
+		function get metrics() : TaskMetrics;
+
 
 	}
 }

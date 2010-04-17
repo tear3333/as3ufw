@@ -1,4 +1,8 @@
 package as3ufw.task {
+	import flash.display.StageAlign;
+	import flash.display.StageScaleMode;
+	import flash.text.TextField;
+
 	import as3ufw.asset.manager.AssetSet;
 	import as3ufw.asset.tasks.impl.CSSLoaderTask;
 	import as3ufw.asset.tasks.impl.ImageLoaderTask;
@@ -25,8 +29,12 @@ package as3ufw.task {
 		private var assetSet:AssetSet;
 		private var concurrentMgr:ConcurrentTaskManager;
 		private var resultSet : Object;
-		
+		private var tf : TextField;
+
 		public function BasicTest() {
+			
+			stage.scaleMode = StageScaleMode.NO_SCALE;
+			stage.align =StageAlign.TOP_LEFT;
 			
 			var traceAppender:TraceAppender = new TraceAppender();
 			traceAppender.useDate = false;
@@ -36,16 +44,21 @@ package as3ufw.task {
 			
 			_log.info("Basic Test starting...");
 			
+			tf = new TextField();
+			tf.text = "waiting...";
+			tf.width=400;
+			addChild(tf);
+			
 			assetSet = new AssetSet("main");
 			resultSet = {};
 			
 			concurrentMgr = new ConcurrentTaskManager();
 			
-			concurrentMgr.addTask(new TestTask("TestTask 1",200));
-			concurrentMgr.addTask(new TestTask("TestTask 2",300));
-			concurrentMgr.addTask(new TestTask("TestTask 3",400));
-			concurrentMgr.addTask(new TestTask("TestTask 4",500));
-			concurrentMgr.addTask(new TestTask("TestTask 5",1000));
+			concurrentMgr.addTask(new TestTask("TestTask 1",500));
+			concurrentMgr.addTask(new TestTask("TestTask 2",600));
+			concurrentMgr.addTask(new TestTask("TestTask 3",900));
+			concurrentMgr.addTask(new TestTask("TestTask 4",1000));
+			concurrentMgr.addTask(new TestTask("TestTask 5",1500));
 			
 			concurrentMgr.addTask(new XMLLoaderTask("xml", new URLRequest("data/doc1.xml"),assetSet));
 			//concurrentMgr.addTask(AssetTaskFactory.TaskByURLString("xml","data/doc1.xml"),assetSet);
@@ -60,12 +73,19 @@ package as3ufw.task {
 			//concurrentMgr.addTask(new TestTask("TestTask 6",0));
 			
 			concurrentMgr.addEventListener(TaskEvent.COMPLETE, onComplete);
+			concurrentMgr.addEventListener(TaskEvent.UPDATE, onUpdate);
 			
 			_log.info("Basic Test isCancelable? : " + concurrentMgr.isCancelable);
 			
 			concurrentMgr.start();
 		}
-		
+
+		private function onUpdate(event : TaskEvent) : void {
+			var metrics:String =  event.taskExecutor.metrics.toString();
+			tf.text = metrics;
+			_log.info(metrics);
+		}
+
 		private function onComplete(event : TaskEvent) : void {
 			_log.info("ConcurrentMgr is complete.");
 			_log.info("assetSet=" + assetSet.toString());

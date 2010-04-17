@@ -61,22 +61,24 @@ package as3ufw.logging.appenders {
 		override public function write(level : int, className : String, text : String, params : Array) : Boolean {
 			if (!super.write(level, className, text, params)) return false;
 			
-			var msg:String = "";
+			var msg:String;
+			//MessageUtil.toString(message, params);
 			
-			var i:int = msg.indexOf("\n");
+			var title:String = "";
+			
+			if (useDate) title += (new Date()).toString() + " ";
+				
+			if (level) title += Log.levelToString(level) + " - ";
+			
+			if (className) title += "[" + className + "] - ";
+
+			var i:int = text.indexOf("\n");
 			if (i>0) {
-				//msg = "!SOS<showFoldMessage  key=\"" + level + "\"><title><![CDATA[" + name + ": " + msg.substr(0,i) + "]]></title><message><![CDATA["+msg.substr(i,msg.length)+"]]></message></showFoldMessage>\n";
+				msg = "!SOS<showFoldMessage  key=\"" + level + "\"><title><![CDATA[" + title + ": " + text.substr(0,i) + "]]></title><message><![CDATA["+text.substr(i,text.length)+"]]></message></showFoldMessage>\n";
 			} else {
-				//msg = "!SOS<showMessage key=\"" + level + "\"><![CDATA[" + name + ": " + msg + "]]></showMessage>\n";
+				msg = "!SOS<showMessage key=\"" + level + "\"><![CDATA[" + title + ": " + text + "]]></showMessage>\n";
 			}
 				
-			if (useDate) msg += (new Date()).toString() + " ";
-				
-			if (level) msg += Log.levelToString(level) + " - ";
-			
-			if (className) msg += className + " - ";
-				
-			msg += text ;//MessageUtil.toString(message, params);
 				
 			if (active) {
 				socket.send(msg);
