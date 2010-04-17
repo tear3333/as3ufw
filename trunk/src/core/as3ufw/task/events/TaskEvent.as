@@ -1,7 +1,6 @@
 package as3ufw.task.events {
 	import as3ufw.task.ITaskExecutor;
-	import as3ufw.task.core.TaskExecutor;
-	import as3ufw.task.ITaskRunnable;
+
 	import flash.events.Event;
 
 	/**
@@ -15,20 +14,26 @@ package as3ufw.task.events {
 		public static const CANCEL : String = "cancel";
 		public static const ERROR : String = "error";
 		public static const PRIORITIZE : String = "prioritize";		
+		public static const UPDATE : String = "update";		
 
-		private var _taskExecutor:ITaskExecutor;
+		private var _taskExecutor : ITaskExecutor;
 
-		public function TaskEvent(type : String,taskExecutor:ITaskExecutor) {
+		public function TaskEvent(type : String,taskExecutor : ITaskExecutor) {
 			super(type);
-			this.task = task;
+			_taskExecutor = taskExecutor;
 		}
-		
-		public function get task() : ITaskExecutor {
+
+		public function get taskExecutor() : ITaskExecutor {
 			return _taskExecutor;
 		}
-		
-		public function set task(task : ITaskExecutor) : void {
-			_taskExecutor = task;
+
+		public function set taskExecutor(taskExecutor : ITaskExecutor) : void {
+			_taskExecutor = taskExecutor;
 		}	
+		
+		override public function clone() : Event {
+			trace("clone");
+			return new TaskEvent(type,_taskExecutor);
+		}
 	}
 }

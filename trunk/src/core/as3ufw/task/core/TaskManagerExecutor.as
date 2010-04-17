@@ -15,6 +15,8 @@ package as3ufw.task.core {
 
 		private var _executors : Array;
 
+		private var updateInterval:int;
+
 		public function TaskManagerExecutor() {
 			super(this);
 			_executors = [];
@@ -27,32 +29,35 @@ package as3ufw.task.core {
 			}
 			var executor : TaskExecutor = new TaskExecutor(task);
 			_executors.push(executor);
-			//_isCancelable 	= _isCancelable && executor._isCancelable;
-			//_isPausable 	= _isPausable   && executor._isPausable;
 
 			executor.addEventListener(TaskEvent.COMPLETE,	taskComplete	,false,0,false);
 			executor.addEventListener(TaskEvent.CANCEL,		taskCanceled	,false,0,false);
 			executor.addEventListener(TaskEvent.ERROR,		taskError		,false,0,false);
 			executor.addEventListener(TaskEvent.PRIORITIZE, taskPrioritize	,false,0,false);
+			executor.addEventListener(TaskEvent.UPDATE, 	taskUpdated		,false,0,false);
 			
 			onAddTask(task);
 			return true;
 			
 			function taskComplete(event : TaskEvent):void {
-				onSubTaskComplete(event.task);
+				onSubTaskComplete(event.taskExecutor);
 			}
 			function taskCanceled(event : TaskEvent):void {
-				onSubTaskCancel(event.task);
+				onSubTaskCancel(event.taskExecutor);
 			}
 			function taskError(event : TaskEvent):void {
-				onSubTaskError(event.task);
+				onSubTaskError(event.taskExecutor);
 			}
 			function taskPrioritize(event : TaskEvent):void {
-				onSubTaskPrioritize(event.task);
+				onSubTaskPrioritize(event.taskExecutor);
+			}
+			function taskUpdated(event : TaskEvent):void {
+				onSubTaskUpdated(event.taskExecutor);
 			}
 		}
 
 		virtual protected function onAddTask(task : ITaskRunnable) : void {
+			task.onAdded();
 		}
 
 		virtual public function removeTask(task : ITaskRunnable) : Boolean {
@@ -69,6 +74,7 @@ package as3ufw.task.core {
 			for each (var newtask : ITaskRunnable in task.taskPipeline.newtasks) {
 				addTask(newtask);
 			}
+			dispatchEvent(new TaskEvent(TaskEvent.UPDATE, this));
 		}
 
 		virtual public function onSubTaskCancel(task : ITaskExecutor) : void {
@@ -80,13 +86,21 @@ package as3ufw.task.core {
 		virtual public function onSubTaskPrioritize(task : ITaskExecutor) : void {
 		}
 
+		virtual public function onSubTaskUpdated(task : ITaskExecutor) : void {
+			dispatchEvent(new TaskEvent(TaskEvent.UPDATE, this));
+		}
+
 		/*
 		 * ITaskRunnable methods
 		 */
+		virtual public function onAdded() : void {
+		}
+
 		virtual public function onStart() : void {
 		}
 
 		virtual public function onComplete() : void {
+			dispatchEvent(new TaskEvent(TaskEvent.UPDATE, this));
 		}
 
 		//No need to implement, we already are an executor
@@ -133,24 +147,9 @@ package as3ufw.task.core {
 			return false;
 		}
 
-		/*
-		 * Getter/Setter stuff
-		 */
-		
-//		override public function get isCancelable() : Boolean {
-//			for each (var executor:TaskExecutor in executors) {
-//				if (!executor.isCancelable) return false;
-//			}
-//			return true;
-//		}
-//		
-//		override public function get isPausable() : Boolean {
-//			for each (var executor:TaskExecutor in executors) {
-//				if (!executor.isPausable) return false;
-//			}
-//			return true;
-//		}
-
+		override public function update(pcentComplete : Number) : void {
+			_log.error("You cannot call update on a Manager");
+		}
 
 		public function get executors() : Array {
 			return _executors;
@@ -165,6 +164,24 @@ package as3ufw.task.core {
 			}
     
 			return 0;
+		}
+
+		override public function get metrics() : TaskMetrics {
+			_metrics.reset();
+			for each (var executor:TaskExecutor in executors)
+				_metrics.add(executor.metrics);
+			if (state == TaskState.FINISHED)
+				_metrics.completeCount += 1;
+			return _metrics;
+		}
+
+		
+		override public function set totalSize(size : Number) : void {
+			_log.error("You cannot set the totalSize on a Manager");
+		}
+
+		override public function set completeSize(size : Number) : void {
+			_log.error("You cannot set the completeSize on a Manager");
 		}
 
 		private var _log : ILogger = Log.getClassLogger(TaskManagerExecutor);

@@ -5,6 +5,8 @@ package as3ufw.task {
 	 */
 	public interface ITaskRunnable {
 
+		function onAdded() : void;
+
 		function onStart() : void;
 
 		function onComplete() : void;

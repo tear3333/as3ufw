@@ -24,7 +24,6 @@ package as3ufw.task.core {
 		private var _totalRunningTime : int;
 		private var _runningTimeCounter : int;
 		private var _timer : Timer;
-		private var _pcentComplete : Number;
 		private var _priority : Number;
 
 		protected var _taskPipeline : TaskPipeline;
@@ -34,14 +33,26 @@ package as3ufw.task.core {
 		private var _id : int;
 		private static var _nextId : int = 0;
 
+		//private var _totalSize : Number;
+		//private var _completeSize : Number;
+
+		protected var _metrics : TaskMetrics;
+
 		public function TaskExecutor( _task : ITaskRunnable ) {
+			_state = TaskState.INACTIVE;
+
 			this._task = _task;
 			this._task.executor = this;
 			this._isCancelable = _task is ITaskCancelable;
 			this._isPausable = _task is ITaskPausable;
 			this._priority = 10;
-			_state = TaskState.INACTIVE;
+
 			_id = _nextId++;
+			
+			_metrics = new TaskMetrics();
+
+			_metrics.totalSize = Number.NaN;
+			_metrics.completeSize = Number.NaN;
 		}
 
 		public function start( taskPipeline : TaskPipeline = null ) : Boolean {
@@ -49,7 +60,8 @@ package as3ufw.task.core {
 				return false;
 			}
 			_state = TaskState.ACTIVE;
-			_pcentComplete = Number.NaN;
+			_metrics.completeSize = 0;
+			_metrics.completeCount = 0;
 			this._taskPipeline = taskPipeline == null ? new TaskPipeline() : taskPipeline;
 			startTimer();
 			_task.onStart();
@@ -61,7 +73,9 @@ package as3ufw.task.core {
 			if (_state != TaskState.ACTIVE) {
 				return false;
 			}
-			_state = TaskState.FINISHED;			
+			_state = TaskState.FINISHED;	
+			_metrics.completeSize = _metrics.totalSize;
+			_metrics.completeCount = 1;
 			stopTimer();
 			_task.onComplete();
 			dispatchEvent(new TaskEvent(TaskEvent.COMPLETE, this));
@@ -71,7 +85,9 @@ package as3ufw.task.core {
 		public function error(errorMsg : String) : void {
 		}
 
-		public function update(pcentComplete : Number) : void {
+		public function update(completeSize : Number) : void {
+			_metrics.completeSize = completeSize;
+			dispatchEvent(new TaskEvent(TaskEvent.UPDATE, this));
 		}
 
 		public function destroy() : void {
@@ -162,11 +178,24 @@ package as3ufw.task.core {
 			dispatchEvent(new TaskEvent(TaskEvent.PRIORITIZE, this));
 		}
 
+
+		virtual public function set totalSize(size : Number) : void {
+			_metrics.totalSize = size;
+		}
+		
+		virtual public function set completeSize(size : Number) : void {
+			_metrics.completeSize = size;
+		}
+		
+		virtual public function get metrics() : TaskMetrics {
+			return _metrics;
+		}
+
 		override public function toString() : String {
 			return super.toString();
 		}
 
 		private var _log : ILogger = Log.getClassLogger(TaskExecutor);
-
+		
 	}
 }

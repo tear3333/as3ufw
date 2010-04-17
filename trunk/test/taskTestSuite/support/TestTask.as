@@ -14,23 +14,37 @@ package taskTestSuite.support {
 	 */
 	public class TestTask implements ITaskRunnable, ITaskCancelable {
 
+		public static var UPDATE_INTERVAL:int = 100;
+
 		private var _exec : ITaskExecutor;
 
 		private var _dummyTimer : Timer;
 		private var _id : String;
 		private var _time : int;
+		private var _intervalCount : int;
 
 		public function TestTask(id : String, time:int) {
 			this._id = id;
 			this._time = time;
-			_dummyTimer = new Timer(_time, 1);
+			_intervalCount = 0;
+			_dummyTimer = new Timer(UPDATE_INTERVAL, 0);
 			_dummyTimer.addEventListener(TimerEvent.TIMER, onTimer,false,0,true);
 		}
 		
 		public function onTimer(e:Event) : void {
-			_exec.complete();		
+			_intervalCount++;
+			if (_intervalCount*UPDATE_INTERVAL >= _time) {
+				_dummyTimer.stop();
+				_exec.complete();
+			} else {
+				_exec.update(_intervalCount*UPDATE_INTERVAL);
+			}
 		}
 
+		public function onAdded() : void {
+			_exec.totalSize = _time;
+		}
+		
 		public function onStart() : void {
 			if (_time>0) _dummyTimer.start();
 			_log.info(this + " starting...");

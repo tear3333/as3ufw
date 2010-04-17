@@ -25,6 +25,7 @@ package as3ufw.task.manager {
 		}
 
 		override public function onSubTaskComplete(task : ITaskExecutor) : void {
+			super.onSubTaskComplete(task);
 			_runningCount--;
 			if (startConcurrentTasks()) complete();
 		}
@@ -54,6 +55,7 @@ package as3ufw.task.manager {
 		}
 
 		override public function onComplete() : void {
+			super.onComplete();
 			//_log.info(this + " complete (" + totalRunningTime + " ms)");
 		}
 		

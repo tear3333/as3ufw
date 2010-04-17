@@ -63,6 +63,12 @@ package as3ufw.asset.tasks {
 		/*
 		 * ITaskRunnable
 		 */
+		public function onAdded() : void {
+			if(params["totalBytes"]) {
+				_exec.totalSize = params["totalBytes"];
+			}
+		}
+
 		public function onStart() : void {
 		}
 
@@ -93,6 +99,8 @@ package as3ufw.asset.tasks {
 		}
 
 		virtual protected function onProgressHandler(event : ProgressEvent) : void {
+			_exec.totalSize = event.bytesTotal;
+			_exec.update(event.bytesLoaded);
 		}
 
 		virtual protected function onCompleteHandler(event : Event) : void {
