@@ -1,4 +1,7 @@
-package as3ufw.ui {
+package as3ufw.ui.layout {
+	import as3ufw.ui.layout.mangers.Frame;
+	import as3ufw.ui.layout.mangers.Canvas;
+
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 
@@ -16,6 +19,7 @@ package as3ufw.ui {
 		private var _right : Number;
 		private var _horizontalCenter : Number;
 		private var _horizontalPosFunc : Function;
+
 		//Horizontal size values
 		private var _width : Number;
 		private var _widthPercent : Number;
@@ -33,8 +37,13 @@ package as3ufw.ui {
 		private var _heightPercent : Number;
 		private var _verticalSizeFunc : Function;	
 
+		public var margin : Frame;
+
 		public function LayoutItemProxy( displayItem : DisplayObject ) {
 			this._displayItem = displayItem;
+			left = 0;
+			top = 0;
+			margin = new Frame();
 		}
 
 		public function update() : void {
@@ -51,10 +60,10 @@ package as3ufw.ui {
 		public function set x(x : Number) : void {
 			_x = x;
 			_horizontalPosFunc = function():void {
-				_displayItem.x = x;
+				_displayItem.x = x + margin.left;
 			};
 		}
-		
+
 		public function get left() : Number {
 			return _left;
 		}
@@ -62,7 +71,7 @@ package as3ufw.ui {
 		public function set left(left : Number) : void {
 			_left = left;
 			_horizontalPosFunc = function():void {
-				_displayItem.x = _left;
+				_displayItem.x = _left + margin.left;
 			};
 		}
 
@@ -73,8 +82,7 @@ package as3ufw.ui {
 		public function set right(right : Number) : void {
 			_right = right;
 			_horizontalPosFunc = function():void {
-				//var refItemWidth:Number = _referenceItem is Canvas ? (_displayItem as Canvas).canvasWidth : 
-				_displayItem.x = (_referenceItem.width - _displayItem.width - right);
+				_displayItem.x = (_referenceItem.width - _displayItem.width - (right + margin.right) );
 			};
 		}
 
@@ -85,7 +93,7 @@ package as3ufw.ui {
 		public function set horizontalCenter(horizontalCenter : Number) : void {
 			_horizontalCenter = horizontalCenter;
 			_horizontalPosFunc = function():void {
-				_displayItem.x = (_referenceItem.width/2 - _displayItem.width/2 + horizontalCenter);
+				_displayItem.x = (_referenceItem.width / 2 - _displayItem.width / 2 + horizontalCenter);
 			};
 		}
 
@@ -111,12 +119,15 @@ package as3ufw.ui {
 		public function set widthPercent(widthPercent : Number) : void {
 			_widthPercent = widthPercent;
 			_horizontalSizeFunc = function():void {
-				var actualWidth:Number;
+				var actualWidth : Number;
 				if (_referenceItem is Canvas) {
 					actualWidth = (_referenceItem as Canvas).canvasWidth;
 				} else {
 					actualWidth = _referenceItem.width;
 				}
+				
+				actualWidth = actualWidth - margin.left - margin.right; 
+				
 				if (_displayItem is Canvas) {
 					(_displayItem as Canvas).canvasWidth = _widthPercent * actualWidth;
 				} else {

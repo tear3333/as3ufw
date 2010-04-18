@@ -1,4 +1,4 @@
-package as3ufw.ui {
+package as3ufw.ui.layout {
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	/**
