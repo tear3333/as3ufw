@@ -1,4 +1,7 @@
-package as3ufw.ui {
+package as3ufw.ui.layout.mangers {
+	import as3ufw.ui.layout.LayoutItemProxy;
+	import as3ufw.ui.layout.LayoutManager;
+
 	import org.bytearray.display.ScaleBitmapSprite;
 
 	import flash.display.DisplayObject;
@@ -27,6 +30,9 @@ package as3ufw.ui {
 		private var _backgroundColor : uint;
 		private var _backgroundAlpha : Number;
 		private var _backgroundImage : ScaleBitmapSprite;
+
+		public var margin : Frame;
+		public var padding : Frame;
 
 		public function Canvas( canvasWidth : Number, canvasHeight : Number, scrollPolicy : String = NONE, maskCanvas : Boolean = true ) {
 			
@@ -92,9 +98,9 @@ package as3ufw.ui {
 			addChild(child);
 			return _layoutManager.add(child);
 		}
-		
+
 		public function addManagedChildAt(child : DisplayObject, index : int) : LayoutItemProxy {
-			addChildAt(child,index);
+			addChildAt(child, index);
 			return _layoutManager.add(child);
 		}
 
