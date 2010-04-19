@@ -1,6 +1,6 @@
 package as3ufw.ui.layout {
-	import as3ufw.ui.layout.mangers.Frame;
-	import as3ufw.ui.layout.mangers.Canvas;
+	import as3ufw.ui.layout.components.Canvas;
+	import as3ufw.ui.layout.components.Frame;
 
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
@@ -82,7 +82,7 @@ package as3ufw.ui.layout {
 		public function set right(right : Number) : void {
 			_right = right;
 			_horizontalPosFunc = function():void {
-				_displayItem.x = (_referenceItem.width - _displayItem.width - (right + margin.right) );
+				_displayItem.x = (_referenceItem.width - _displayItem.width - (_right + margin.right) );
 			};
 		}
 
@@ -143,9 +143,10 @@ package as3ufw.ui.layout {
 		public function set y(y : Number) : void {
 			_y = y;
 			_verticalPosFunc = function():void {
+				_displayItem.y = y + margin.top;
 			};
 		}
-
+		
 		public function get top() : Number {
 			return _top;
 		}
@@ -153,6 +154,7 @@ package as3ufw.ui.layout {
 		public function set top(top : Number) : void {
 			_top = top;
 			_verticalPosFunc = function():void {
+				_displayItem.y = top + margin.top;
 			};
 		}
 
@@ -163,6 +165,7 @@ package as3ufw.ui.layout {
 		public function set bottom(bottom : Number) : void {
 			_bottom = bottom;
 			_verticalPosFunc = function():void {
+				_displayItem.y = (_referenceItem.height - _displayItem.height - (_bottom + margin.bottom) );
 			};
 		}
 
@@ -182,6 +185,13 @@ package as3ufw.ui.layout {
 
 		public function set height(height : Number) : void {
 			_height = height;
+			_verticalSizeFunc = function():void {
+				if (_displayItem is Canvas) {
+					(_displayItem as Canvas).canvasHeight = _height;
+				} else {
+					_displayItem.height = _height;
+				}
+			};
 		}
 
 		public function get heightPercent() : Number {
@@ -190,6 +200,22 @@ package as3ufw.ui.layout {
 
 		public function set heightPercent(heightPercent : Number) : void {
 			_heightPercent = heightPercent;
+			_verticalSizeFunc = function():void {
+				var actualHeight : Number;
+				if (_referenceItem is Canvas) {
+					actualHeight = (_referenceItem as Canvas).canvasHeight;
+				} else {
+					actualHeight = _referenceItem.height;
+				}
+				
+				actualHeight = actualHeight - margin.top - margin.bottom; 
+				
+				if (_displayItem is Canvas) {
+					(_displayItem as Canvas).canvasHeight = _heightPercent * actualHeight;
+				} else {
+					_displayItem.height = _heightPercent * actualHeight;
+				}
+			};
 		}
 
 		public function get referenceItem() : DisplayObjectContainer {

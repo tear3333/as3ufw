@@ -2,12 +2,14 @@ package as3ufw.utils {
 	import as3ufw.logging.Log;
 	import as3ufw.logging.appenders.TraceAppender;
 	import as3ufw.ui.layout.LayoutItemProxy;
-	import as3ufw.ui.layout.mangers.Canvas;
+	import as3ufw.ui.layout.components.Canvas;
 
 	import org.bytearray.display.ScaleBitmapSprite;
 
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
+	import flash.display.StageAlign;
+	import flash.display.StageScaleMode;
 	import flash.events.MouseEvent;
 	import flash.geom.Rectangle;
 	import flash.text.TextField;
@@ -22,6 +24,9 @@ package as3ufw.utils {
 		private var bg : Class;
 
 		public function LayoutScratch() {
+			
+			stage.scaleMode = StageScaleMode.NO_SCALE;
+			stage.align = StageAlign.TOP_LEFT;
 			
 			var traceAppender : TraceAppender = new TraceAppender();
 			traceAppender.useDate = false;
@@ -44,9 +49,11 @@ package as3ufw.utils {
 			
 			var tf : TextField = new TextField();
 			var proxy : LayoutItemProxy = c.addManagedChild(tf);
-			proxy.left = 0;
-			proxy.margin.left = proxy.margin.right = 20;
+			
+			proxy.margin.width = 20;
+			proxy.top = 0;
 			proxy.widthPercent = 1;
+			//proxy.widthPercent = 2;
 			tf.multiline = true;
 			tf.wordWrap = true;
 			tf.text = 'This is canvas. this is a test, to see how I react to size a position';
@@ -55,6 +62,7 @@ package as3ufw.utils {
 			tf.backgroundColor = 0x10FF0000;
 			c.refresh();
 			log(tf.width);
+			log(c.mask);
 		}
 	}
 }
