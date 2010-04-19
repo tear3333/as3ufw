@@ -1,4 +1,4 @@
-package as3ufw.ui.layout.mangers {
+package as3ufw.ui.layout.components {
 	import as3ufw.ui.layout.LayoutItemProxy;
 	import as3ufw.ui.layout.LayoutManager;
 
@@ -31,7 +31,6 @@ package as3ufw.ui.layout.mangers {
 		private var _backgroundAlpha : Number;
 		private var _backgroundImage : ScaleBitmapSprite;
 
-		public var margin : Frame;
 		public var padding : Frame;
 
 		public function Canvas( canvasWidth : Number, canvasHeight : Number, scrollPolicy : String = NONE, maskCanvas : Boolean = true ) {
@@ -66,6 +65,8 @@ package as3ufw.ui.layout.mangers {
 				beginFill(_backgroundColor);
 				drawRect(0, 0, _canvasWidth, _canvasHeight);
 				graphics.endFill();
+				lineStyle(2,0);
+				drawRect(0, 0, _canvasWidth, _canvasHeight);
 			}
 		}
 
@@ -149,7 +150,13 @@ package as3ufw.ui.layout.mangers {
 
 		public function set useMask(useMask : Boolean) : void {
 			_useMask = useMask;
-			mask = (_useMask) ? mask : null;
+			if (_useMask) {
+				if (_mask.parent==null) addChild(_mask);
+				mask = _mask;
+			} else {
+				if (_mask.parent!=null) removeChild(_mask);
+				mask = null;
+			}
 		}
 
 		public function get backgroundColor() : uint {

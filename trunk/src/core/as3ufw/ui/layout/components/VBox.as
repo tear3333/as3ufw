@@ -1,4 +1,4 @@
-package as3ufw.ui.layout.mangers {
+package as3ufw.ui.layout.components {
 
 	/**
 	 * @author Richard.Jewson
