@@ -33,9 +33,6 @@ package as3ufw.task.core {
 		private var _id : int;
 		private static var _nextId : int = 0;
 
-		//private var _totalSize : Number;
-		//private var _completeSize : Number;
-
 		protected var _metrics : TaskMetrics;
 
 		public function TaskExecutor( _task : ITaskRunnable ) {

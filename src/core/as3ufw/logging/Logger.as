@@ -1,12 +1,12 @@
 package as3ufw.logging {
-	import as3ufw.ns.br_internal;
+	import as3ufw.ns.as3ufw_internal;
 
 	/**
 	 * @author Richard.Jewson
 	 */
 	public class Logger implements ILogger {
 
-		use namespace br_internal;
+		use namespace as3ufw_internal;
 
 		private var className : String;
 
