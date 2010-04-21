@@ -1,5 +1,5 @@
 package as3ufw.logging {
-	import as3ufw.ns.br_internal;
+	import as3ufw.ns.as3ufw_internal;
 
 	import flash.utils.getQualifiedClassName;
 
@@ -8,7 +8,7 @@ package as3ufw.logging {
 	 */
 	public class Log {
 		
-		use namespace br_internal;
+		use namespace as3ufw_internal;
 		
 		public static const DEBUG:int = 1;
 		
@@ -34,7 +34,7 @@ package as3ufw.logging {
 			appenders.push(apender);
 		}
 		
-		br_internal static function append(level:int, className:String, message:*, params : Array ):void {
+		as3ufw_internal static function append(level:int, className:String, message:*, params : Array ):void {
 			for each (var appender : IAppender in appenders) {
 				appender.write(level, className, String(message), params);
 			}

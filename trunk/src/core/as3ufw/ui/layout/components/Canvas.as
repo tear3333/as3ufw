@@ -18,14 +18,26 @@ package as3ufw.ui.layout.components {
 		public static const HORIZONTAL : String = 'horizontal';
 		public static const ALL : String = 'all';
 
+		public static const TOP : uint = 1;
+		public static const RIGHT : uint = 2;
+		public static const BOTTOM : uint = 4;
+		public static const LEFT : uint = 8;
+
 		private var _background : Sprite;
 		private var _mask : Shape;
 
 		private var _layoutManager : LayoutManager;
 
 		private var _canvasWidth : Number;
+		private var _maxCanvasWidth : Number;
 		private var _canvasHeight : Number;
+		private var _maxCanvasHeight : Number;
+				
+		private var _expansionPolicy : String;
+		private var _expansionDirection : String;
+
 		private var _scrollPolicy : String;
+		
 		private var _useMask : Boolean;
 		private var _backgroundColor : uint;
 		private var _backgroundAlpha : Number;
