@@ -1,4 +1,5 @@
 package as3ufw.asset.tasks {
+	import flash.utils.getQualifiedClassName;
 	import as3ufw.utils.ObjectUtils;
 	import as3ufw.asset.IAssetLoader;
 	import as3ufw.asset.enum.LoaderTypes;
@@ -20,7 +21,7 @@ package as3ufw.asset.tasks {
 	/**
 	 * @author Richard.Jewson
 	 */
-	public class AbstractAssetLoaderTask implements IAssetLoader, ITaskRunnable, ITaskCancelable {
+	public class AbstractAssetLoaderTask implements IAssetLoader {
 
 		protected var _content : *;
 
@@ -140,6 +141,10 @@ package as3ufw.asset.tasks {
 
 		public function set id(id : String) : void {
 			_id = id;
+		}
+
+		public function toString() : String {
+			return getQualifiedClassName(this) + " id=" + _id + " url=" + _url.url ;
 		}
 
 		private var _log : ILogger = Log.getClassLogger(AbstractAssetLoaderTask);
