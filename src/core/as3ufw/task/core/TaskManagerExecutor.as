@@ -30,7 +30,7 @@ package as3ufw.task.core {
 			}
 			var executor : TaskExecutor = new TaskExecutor(task);
 			_executors.push(executor);
-			_dict[String(_count++)] = executor;
+
 			executor.addEventListener(TaskEvent.COMPLETE, taskComplete, false, 0, false);
 			executor.addEventListener(TaskEvent.CANCEL, taskCanceled, false, 0, false);
 			executor.addEventListener(TaskEvent.ERROR, taskError, false, 0, false);
@@ -158,6 +158,7 @@ package as3ufw.task.core {
 
 		override public function destroy() : void {
 			for (var i : int = 0; i < _executors.length; i++) {
+				//Just making sure we clean up properly
 				var executor:TaskExecutor = _executors[i] as TaskExecutor;
 				executor.removeEventListener(TaskEvent.COMPLETE, taskComplete, false);
 				executor.removeEventListener(TaskEvent.CANCEL, taskCanceled, false);
@@ -204,23 +205,5 @@ package as3ufw.task.core {
 
 		private var _log : ILogger = Log.getClassLogger(TaskManagerExecutor);
 		
-		private static var _timer:Timer;
-		private static var _dict:Dictionary;
-		private static var _count:int = 0;
-		
-		{
-			_dict = new Dictionary(true);
-			_timer = new Timer(100);
-			_timer.addEventListener(TimerEvent.TIMER, onTimer);
-			_timer.start();
-		}
-
-		private static function onTimer(event : TimerEvent) : void {
-			trace('>----');
-			for each (var i : * in _dict) {
-				trace(i);
-			}
-			trace('>----');
-		}
 	}
 }
