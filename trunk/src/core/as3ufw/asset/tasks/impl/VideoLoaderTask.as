@@ -67,7 +67,7 @@ package as3ufw.asset.tasks.impl {
 			//_log.info(this + " complete (" + totalRunningTime + " ms)");
 		}
 
-		override public function cleanup() : void {
+		override public function destroy() : void {
 			if (!_netStream)
 				return;
 			_netStream.removeEventListener(IOErrorEvent.IO_ERROR, onErrorHandler);

@@ -1,4 +1,5 @@
 package as3ufw.task.core {
+	import as3ufw.lifecycle.IDestroyable;
 	import as3ufw.logging.ILogger;
 	import as3ufw.logging.Log;
 	import as3ufw.task.ITaskCancelable;
@@ -16,7 +17,7 @@ package as3ufw.task.core {
 	/** 
 	 * @author Richard.Jewson
 	 */
-	public class TaskExecutor extends EventDispatcher implements ITaskExecutor {
+	public class TaskExecutor extends EventDispatcher implements ITaskExecutor, IDestroyable {
 
 		private var _task : ITaskRunnable;
 
@@ -87,8 +88,10 @@ package as3ufw.task.core {
 			dispatchEvent(new TaskEvent(TaskEvent.UPDATE, this));
 		}
 
-		public function destroy() : void {
+		virtual public function destroy() : void {
 			if (_task) _task.executor = null;
+			_task = null;
+			stopTimer();
 		}		
 
 		public function pause() : Boolean {
@@ -132,7 +135,7 @@ package as3ufw.task.core {
 			_runningTimeCounter = getTimer();
 			if (isCancelable && ITaskCancelable(_task).timeOut > 0) {
 				_timer = new Timer(ITaskCancelable(_task).timeOut, 1);
-				_timer.addEventListener(TimerEvent.TIMER, onTimeOutEvent);
+				_timer.addEventListener(TimerEvent.TIMER, onTimeOutEvent, false, 0, true);
 				_timer.start();
 			}
 		}

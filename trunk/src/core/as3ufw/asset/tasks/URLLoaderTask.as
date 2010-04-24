@@ -50,7 +50,7 @@ package as3ufw.asset.tasks {
 			super.onCancel();
 		}
 
-		override public function cleanup() : void {
+		override public function destroy() : void {
 			if (!_urlloader)
 				return;
 			_urlloader.removeEventListener(ProgressEvent.PROGRESS, onProgressHandler);
