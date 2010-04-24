@@ -1,14 +1,11 @@
 package as3ufw.asset.tasks {
-	import flash.utils.getQualifiedClassName;
-	import as3ufw.utils.ObjectUtils;
 	import as3ufw.asset.IAssetLoader;
 	import as3ufw.asset.enum.LoaderTypes;
 	import as3ufw.asset.manager.AssetSet;
 	import as3ufw.logging.ILogger;
 	import as3ufw.logging.Log;
-	import as3ufw.task.ITaskCancelable;
 	import as3ufw.task.ITaskExecutor;
-	import as3ufw.task.ITaskRunnable;
+	import as3ufw.utils.ObjectUtils;
 
 	import flash.events.Event;
 	import flash.events.HTTPStatusEvent;
@@ -17,6 +14,7 @@ package as3ufw.asset.tasks {
 	import flash.events.SecurityErrorEvent;
 	import flash.net.URLRequest;
 	import flash.net.URLVariables;
+	import flash.utils.getQualifiedClassName;
 
 	/**
 	 * @author Richard.Jewson
@@ -119,7 +117,7 @@ package as3ufw.asset.tasks {
 			_exec.error(event.text);
 		}
 
-		virtual public function cleanup() : void {
+		virtual public function destroy() : void {
 		}
 
 		virtual public function get content() : * {
@@ -144,7 +142,7 @@ package as3ufw.asset.tasks {
 		}
 
 		public function toString() : String {
-			return getQualifiedClassName(this) + " id=" + _id + " url=" + _url.url ;
+			return getQualifiedClassName(this) + " id=" + _id + " url=" + _url.url + " e=" + (_exec!=null) ;
 		}
 
 		private var _log : ILogger = Log.getClassLogger(AbstractAssetLoaderTask);

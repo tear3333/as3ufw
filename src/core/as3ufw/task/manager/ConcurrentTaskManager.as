@@ -56,7 +56,6 @@ package as3ufw.task.manager {
 
 		override public function onComplete() : void {
 			super.onComplete();
-			//_log.info(this + " complete (" + totalRunningTime + " ms)");
 		}
 		
 		private function get canStartTasks():Boolean {

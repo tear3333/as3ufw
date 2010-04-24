@@ -56,6 +56,14 @@ package as3ufw.asset.manager {
 			return loader;
 		}
 
+		override public function onComplete() : void {
+			super.onComplete();
+			
+			destroy();
+		}
+
+		//onc
+
 		private function extractExtension(url : String) : String {
 			var searchString : String = url.indexOf("?") > -1 ? url.substring(0, url.indexOf("?")) : url;
 			var finalPart : String = searchString.substring(searchString.lastIndexOf("/"));;

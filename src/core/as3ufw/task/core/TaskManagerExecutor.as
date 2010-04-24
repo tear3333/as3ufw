@@ -1,4 +1,7 @@
 package as3ufw.task.core {
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
+	import flash.utils.Dictionary;
 	import as3ufw.logging.ILogger;
 	import as3ufw.logging.Log;
 	import as3ufw.task.ITaskCancelable;
@@ -15,8 +18,6 @@ package as3ufw.task.core {
 
 		private var _executors : Array;
 
-		private var updateInterval:int;
-
 		public function TaskManagerExecutor() {
 			super(this);
 			_executors = [];
@@ -29,31 +30,35 @@ package as3ufw.task.core {
 			}
 			var executor : TaskExecutor = new TaskExecutor(task);
 			_executors.push(executor);
-
-			executor.addEventListener(TaskEvent.COMPLETE,	taskComplete	,false,0,false);
-			executor.addEventListener(TaskEvent.CANCEL,		taskCanceled	,false,0,false);
-			executor.addEventListener(TaskEvent.ERROR,		taskError		,false,0,false);
-			executor.addEventListener(TaskEvent.PRIORITIZE, taskPrioritize	,false,0,false);
-			executor.addEventListener(TaskEvent.UPDATE, 	taskUpdated		,false,0,false);
+			_dict[String(_count++)] = executor;
+			executor.addEventListener(TaskEvent.COMPLETE, taskComplete, false, 0, false);
+			executor.addEventListener(TaskEvent.CANCEL, taskCanceled, false, 0, false);
+			executor.addEventListener(TaskEvent.ERROR, taskError, false, 0, false);
+			executor.addEventListener(TaskEvent.PRIORITIZE, taskPrioritize, false, 0, false);
+			executor.addEventListener(TaskEvent.UPDATE, taskUpdated, false, 0, false);
 			
 			onAddTask(task);
 			return true;
-			
-			function taskComplete(event : TaskEvent):void {
-				onSubTaskComplete(event.taskExecutor);
-			}
-			function taskCanceled(event : TaskEvent):void {
-				onSubTaskCancel(event.taskExecutor);
-			}
-			function taskError(event : TaskEvent):void {
-				onSubTaskError(event.taskExecutor);
-			}
-			function taskPrioritize(event : TaskEvent):void {
-				onSubTaskPrioritize(event.taskExecutor);
-			}
-			function taskUpdated(event : TaskEvent):void {
-				onSubTaskUpdated(event.taskExecutor);
-			}
+		}
+
+		private function taskComplete(event : TaskEvent) : void {
+			onSubTaskComplete(event.taskExecutor);
+		}
+
+		private function taskCanceled(event : TaskEvent) : void {
+			onSubTaskCancel(event.taskExecutor);
+		}
+
+		private function taskError(event : TaskEvent) : void {
+			onSubTaskError(event.taskExecutor);
+		}
+
+		private function taskPrioritize(event : TaskEvent) : void {
+			onSubTaskPrioritize(event.taskExecutor);
+		}
+
+		private function taskUpdated(event : TaskEvent) : void {
+			onSubTaskUpdated(event.taskExecutor);
 		}
 
 		virtual protected function onAddTask(task : ITaskRunnable) : void {
@@ -128,12 +133,12 @@ package as3ufw.task.core {
 
 		virtual public function onResume() : void {
 		}
-	
-		override public function exec(fn : Function, execCtx:Boolean, args:Array) : void {
+
+		override public function exec(fn : Function, execCtx : Boolean, args : Array) : void {
 			for each (var executor:TaskExecutor in executors)
 				executor.exec(fn, execCtx, args);
 		}	
-		
+
 		/*
 		 * Overriden stuff
 		 */
@@ -151,10 +156,24 @@ package as3ufw.task.core {
 			_log.error("You cannot call update on a Manager");
 		}
 
+		override public function destroy() : void {
+			for (var i : int = 0; i < _executors.length; i++) {
+				var executor:TaskExecutor = _executors[i] as TaskExecutor;
+				executor.removeEventListener(TaskEvent.COMPLETE, taskComplete, false);
+				executor.removeEventListener(TaskEvent.CANCEL, taskCanceled, false);
+				executor.removeEventListener(TaskEvent.ERROR, taskError, false);
+				executor.removeEventListener(TaskEvent.PRIORITIZE, taskPrioritize, false);
+				executor.removeEventListener(TaskEvent.UPDATE, taskUpdated, false);
+				executor.destroy();
+				_executors[i] = null;
+			}
+			_executors = null;
+		}	
+
 		public function get executors() : Array {
 			return _executors;
 		}
-		
+
 		protected function sortByPriority(a : TaskExecutor, b : TaskExecutor) : Number {
 			var diff : Number = a.priority - b.priority;
 			if( diff > 0) {
@@ -175,7 +194,6 @@ package as3ufw.task.core {
 			return _metrics;
 		}
 
-		
 		override public function set totalSize(size : Number) : void {
 			_log.error("You cannot set the totalSize on a Manager");
 		}
@@ -186,5 +204,23 @@ package as3ufw.task.core {
 
 		private var _log : ILogger = Log.getClassLogger(TaskManagerExecutor);
 		
+		private static var _timer:Timer;
+		private static var _dict:Dictionary;
+		private static var _count:int = 0;
+		
+		{
+			_dict = new Dictionary(true);
+			_timer = new Timer(100);
+			_timer.addEventListener(TimerEvent.TIMER, onTimer);
+			_timer.start();
+		}
+
+		private static function onTimer(event : TimerEvent) : void {
+			trace('>----');
+			for each (var i : * in _dict) {
+				trace(i);
+			}
+			trace('>----');
+		}
 	}
 }
