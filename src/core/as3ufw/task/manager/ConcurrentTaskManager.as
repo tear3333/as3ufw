@@ -15,7 +15,8 @@ package as3ufw.task.manager {
 		private var _concurrency : int;
 		private var _runningCount : int;
 		
-		public function ConcurrentTaskManager(concurrency:int = 10) {
+		public function ConcurrentTaskManager(id:String = null, concurrency:int = 10) {
+			super(id);
 			this._concurrency = concurrency;
 			_runningCount = 0;
 		}

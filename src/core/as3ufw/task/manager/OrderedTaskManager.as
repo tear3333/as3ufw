@@ -7,8 +7,8 @@ package as3ufw.task.manager {
 	 */
 	public class OrderedTaskManager extends ConcurrentTaskManager {
 
-		public function OrderedTaskManager() {
-			super(1);
+		public function OrderedTaskManager(id:String = null) {
+			super(id,1);
 		}
 
 		private var _log : ILogger = Log.getClassLogger(OrderedTaskManager);
