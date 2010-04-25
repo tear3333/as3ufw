@@ -59,7 +59,8 @@ package as3ufw.asset.manager {
 		override public function onComplete() : void {
 			super.onComplete();
 			
-			destroy();
+			//TODO what about this?
+			//destroy();
 		}
 
 		//onc
