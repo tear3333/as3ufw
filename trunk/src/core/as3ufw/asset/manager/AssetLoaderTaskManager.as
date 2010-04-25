@@ -30,8 +30,8 @@ package as3ufw.asset.manager {
 			text	: TextLoaderTask
 		};
 
-		public function AssetLoaderTaskManager(concurrency : int = 10) {
-			super(concurrency);
+		public function AssetLoaderTaskManager(id:String = null, concurrency : int = 10) {
+			super(id, concurrency);
 		}
 
 		/*

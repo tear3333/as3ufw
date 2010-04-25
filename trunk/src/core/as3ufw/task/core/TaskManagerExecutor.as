@@ -17,9 +17,13 @@ package as3ufw.task.core {
 	public class TaskManagerExecutor extends TaskExecutor implements ITaskRunnable, ITaskCancelable, ITaskPausable {
 
 		private var _executors : Array;
+		private var _id : String;
 
-		public function TaskManagerExecutor() {
+		private static var nextID:int = 0;
+
+		public function TaskManagerExecutor(id:String) {
 			super(this);
+			_id = (id == null) ? String(nextID++) : _id;
 			_executors = [];
 		}
 
@@ -28,7 +32,7 @@ package as3ufw.task.core {
 				//_log.warn("Cannot add task " + task + " to a finished manager.");
 				return false;
 			}
-			var executor : TaskExecutor = new TaskExecutor(task);
+			var executor : TaskExecutor = (task is TaskExecutor) ? task as TaskExecutor : new TaskExecutor(task);
 			_executors.push(executor);
 
 			executor.addEventListener(TaskEvent.COMPLETE, taskComplete, false, 0, false);
@@ -110,6 +114,7 @@ package as3ufw.task.core {
 
 		//No need to implement, we already are an executor
 		virtual public function set executor(executor : ITaskExecutor) : void {
+			
 		}
 
 		/*
@@ -201,6 +206,10 @@ package as3ufw.task.core {
 
 		override public function set completeSize(size : Number) : void {
 			_log.error("You cannot set the completeSize on a Manager");
+		}
+
+		override public function toString() : String {
+			return "id=" + _id + " state=" + state + " exectors[" + _executors.length + "]";
 		}
 
 		private var _log : ILogger = Log.getClassLogger(TaskManagerExecutor);

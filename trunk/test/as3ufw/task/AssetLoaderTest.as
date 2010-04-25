@@ -1,4 +1,5 @@
 package as3ufw.task {
+	import as3ufw.task.manager.ConcurrentTaskManager;
 	import flash.system.System;
 	import as3ufw.asset.IAssetLoader;
 	import flash.events.TimerEvent;
@@ -19,7 +20,7 @@ package as3ufw.task {
 	 */
 	public class AssetLoaderTest extends Sprite {
 
-		private var mgr : AssetLoaderTaskManager;
+		private var cmgr : ConcurrentTaskManager;
 
 		private var timer:Timer;
 
@@ -40,21 +41,35 @@ package as3ufw.task {
 			
 			_log.info("AssetLoaderTest starting...");			
 			
-			mgr = new AssetLoaderTaskManager();
+			cmgr = new ConcurrentTaskManager();
 			
-			mgr.add("1", "./data/image1.png");
-			mgr.add("2", "./data/sample.css");
-			mgr.add("3", "./data/doc1.xml");
-			mgr.add("4", "./data/fake");
+			cmgr.addTask(createMgr("a"));
+			cmgr.addTask(createMgr("b"));
 			
-			mgr.addEventListener(TaskEvent.COMPLETE, onComplete);
-			//mgr.addEventListener(TaskEvent.UPDATE, onUpdate);
+			cmgr.addEventListener(TaskEvent.COMPLETE, onComplete);
+			cmgr.addEventListener(TaskEvent.UPDATE, onUpdate);
 			
-			mgr.start();
+			cmgr.start();
 			//timer.start();
 		}
 
+
+		private function createMgr(prefix:String) : AssetLoaderTaskManager {
+			var mgr:AssetLoaderTaskManager = new AssetLoaderTaskManager();
+			
+			mgr.add(prefix+"1", "./data/image1.png");
+			mgr.add(prefix+"2", "./data/sample.css");
+			mgr.add(prefix+"3", "./data/doc1.xml");
+			//mgr.add("4", "./data/fake");
+			return mgr;
+		}
+
+		
 		private function onTimer(event : TimerEvent) : void {
+		}
+
+		private function onUpdate(event : TaskEvent) : void {
+			_log.info(cmgr + " " + cmgr.metrics);
 		}
 
 		private function onComplete(event : TaskEvent) : void {
