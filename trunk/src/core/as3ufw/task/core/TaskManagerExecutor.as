@@ -83,6 +83,7 @@ package as3ufw.task.core {
 			for each (var newtask : ITaskRunnable in task.taskPipeline.newtasks) {
 				addTask(newtask);
 			}
+			task.taskPipeline.newtasks.slice(0);
 			dispatchEvent(new TaskEvent(TaskEvent.UPDATE, this));
 		}
 
@@ -162,6 +163,7 @@ package as3ufw.task.core {
 		}
 
 		override public function destroy() : void {
+			if (_executors == null) return;
 			for (var i : int = 0; i < _executors.length; i++) {
 				//Just making sure we clean up properly
 				var executor:TaskExecutor = _executors[i] as TaskExecutor;

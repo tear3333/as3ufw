@@ -44,7 +44,13 @@ package as3ufw.task {
 			cmgr = new ConcurrentTaskManager();
 			
 			cmgr.addTask(createMgr("a"));
-			cmgr.addTask(createMgr("b"));
+			
+			var sub:AssetLoaderTaskManager = createMgr("b");
+			sub.addTask(createMgr("ba"));
+			sub.addTask(createMgr("bb"));
+			cmgr.addTask(sub);
+			
+			cmgr.addTask(createMgr("c"));
 			
 			cmgr.addEventListener(TaskEvent.COMPLETE, onComplete);
 			cmgr.addEventListener(TaskEvent.UPDATE, onUpdate);
@@ -74,6 +80,7 @@ package as3ufw.task {
 
 		private function onComplete(event : TaskEvent) : void {
 			_log.info("done!");
+			cmgr.destroy();
 		}
 		
 		private var _log : ILogger = Log.getClassLogger(AssetLoaderTest);
