@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assetConfig>
+	
+	<global>
+		<replace token="...">...value to replace with...</replace>
+	</global>
+	
+	<group assetSet="" id="" prependID="true">
+	
+		<item id="item1" type="" priority="">./data/image1.png</item>
+		<item id="item1" type="" priority="">./data/sample.css</item>
+		<item id="item1" type="" priority="">./data/doc1.xml</item>
+	
+		<group assetSet="..." id="..." prependID="true">
+		</group>
+		
+	</group>
+	
+</assetConfig>

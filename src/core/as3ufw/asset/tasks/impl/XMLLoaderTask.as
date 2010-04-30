@@ -11,5 +11,9 @@ package as3ufw.asset.tasks.impl {
 		public function XMLLoaderTask(id : String, url : *, assetSet : AssetSet = null, params : Object = null) {
 			super(id, url, assetSet, ObjectUtils.merge(params, {type:LoaderTypes.TEXT}));
 		}
+		
+		override public function get content() : * {
+			return new XML(super.content);
+		}
 	}
 }
