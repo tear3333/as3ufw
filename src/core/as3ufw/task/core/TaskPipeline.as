@@ -15,6 +15,9 @@ package as3ufw.task.core {
 			resultSet = {};
 			newtasks = [];
 		}
-		
+
+		public function clearNewTasks() : void {
+			newtasks = [];
+		}
 	}
 }
