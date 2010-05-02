@@ -1,5 +1,7 @@
 package as3ufw.asset.manager {
 	import as3ufw.asset.tasks.impl.XMLLoaderTask;
+	import as3ufw.logging.ILogger;
+	import as3ufw.logging.Log;
 	import as3ufw.task.core.TaskManagerExecutor;
 	import as3ufw.task.manager.ConcurrentTaskManager;
 
@@ -35,8 +37,12 @@ package as3ufw.asset.manager {
 			
 			var config : XML = content as XML;
 			
+			if (config == null) {
+				_log.debug("The XML configuration file didnt load correctly");
+				return;
+			}
+			
 			for each (var group : XML in config.group) {
-				trace(group.toXMLString());
 				containerTask.addTask(processGroup(group));
 			}
 			
@@ -44,9 +50,19 @@ package as3ufw.asset.manager {
 		}
 
 		private function processGroup(group : XML) : TaskManagerExecutor {
-			var groupLoaderMgr:AssetLoaderTaskManager = new AssetLoaderTaskManager();
+			var groupLoaderMgr : AssetLoaderTaskManager = new AssetLoaderTaskManager();
 			
+			for each (var item : XML in group.item) {
+				_log.info("Processing item:" + item.toXMLString());
+				groupLoaderMgr.add(item.@id, item);
+			}
+			for each (var childgroup : XML in group.group) {
+				_log.info("Processing Sub-group:" + childgroup.toXMLString());
+				groupLoaderMgr.addTask(processGroup(childgroup));
+			}			
 			return groupLoaderMgr;
 		}
+
+		private static var _log : ILogger = Log.getClassLogger(XMLConfigurationLoader);
 	}
 }

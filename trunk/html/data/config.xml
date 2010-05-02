@@ -5,13 +5,22 @@
 		<replace token="...">...value to replace with...</replace>
 	</global>
 	
-	<group assetSet="" id="" prependID="true">
+	<group assetSet="" id="g1" prependID="true">
 	
 		<item id="item1" type="" priority="">./data/image1.png</item>
-		<item id="item1" type="" priority="">./data/sample.css</item>
-		<item id="item1" type="" priority="">./data/doc1.xml</item>
+		<item id="item2" type="" priority="">./data/sample.css</item>
+		<item id="item3" type="" priority="">./data/doc1.xml</item>
 	
-		<group assetSet="..." id="..." prependID="true">
+	</group>
+
+	<group assetSet="" id="g2" prependID="true">
+	
+		<item id="item4" type="" priority="">./data/image1.png</item>
+		<item id="item5" type="" priority="">./data/sample.css</item>
+		<item id="item6" type="" priority="">./data/doc1.xml</item>
+	
+		<group assetSet="" id="g2" prependID="true">
+			<item id="item6" type="" priority="">./data/sample.css</item>
 		</group>
 		
 	</group>
