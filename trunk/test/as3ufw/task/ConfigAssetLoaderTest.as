@@ -28,7 +28,7 @@ package as3ufw.task {
 			traceAppender.useDate = false;
 			Log.addApender(traceAppender);
 			
-			_log = Log.getClassLogger(BasicTest);
+			_log = Log.getClassLogger(ConfigAssetLoaderTest);
 			
 			_log.info("Starting...");			
 			

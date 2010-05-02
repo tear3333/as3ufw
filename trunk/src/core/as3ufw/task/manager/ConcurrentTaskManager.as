@@ -22,7 +22,8 @@ package as3ufw.task.manager {
 		}
 
 		override public function onStart() : void {
-			if (startConcurrentTasks()) complete();
+			if (executors.length==0) complete();
+			startConcurrentTasks();
 		}
 
 		override public function onSubTaskComplete(task : ITaskExecutor) : void {

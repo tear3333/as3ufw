@@ -83,7 +83,7 @@ package as3ufw.task.core {
 			for each (var newtask : ITaskRunnable in task.taskPipeline.newtasks) {
 				addTask(newtask);
 			}
-			task.taskPipeline.newtasks.slice(0);
+			task.taskPipeline.clearNewTasks();
 			dispatchEvent(new TaskEvent(TaskEvent.UPDATE, this));
 		}
 
