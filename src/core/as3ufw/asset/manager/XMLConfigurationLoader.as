@@ -37,12 +37,16 @@ package as3ufw.asset.manager {
 			
 			for each (var group : XML in config.group) {
 				trace(group.toXMLString());
+				containerTask.addTask(processGroup(group));
 			}
 			
 			_exec.taskPipeline.newtasks.push(containerTask);
 		}
 
-		private function processGroup(group : XML, taskManager : TaskManagerExecutor ) : void {
+		private function processGroup(group : XML) : TaskManagerExecutor {
+			var groupLoaderMgr:AssetLoaderTaskManager = new AssetLoaderTaskManager();
+			
+			return groupLoaderMgr;
 		}
 	}
 }
