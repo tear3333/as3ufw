@@ -24,13 +24,13 @@ package as3ufw.asset.tasks.impl {
 		private var _timer : Timer;
 
 		public function VideoLoaderTask(id : String, url : *, assetSet : AssetSet, params : Object = null) {
-			super(id, url, assetSet, ObjectUtils.merge(params, {type:LoaderTypes.BINARY}));
-		}
-
-		override public function onStart() : void {
 			_netConnection = new NetConnection();
 			_netConnection.connect(null);
 			_netStream = new NetStream(_netConnection);
+			super(id, url, assetSet, ObjectUtils.merge(params, {type:LoaderTypes.BINARY}),_netStream);
+		}
+
+		override public function onStart() : void {
 			_netStream.bufferTime = params["bufferTime"];
 			_netStream.addEventListener(IOErrorEvent.IO_ERROR, onErrorHandler, false, 0, true);
 			_netStream.addEventListener(NetStatusEvent.NET_STATUS, onNetStatus, false, 0, true);

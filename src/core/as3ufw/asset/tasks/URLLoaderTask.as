@@ -17,7 +17,8 @@ package as3ufw.asset.tasks {
 		private var _urlloader : URLLoader;
 
 		public function URLLoaderTask(id : String, url : *, assetSet : AssetSet,  params:Object) {
-			super(id, url, assetSet, params);
+			_urlloader = new URLLoader();
+			super(id, url, assetSet, params,_urlloader);
 		}
 
 		override protected function onCompleteHandler(event : Event) : void {
@@ -26,7 +27,6 @@ package as3ufw.asset.tasks {
 		}
 
 		override public function onStart() : void {
-			_urlloader = new URLLoader();
 			_urlloader.dataFormat = type;
 			_urlloader.addEventListener(ProgressEvent.PROGRESS, onProgressHandler, false, 0, true);
 			_urlloader.addEventListener(Event.COMPLETE, onCompleteHandler, false, 0, true);
