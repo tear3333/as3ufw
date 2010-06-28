@@ -1,4 +1,5 @@
 package as3ufw.asset.tasks {
+	import flash.events.IEventDispatcher;
 	import as3ufw.asset.IAssetLoader;
 	import as3ufw.asset.enum.LoaderTypes;
 	import as3ufw.asset.manager.AssetSet;
@@ -27,6 +28,8 @@ package as3ufw.asset.tasks {
 		private var _type : String;
 		private var _id : String;
 
+		private var _eventDispatcher:IEventDispatcher;
+
 		protected var _exec : ITaskExecutor;
 
 		private var _assetSet : AssetSet;
@@ -37,7 +40,7 @@ package as3ufw.asset.tasks {
 
 		protected var params : Object;
 
-		public function AbstractAssetLoaderTask(id : String, url : *, assetSet : AssetSet, params : Object ) {
+		public function AbstractAssetLoaderTask(id : String, url : *, assetSet : AssetSet, params : Object, eventDispatcher:IEventDispatcher ) {
 			super();
 			this._id = id;
 			if (url is String) {
@@ -57,6 +60,7 @@ package as3ufw.asset.tasks {
 				}
 				_url.data["nonce"] = new Date().getTime();
 			}
+			_eventDispatcher = eventDispatcher;
 		}
 
 		/*
@@ -145,7 +149,27 @@ package as3ufw.asset.tasks {
 			return getQualifiedClassName(this) + " id=" + _id + " url=" + _url.url + " e=" + (_exec!=null) ;
 		}
 
-		private var _log : ILogger = Log.getClassLogger(AbstractAssetLoaderTask);
+		//Proxy EvenDispatcher calls though to underlying implementation
+		public function addEventListener(type : String, listener : Function, useCapture : Boolean = false, priority : int = 0, useWeakReference : Boolean = false) : void {
+			_eventDispatcher.addEventListener(type, listener, useCapture, priority, useWeakReference);
+		}
+
+		public function removeEventListener(type : String, listener : Function, useCapture : Boolean = false) : void {
+			_eventDispatcher.removeEventListener(type,listener,useCapture);
+		}		
 		
+		public function dispatchEvent(event : Event) : Boolean {
+			return _eventDispatcher.dispatchEvent(event);
+		}
+		
+		public function hasEventListener(type : String) : Boolean {
+			return hasEventListener(type);
+		}
+		
+		public function willTrigger(type : String) : Boolean {
+			return willTrigger(type);
+		}
+	
+		private var _log : ILogger = Log.getClassLogger(AbstractAssetLoaderTask);
 	}
 }

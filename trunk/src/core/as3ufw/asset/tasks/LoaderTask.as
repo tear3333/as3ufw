@@ -17,7 +17,8 @@ package as3ufw.asset.tasks {
 		private var _loader : Loader;
 
 		public function LoaderTask(id : String,url : *, assetSet : AssetSet, params:Object) {
-			super(id, url, assetSet, params);
+			_loader = new Loader();
+			super(id, url, assetSet, params, _loader);
 		}
 	
 		override protected function onCompleteHandler(event : Event) : void {
@@ -26,7 +27,6 @@ package as3ufw.asset.tasks {
 		}
 
 		override public function onStart() : void {
-			_loader = new Loader();
 			_loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onProgressHandler, false, 0, true);
 			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onCompleteHandler, false, 0, true);
 			_loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onErrorHandler, false, 0, true);
@@ -60,6 +60,7 @@ package as3ufw.asset.tasks {
 			_loader.contentLoaderInfo.removeEventListener(Event.OPEN, onStartedHandler);
 			_loader.contentLoaderInfo.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, onSecurityErrorHandler);		
 			_loader = null;
-		}		
+		}
+			
 	}
 }
