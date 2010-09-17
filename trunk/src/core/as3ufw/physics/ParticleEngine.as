@@ -8,41 +8,17 @@ package as3ufw.physics {
 	 */
 	public class ParticleEngine {
 
-		public var groups : Array;
-		public var forceGenerator : Array;
-
-		public var damping : Number;
+		public var groups : Vector.<ParticleGroup>;
+		public var forceGenerator : Vector.<IForceGenerator>;
 
 		public function ParticleEngine() {
-			forceGenerator = [];
-			groups = [];
-			damping = 1;
+			forceGenerator = new Vector.<IForceGenerator>();
+			groups = new Vector.<ParticleGroup>();
 		}
 
 		public function update() : void {
-			var now : uint = getTimer();
 			for each (var group : ParticleGroup in groups) {
-		
-				var particle : Particle = group.particles;
-				while (particle) {
-					var fgen : IForceGenerator;
-					for each (fgen in forceGenerator) {
-						fgen.applyForce(particle);
-					}
-					for each (fgen in group.forceGenerators) {
-						fgen.applyForce(particle);
-					}
-					if (!particle.update(now, damping)) {
-						particle = Particle.removeParticle(group.particles, particle);            
-						continue;
-					}
-					
-					particle = particle.next;
-				}
-				for each (var spring : Spring in group.springs) {
-					spring.resolve();
-				}
-				group.render();
+				group.update(forceGenerator);
 			}
 		}
 

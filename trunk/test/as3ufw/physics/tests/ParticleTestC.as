@@ -31,6 +31,7 @@ package as3ufw.physics.tests {
 			addChild(bitmap);
 			
 			//group.addRenderer(new PointRenderer(graphics, 1));
+			group.damping = 0.9;
 			group.addRenderer(new BitmapRenderer(bitmapData));
 			
 			group.addForceGenerator(new InitialPositionAttractor(1));
@@ -42,7 +43,6 @@ package as3ufw.physics.tests {
 			}
 			
 			group.addForceGenerator(new RelativeAttractor(mousePos, 20, 30));
-			engine.damping = 0.99;
 			start();
 		}
 
