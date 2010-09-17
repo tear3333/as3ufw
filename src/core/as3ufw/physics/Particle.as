@@ -64,7 +64,7 @@
 			ttl = 0;
 			colour = 0x000000;
 			decay = 1;
-			active = false;
+			active = true;
 			//params = {}
 			mask = 0;
 			_deltaT = 0.0625;			
@@ -154,28 +154,13 @@
 			return new Particle(pos);
 		}
 		
-		public static function removeParticle(head:Particle, p : Particle) : Particle {
-			var next:Particle = p.next;
-			if (p == head) {                                                
-				head = p.next;
-			} else {
-				p.prev.next = p.next;
-			}
-			if (p.next == null) {
-				
-			} else {
-				p.next.prev = p.prev;
-			}
-			Particle.RecycleParticle(p);
-			return next;
-		}		
-		
 		public static function RecycleParticle(p:Particle):void {
 			if (_particlePool) {
 				_particlePool.prev = p;
 			}
 			p.next = _particlePool;
 			p.prev = null;
+			p.active = false;
 			_particlePool = p;
 		}
 	}

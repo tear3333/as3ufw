@@ -1,4 +1,6 @@
 package as3ufw.physics {
+	import flash.utils.getTimer;
+
 	import as3ufw.physics.emitters.IEmitter;
 	import as3ufw.physics.forces.IForceGenerator;
 	import as3ufw.physics.renderers.IRenderer;
@@ -11,14 +13,17 @@ package as3ufw.physics {
 	public class ParticleGroup {
 
 		public var particles : Particle;
-		public var springs : Array;
-		public var emitters : Array;
-		public var renderers : Array;
-		public var forceGenerators : Array;
+		public var springs : Vector.<Spring>;
+		public var emitters : Vector.<IEmitter>;
+		public var renderers : Vector.<IRenderer>;
+		public var forceGenerators : Vector.<IForceGenerator>;
 
 		public var particleCount : int;
 
 		public var doRender : Boolean;
+
+		public var damping : Number;
+		public var iterations : int;
 
 		private var _id : int;
 		private static var _nextid : int = 0;
@@ -26,11 +31,13 @@ package as3ufw.physics {
 		public function ParticleGroup() {
 			_id = _nextid++;
 			particles = null;
-			springs = [];
-			emitters = [];
-			renderers = []
-			forceGenerators = [];
+			springs = new Vector.<Spring>();
+			emitters = new Vector.<IEmitter>();
+			renderers = new Vector.<IRenderer>();
+			forceGenerators = new Vector.<IForceGenerator>();
 			doRender = true;
+			damping = 1;
+			iterations = 1;
 		}
 
 		public function addParticle(p : Particle) : void {
@@ -41,7 +48,14 @@ package as3ufw.physics {
 		}
 
 		public function removeParticle(p : Particle) : void {
-			Particle.removeParticle(particles, p);
+			if (p == particles) {                                                
+				particles = p.next;
+				particles.prev = null;
+			} else {
+				p.prev.next = p.next;
+				if (p.next) p.next.prev = p.prev;
+			}
+			Particle.RecycleParticle(p);
 			particleCount--;
 		}
 
@@ -76,6 +90,34 @@ package as3ufw.physics {
 
 		public function removeForceGenerator(f : IForceGenerator) : void {
 			//TODO finish
+		}
+
+		public function update( engineForceGenerators:Vector.<IForceGenerator> ) : void {
+			var now : uint = getTimer();
+	
+			var particle : Particle = particles;
+			while (particle) {
+				var fgen : IForceGenerator;
+				for each (fgen in engineForceGenerators) {
+					fgen.applyForce(particle);
+				}
+				for each (fgen in forceGenerators) {
+					fgen.applyForce(particle);
+				}
+				if (!particle.update(now, damping)) {
+					var nextParticle:Particle = particle.next;
+					removeParticle(particle);
+					particle = nextParticle;
+				} else {
+					particle = particle.next;
+				}
+			}
+			for (var i : int = 0; i < iterations; i++) {
+				for each (var spring : Spring in springs) {
+					spring.resolve();
+				}
+			}
+			render();
 		}
 
 		virtual public function render() : void {

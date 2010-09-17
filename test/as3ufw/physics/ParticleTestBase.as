@@ -26,7 +26,7 @@ package as3ufw.physics {
 
 		public function start() : void {
 			addEventListener(Event.ENTER_FRAME, onEnterFrame);
-			addEventListener(Event.REMOVED_FROM_STAGE, stop)
+			addEventListener(Event.REMOVED_FROM_STAGE, stop);
 		}
 
 		public function stop(e:Event=null) : void {
