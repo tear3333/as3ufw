@@ -12,6 +12,7 @@
 	 */
 	public class Particle {
 		public var pos : Vector2D;
+		public var prevPos : Vector2D;
 		public var oldPos : Vector2D;
 
 		public var initPos : Vector2D;
@@ -46,6 +47,7 @@
 		 */
 		public function Particle(pos : Vector2D) {
 			this.pos = new Vector2D();
+			prevPos = new Vector2D();
 			oldPos = new Vector2D();
 			initPos = new Vector2D();
 			forces = new Vector2D();
@@ -55,6 +57,7 @@
 
 		public function reset(pos : Vector2D):void {
 			this.pos.copy(pos);
+			prevPos.copy(pos);
 			oldPos.copy(pos);
 			initPos.copy(pos);
 			forces.setTo(0, 0);
@@ -94,13 +97,18 @@
 			//Optimization                    
 			//var vel : Vector2D = velocity.plus(forces.multEquals(deltaT));
 			//pos.plusEquals(vel.multEquals(damping));
-			pos.x += ( ( ( pos.x - oldPos.x ) + forces.x * deltaT ) * damping * decay );
-			pos.y += ( ( ( pos.y - oldPos.y ) + forces.y * deltaT ) * damping * decay );
+			pos.x += ( ( ( pos.x - prevPos.x ) + forces.x * deltaT ) * damping * decay );
+			pos.y += ( ( ( pos.y - prevPos.y ) + forces.y * deltaT ) * damping * decay );
 			
 			//Optimization  			
-			//oldPos.copy(temp);
-			oldPos.x = temp.x;
-			oldPos.y = temp.y;
+			//oldPos.copy(prevPos);
+			oldPos.x = prevPos.x;
+			oldPos.y = prevPos.y;
+
+			//Optimization  			
+			//prevPos.copy(temp);
+			prevPos.x = temp.x;
+			prevPos.y = temp.y;
 			
 			//Optimization 
 			//forces.setTo(0, 0);
@@ -110,11 +118,11 @@
 		}
 		
 		public function get velocity() : Vector2D {
-			return pos.minus(oldPos);
+			return pos.minus(prevPos);
 		}
 
 		public function set velocity(v : Vector2D) : void {
-			oldPos = pos.minus(v);
+			prevPos = pos.minus(v);
 		}
 		
 		public function set mass(m:Number) : void {

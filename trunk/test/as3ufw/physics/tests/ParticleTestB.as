@@ -2,7 +2,7 @@ package as3ufw.physics.tests {
 	import as3ufw.geom.Vector2D;
 	import as3ufw.physics.ParticleTestBase;
 	import as3ufw.physics.emitters.PointEmitter;
-	import as3ufw.physics.renderers.CurveRenderer;
+	import as3ufw.physics.renderers.JoinedCurveRenderer;
 
 	import flash.events.Event;
 
@@ -20,7 +20,7 @@ package as3ufw.physics.tests {
 			emitter.velocity = 1;
 			
 			group.addEmitter(emitter);
-			group.addRenderer(new CurveRenderer(graphics, 1));
+			group.addRenderer(new JoinedCurveRenderer(graphics, 1));
 			//group.addRenderer(new PointRenderer(graphics,4));
 
 			start();

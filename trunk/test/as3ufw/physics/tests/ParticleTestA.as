@@ -1,7 +1,7 @@
 package as3ufw.physics.tests {
 	import as3ufw.physics.renderers.PointRenderer;
 	import as3ufw.physics.forces.RelativeAttractor;
-	import as3ufw.physics.renderers.CurveRenderer;
+	import as3ufw.physics.renderers.JoinedCurveRenderer;
 	import as3ufw.utils.Random;
 	import as3ufw.physics.Particle;
 	import as3ufw.physics.ParticleTestBase;
@@ -23,7 +23,7 @@ package as3ufw.physics.tests {
 			emitter.velocity = 1;
 			
 			group.addEmitter(emitter);
-			group.addRenderer(new CurveRenderer(graphics,3));
+			group.addRenderer(new JoinedCurveRenderer(graphics,3));
 			//group.addRenderer(new PointRenderer(graphics,3));
 			
 			group.addForceGenerator(new RelativeAttractor(mousePos, 20, 10));

@@ -7,9 +7,9 @@ package as3ufw.physics.renderers {
 	/**
 	 * @author Richard.Jewson
 	 */
-	public class CurveRenderer extends GraphicsRenderer {
+	public class JoinedCurveRenderer extends GraphicsRenderer {
 
-		public function CurveRenderer(graphics : Graphics,width : Number,colour : uint = 0, alpha : Number = 1) {
+		public function JoinedCurveRenderer(graphics : Graphics,width : Number,colour : uint = 0, alpha : Number = 1) {
 			super(graphics, width, colour, alpha);
 		}
 		
