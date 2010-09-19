@@ -1,6 +1,5 @@
 package as3ufw.physics.tests {
 	import as3ufw.physics.renderers.CircleRenderer;
-	import as3ufw.physics.renderers.CurveRenderer;
 	import as3ufw.physics.forces.RelativeAttractor;
 	import as3ufw.physics.Spring;
 	import as3ufw.physics.renderers.PointRenderer;
