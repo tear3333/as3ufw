@@ -147,6 +147,11 @@
 			_deltaT = deltaT;
 		}
 
+		public function setStaticPosition(position:Vector2D) : void {
+			pos.x = prevPos.x = oldPos.x = position.x;
+			pos.y = prevPos.y = oldPos.y = position.y;
+		}
+
 		private static var _particlePool:Particle;
 		private static var _maxPoolCount:int;
 		

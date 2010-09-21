@@ -1,4 +1,5 @@
 package as3ufw.physics.tests {
+	import flash.display.BlendMode;
 	import flash.display.Shape;
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -27,10 +28,10 @@ package as3ufw.physics.tests {
 		
 		public function ParticleTestE() {
 			super();
-			
+			group.damping = 0.8;
 			bmd = new BitmapData(600, 400);	
 			bm = new Bitmap(bmd);//,"auto",true);
-			addChild(bm);
+			addChild(bm); 
 			renderContext = new Shape();
 			
 			var pos:Vector2D = new Vector2D(200,200);
@@ -38,20 +39,31 @@ package as3ufw.physics.tests {
 			//group.addParticle(center);
 			center.fixed = true;
 			
-			var points:int = 100;
+			var points:int = 200;
+			var mass1:Number = 5.0;
+			var mass2:Number = 0.5;
+			var baseMod:Number = 10.0;
+			var partNum:Number = 100;
 			
 			for (var i : int = 0; i < points; i++) {
 				var p:Particle = Particle.GetParticle(pos);
-				p.mass = i+2;
+				//p.mass = (i+1) * 2;
+				
+				p.mass = ((mass1 + i * mass2 + Math.random()) * baseMod) / partNum;
+				//p.mass = 100 + (3*(i+1));
+				trace(p.mass);
+				//p.mass = 1;
+				
 				group.addParticle(p);	
 				
-				var spring:Spring = new Spring(center, p,0.2*(i+1));
+//				var spring:Spring = new Spring(center, p,0.01*(i+1));
+				var spring:Spring = new Spring(center, p,1);
 				group.addSpring(spring);
 
 			}
 			
-//			group.addRenderer(new PointRenderer(graphics,3));
-			group.addRenderer(new SegmentCurveRenderer(renderContext.graphics,1,0,0.05));
+			group.addRenderer(new PointRenderer(graphics,3));
+			group.addRenderer(new SegmentCurveRenderer(renderContext.graphics,1,0x000000,0.05));
 			
 //			group.addForceGenerator(new RelativeAttractor(mousePos, -20, 30));
 			
@@ -65,7 +77,8 @@ package as3ufw.physics.tests {
 			renderContext.graphics.clear();
 			graphics.clear();
 			engine.update();
-			bmd.draw(renderContext);
+			if (lmb)
+				bmd.draw(renderContext,null,null,BlendMode.NORMAL,null,true);
 		}
 	}
 }
