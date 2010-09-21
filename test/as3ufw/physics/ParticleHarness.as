@@ -13,7 +13,7 @@ package as3ufw.physics {
 	 */
 	public class ParticleHarness extends Sprite {
 		
-		private var tests:Array = [ParticleTestA,ParticleTestB,ParticleTestC,ParticleTestD,ParticleTestE];
+		private var tests:Array = [ParticleTestE,ParticleTestD,ParticleTestC,ParticleTestB,ParticleTestA];
 		private var testIndex:int = 0;
 		private var currentTest:Sprite;
 		

@@ -8,7 +8,9 @@ package as3ufw.physics.renderers {
 	 * @author Richard.Jewson
 	 */
 	public class CircleRenderer extends GraphicsRenderer {
-
+		
+		private var _join : Boolean;
+		
 		public function CircleRenderer(graphics : Graphics,width : Number,colour : uint = 0, alpha : Number = 1) {
 			super(graphics, width, colour, alpha);
 		}
@@ -32,6 +34,14 @@ package as3ufw.physics.renderers {
 				particle = particle.next;
 			}
 			graphics.endFill();					
+		}
+		
+		public function get join() : Boolean {
+			return _join;
+		}
+		
+		public function set join(join : Boolean) : void {
+			_join = join;
 		}
 	}
 }
