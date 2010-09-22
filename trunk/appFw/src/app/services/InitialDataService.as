@@ -1,1 +1,0 @@
-package app.services {	import app.events.InitialDataServiceEvent;	import org.robotlegs.mvcs.Actor;	public class InitialDataService extends Actor {		public function InitialDataService() {		}		public function loadInitialData() : void {			dispatch(new InitialDataServiceEvent(InitialDataServiceEvent.DATA_LOADED));		}	}}

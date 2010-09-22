@@ -5,7 +5,7 @@ package app {
 	import app.core.controller.startup.PrepServicesCommand;
 	import app.core.controller.startup.PrepViewCommand;
 	import app.core.controller.startup.StartupCommand;
-	import app.events.InitialDataServiceEvent;
+	import app.core.events.InitialDataServiceEvent;
 
 	import org.robotlegs.base.ContextEvent;
 	import org.robotlegs.mvcs.Context;
