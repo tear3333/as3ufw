@@ -43,6 +43,7 @@ package as3ufw.physics.tests {
 			}
 			
 			group.addForceGenerator(new RelativeAttractor(mousePos, 20, 30));
+			
 			start();
 		}
 

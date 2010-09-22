@@ -32,10 +32,14 @@
 		public var next:Particle;
 		public var birth : uint;
 		public var ttl : uint;
+		public var count : uint;
 		public var colour : uint;
 		public var decay : Number;
 		public var active : Boolean;
 		public var params : Object;
+		
+		public var userData:Object;
+		
 
 		/*
 		 * Constructs the particle
@@ -52,6 +56,7 @@
 			initPos = new Vector2D();
 			forces = new Vector2D();
 			temp = new Vector2D();
+			userData = {};
 			reset(pos);
 		}
 
@@ -60,9 +65,11 @@
 			prevPos.copy(pos);
 			oldPos.copy(pos);
 			initPos.copy(pos);
+			fixed = false;
 			forces.setTo(0, 0);
 			prev = next = null;
 			mass = 1;
+			count = 0;
 			birth = getTimer();
 			ttl = 0;
 			colour = 0x000000;
@@ -70,7 +77,9 @@
 			active = true;
 			//params = {}
 			mask = 0;
-			_deltaT = 0.0625;			
+			_deltaT = 0.0625;	
+			
+				
 		}
 
 		public function addForce(f : Vector2D) : void {
@@ -114,6 +123,8 @@
 			//forces.setTo(0, 0);
 			forces.x = forces.y = 0;
 			
+			count++;
+			
 			return true;
 		}
 		
@@ -148,8 +159,15 @@
 		}
 
 		public function setStaticPosition(position:Vector2D) : void {
-			pos.x = prevPos.x = oldPos.x = position.x;
-			pos.y = prevPos.y = oldPos.y = position.y;
+			pos.x = prevPos.x = position.x;
+			pos.y = prevPos.y = position.y;
+		}
+
+		public function skew(delta:Vector2D) : void {
+			pos.plusEquals(delta);
+			prevPos.plusEquals(delta);
+			oldPos.plusEquals(delta);
+			initPos.plusEquals(delta);
 		}
 
 		private static var _particlePool:Particle;
