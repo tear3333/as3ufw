@@ -1,4 +1,6 @@
 package as3ufw.physics {
+	import as3ufw.geom.Vector2D;
+
 	import flash.utils.getTimer;
 
 	import as3ufw.physics.emitters.IEmitter;
@@ -13,10 +15,13 @@ package as3ufw.physics {
 	public class ParticleGroup {
 
 		public var particles : Particle;
+		public var controlParticles : Vector.<Particle>;
 		public var springs : Vector.<Spring>;
 		public var emitters : Vector.<IEmitter>;
 		public var renderers : Vector.<IRenderer>;
 		public var forceGenerators : Vector.<IForceGenerator>;
+
+		public var pos:Vector2D;
 
 		public var particleCount : int;
 
@@ -31,10 +36,12 @@ package as3ufw.physics {
 		public function ParticleGroup() {
 			_id = _nextid++;
 			particles = null;
+			controlParticles = new Vector.<Particle>();
 			springs = new Vector.<Spring>();
 			emitters = new Vector.<IEmitter>();
 			renderers = new Vector.<IRenderer>();
 			forceGenerators = new Vector.<IForceGenerator>();
+			pos = new Vector2D();
 			doRender = true;
 			damping = 1;
 			iterations = 1;
@@ -57,6 +64,17 @@ package as3ufw.physics {
 			}
 			Particle.RecycleParticle(p);
 			particleCount--;
+		}
+
+		public function addControlParticle(p : Particle) : void {
+			controlParticles.push(p);
+		}
+
+		public function removeControlParticle(p : Particle) : void {
+			var i : int = controlParticles.indexOf(p);
+			if (i>-1) {
+				controlParticles.splice(i, 1);
+			}
 		}
 
 		public function addSpring(s : Spring) : void {
@@ -120,6 +138,19 @@ package as3ufw.physics {
 			render();
 		}
 
+		public function skew(delta:Vector2D) : void {
+			var particle : Particle = particles;
+			while (particle) {
+				particle.skew(delta);
+				particle = particle.next;
+			}
+			for each ( particle in controlParticles) {
+				particle.skew(delta);
+			}
+			pos.plusEquals(delta);
+		}
+
+		
 		virtual public function render() : void {
 			if (!doRender) return;
 			for each (var renderer : IRenderer in renderers) {
