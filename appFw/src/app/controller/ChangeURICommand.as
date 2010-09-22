@@ -1,1 +1,0 @@
-package app.controller {	import app.events.URIEvent;	import app.services.SWFAddressService;	import org.robotlegs.mvcs.Command;	public class ChangeURICommand extends Command {		[Inject] 		public var event : URIEvent;		[Inject] 		public var service : SWFAddressService;		override public function execute() : void {			service.requestURI(event.uri);		}	}}

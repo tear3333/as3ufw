@@ -1,1 +1,0 @@
-package app.controller.startup {	import org.robotlegs.base.ContextEvent;	import org.robotlegs.mvcs.Command;	public class PrepModelCommand extends Command {		[Inject]		public var event : ContextEvent;		public function PrepModelCommand() {		}		override public function execute() : void {			log('Implement model setup!');		}	}}
