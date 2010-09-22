@@ -1,0 +1,1 @@
+package app.core.view {	import flash.display.Sprite;	public class ApplicationView extends Sprite {		public function ApplicationView() {		}		public function initialize() : void {			with (graphics) {				beginFill(0xFF0000);				drawRect(100, 100, 100, 100);			}		}	}}

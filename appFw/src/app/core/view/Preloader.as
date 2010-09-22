@@ -1,5 +1,5 @@
-package app.view {
-	import app.events.InitialDataServiceEvent;
+package app.core.view {
+	import app.core.events.InitialDataServiceEvent;
 
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;

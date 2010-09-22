@@ -1,5 +1,5 @@
-package app.view.mediators {
-	import app.view.ApplicationView;
+package app.core.view.mediators {
+	import app.core.view.ApplicationView;
 
 	import org.robotlegs.mvcs.Mediator;
 
