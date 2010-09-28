@@ -1,4 +1,9 @@
 package as3ufw.physics.tests {
+	import flash.geom.Point;
+	import flash.filters.ColorMatrixFilter;
+	import flash.display.BlendMode;
+
+	import as3ufw.physics.renderers.ContinuousCurveNormalRenderer;
 	import as3ufw.geom.Vector2D;
 	import as3ufw.physics.Particle;
 	import as3ufw.physics.ParticleTestBase;
@@ -15,10 +20,6 @@ package as3ufw.physics.tests {
 	 * @author Richard.Jewson
 	 */
 	public class ParticleTestH extends ParticleTestBase {
-
-		public var bmd : BitmapData;
-		public var bm : Bitmap;
-		public var renderContext : Shape;
 
 		public function ParticleTestH() {
 			super();
@@ -63,6 +64,7 @@ package as3ufw.physics.tests {
 			group.addSpring(new Spring(last, first, 0.4));
 			
 			//group.addRenderer(new PointRenderer(graphics, 3));
+			group.addRenderer(new ContinuousCurveNormalRenderer(renderContext.graphics, 1, 0x00000, 0.1));
 			group.addRenderer(new ContinuousCurverRenderer(renderContext.graphics, 1, 0x00000, 0.1));
 			
 			//group.addForceGenerator(new RelativeAttractor(mousePos, -20, 30));
@@ -78,10 +80,13 @@ package as3ufw.physics.tests {
 			group.skew(mousePos.minus(group.pos));
 			renderContext.graphics.clear();
 			engine.update();
+			if (lmb)
+				bmd.draw(renderContext, null, null, BlendMode.NORMAL, null, true);
 			//if (lmb)
 			//	bmd.draw(renderContext, null, null, BlendMode.MULTIPLY, null, true);
 			//bmd.colorTransform(bmd.rect, new ColorTransform(1,1,1,1,0,0,0,0));
 			//bmd.applyFilter(bmd, bmd.rect, new Point(0,0), new BlurFilter(1.1, 1.1, 1));
+			bmd.applyFilter(bmd, bmd.rect, new Point(0,0), new ColorMatrixFilter( [ 1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0.9,0 ] ) );
 		}
 	}
 }

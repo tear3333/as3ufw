@@ -1,9 +1,12 @@
 package as3ufw.physics {
-	import flash.events.MouseEvent;
 	import as3ufw.geom.Vector2D;
 
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
+	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 
 	/**
 	 * @author Richard.Jewson
@@ -12,8 +15,11 @@ package as3ufw.physics {
 
 		public var engine : ParticleEngine;
 		public var group : ParticleGroup;
-		public var mousePos:Vector2D;
+		public var mousePos : Vector2D;
 		public var lmb : Boolean;
+		public var bmd : BitmapData;
+		public var bm : Bitmap;
+		public var renderContext : Shape;
 
 		public function ParticleTestBase() {
 			init();
@@ -24,6 +30,11 @@ package as3ufw.physics {
 			group = new ParticleGroup();
 			engine.addGroup(group);
 			mousePos = new Vector2D();
+			bmd = new BitmapData(600, 400);	
+			bm = new Bitmap(bmd);//,"auto",true);
+			addChild(bm); 
+			renderContext = new Shape();
+			addChild(renderContext);
 		}
 
 		public function start() : void {
@@ -41,7 +52,7 @@ package as3ufw.physics {
 			lmb = true;
 		}
 
-		public function stop(e:Event=null) : void {
+		public function stop(e : Event = null) : void {
 			removeEventListener(Event.ENTER_FRAME, onEnterFrame);
 		}
 

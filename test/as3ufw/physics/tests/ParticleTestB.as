@@ -20,14 +20,14 @@ package as3ufw.physics.tests {
 			emitter.velocity = 1;
 			
 			group.addEmitter(emitter);
-			group.addRenderer(new JoinedCurveRenderer(graphics, 1));
+			group.addRenderer(new JoinedCurveRenderer(renderContext.graphics, 1));
 			//group.addRenderer(new PointRenderer(graphics,4));
 
 			start();
 		}
 
 		override public function onEnterFrame(event : Event) : void {
-			graphics.clear();
+			renderContext.graphics.clear();
 			emitter.angle += 1;
 			emitter.emit({ttl:10000});
 			engine.update();
