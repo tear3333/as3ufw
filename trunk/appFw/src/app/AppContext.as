@@ -13,8 +13,7 @@ package app {
 	import flash.display.DisplayObjectContainer;
 
 	public class AppContext extends Context {
-		public function AppContext(
-			contextView : DisplayObjectContainer = null, autoStartup : Boolean = true) {
+		public function AppContext(contextView : DisplayObjectContainer = null, autoStartup : Boolean = true) {
 			super(contextView, autoStartup);
 		}
 

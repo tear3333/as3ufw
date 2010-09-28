@@ -1,32 +1,26 @@
 package as3ufw.physics.tests {
-	import flash.geom.ColorTransform;
-	import flash.filters.BlurFilter;
-	import flash.geom.Point;
-
 	import as3ufw.geom.Vector2D;
 	import as3ufw.physics.Particle;
 	import as3ufw.physics.ParticleTestBase;
 	import as3ufw.physics.Spring;
 	import as3ufw.physics.forces.RandomForce;
 	import as3ufw.physics.renderers.ContinuousCurverRenderer;
-	import as3ufw.physics.renderers.PointRenderer;
 
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
-	import flash.display.BlendMode;
 	import flash.display.Shape;
 	import flash.events.Event;
 
 	/**
 	 * @author Richard.Jewson
 	 */
-	public class ParticleTestD extends ParticleTestBase {
+	public class ParticleTestH extends ParticleTestBase {
 
 		public var bmd : BitmapData;
 		public var bm : Bitmap;
 		public var renderContext : Shape;
 
-		public function ParticleTestD() {
+		public function ParticleTestH() {
 			super();
 
 			group.damping = 1;
@@ -36,7 +30,6 @@ package as3ufw.physics.tests {
 			addChild(bm); 
 			renderContext = new Shape();
 			addChild(renderContext);
-
 			var firstPos : Vector2D = new Vector2D(200, 200);
 			
 			var center : Particle = Particle.GetParticle(firstPos.clone());
@@ -70,7 +63,7 @@ package as3ufw.physics.tests {
 			group.addSpring(new Spring(last, first, 0.4));
 			
 			//group.addRenderer(new PointRenderer(graphics, 3));
-			group.addRenderer(new ContinuousCurverRenderer(renderContext.graphics, 1,0x00000, 0.1));
+			group.addRenderer(new ContinuousCurverRenderer(renderContext.graphics, 1, 0x00000, 0.1));
 			
 			//group.addForceGenerator(new RelativeAttractor(mousePos, -20, 30));
 			group.addForceGenerator(new RandomForce(3));
@@ -85,9 +78,9 @@ package as3ufw.physics.tests {
 			group.skew(mousePos.minus(group.pos));
 			renderContext.graphics.clear();
 			engine.update();
-			if (lmb)
-				bmd.draw(renderContext, null, null, BlendMode.MULTIPLY, null, true);
-			bmd.colorTransform(bmd.rect, new ColorTransform(1,1,1,1,0,0,0,0));
+			//if (lmb)
+			//	bmd.draw(renderContext, null, null, BlendMode.MULTIPLY, null, true);
+			//bmd.colorTransform(bmd.rect, new ColorTransform(1,1,1,1,0,0,0,0));
 			//bmd.applyFilter(bmd, bmd.rect, new Point(0,0), new BlurFilter(1.1, 1.1, 1));
 		}
 	}
