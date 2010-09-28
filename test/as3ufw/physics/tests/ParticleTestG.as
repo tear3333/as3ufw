@@ -1,4 +1,5 @@
 package as3ufw.physics.tests {
+	import as3ufw.physics.renderers.SegmentCurveNormalRenderer;
 	import as3ufw.geom.Vector2D;
 	import as3ufw.physics.Particle;
 	import as3ufw.physics.ParticleTestBase;
@@ -15,14 +16,14 @@ package as3ufw.physics.tests {
 	/**
 	 * @author Richard.Jewson
 	 */
-	public class ParticleTestE extends ParticleTestBase {
+	public class ParticleTestG extends ParticleTestBase {
 
 		public var center : Particle;
 		public var bmd : BitmapData;
 		public var bm : Bitmap;
 		public var renderContext : Shape;
 
-		public function ParticleTestE() {
+		public function ParticleTestG() {
 			super();
 			group.damping = 0.8;
 			bmd = new BitmapData(600, 400);	
@@ -35,32 +36,14 @@ package as3ufw.physics.tests {
 			//group.addParticle(center);
 			center.fixed = true;
 			
-			var points : int = 200;
-			var mass1 : Number = 5.0;
-			var mass2 : Number = 0.5;
-			var baseMod : Number = 10.0;
-			var partNum : Number = 100;
-			
-			for (var i : int = 0;i < points;i++) {
-				var p : Particle = Particle.GetParticle(pos);
-				//p.mass = (i+1) * 2;
-
-				p.mass = ((mass1 + i * mass2 + Math.random()) * baseMod) / partNum;
-				//p.mass = 100 + (3*(i+1));
-				trace(p.mass);
-				//p.mass = 1;
-
-				group.addParticle(p);	
+			var p : Particle = Particle.GetParticle(pos);
+			p.mass = 0.1;
+			group.addParticle(p);	
 				
-				//				var spring:Spring = new Spring(center, p,0.01*(i+1));
-				var spring : Spring = new Spring(center, p, 1);
-				group.addSpring(spring);
-			}
+			var spring : Spring = new Spring(center, p, 1);
+			group.addSpring(spring);
 			
-			group.addRenderer(new PointRenderer(graphics, 3));
-			group.addRenderer(new SegmentCurveRenderer(renderContext.graphics, 1, 0x000000, 0.05));
-			
-			//			group.addForceGenerator(new RelativeAttractor(mousePos, -20, 30));
+			group.addRenderer(new SegmentCurveNormalRenderer(renderContext.graphics, 1, 0x000000, 0.1));
 
 			start();
 		}

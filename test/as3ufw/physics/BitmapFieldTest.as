@@ -54,9 +54,9 @@ package as3ufw.physics {
 		private function setupParticles():void {
 			
 			_engine = new ParticleEngine();
-			_engine.damping = 0.99;
 			//_engine.graphics = _particleLayer.graphics;
 			var group:ParticleGroup = new ParticleGroup();
+			group.damping = 0.99;
 			_engine.addGroup(group);
 			e = new RectangularRandomEmitter(new Rectangle(0,0,stage.width,stage.height));
 			e.group = group;
