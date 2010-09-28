@@ -19,17 +19,10 @@ package as3ufw.physics.tests {
 	public class ParticleTestG extends ParticleTestBase {
 
 		public var center : Particle;
-		public var bmd : BitmapData;
-		public var bm : Bitmap;
-		public var renderContext : Shape;
 
 		public function ParticleTestG() {
 			super();
 			group.damping = 0.8;
-			bmd = new BitmapData(600, 400);	
-			bm = new Bitmap(bmd);//,"auto",true);
-			addChild(bm); 
-			renderContext = new Shape();
 			
 			var pos : Vector2D = new Vector2D(200, 200);
 			center = Particle.GetParticle(pos);

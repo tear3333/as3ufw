@@ -22,10 +22,6 @@ package as3ufw.physics.tests {
 	 */
 	public class ParticleTestD extends ParticleTestBase {
 
-		public var bmd : BitmapData;
-		public var bm : Bitmap;
-		public var renderContext : Shape;
-
 		public function ParticleTestD() {
 			super();
 

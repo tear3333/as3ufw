@@ -22,8 +22,8 @@ package as3ufw.physics.tests {
 		public function ParticleTestF() {
 			super();
 			
-			var pointRenderer : PointRenderer = new PointRenderer(graphics, 3);
-			var curveRenderer : ContinuousCurverRenderer = new ContinuousCurverRenderer(graphics, 1);
+			var pointRenderer : PointRenderer = new PointRenderer(renderContext.graphics, 3);
+			var curveRenderer : ContinuousCurverRenderer = new ContinuousCurverRenderer(renderContext.graphics, 1);
 			curveRenderer.join = false;
 			
 			for (var i : int = 0;i < lines;i++) {
@@ -48,7 +48,7 @@ package as3ufw.physics.tests {
 		override public function onEnterFrame(event : Event) : void {
 			mousePos.x = stage.mouseX;
 			mousePos.y = stage.mouseY;
-			graphics.clear();
+			renderContext.graphics.clear();
 			engine.update();
 			//bmd.draw(renderContext, null, null, BlendMode.NORMAL, null, true);
 		}

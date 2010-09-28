@@ -151,6 +151,10 @@ package as3ufw.geom {
 			return new Vector2D((this.x < 0) ? -this.x : this.x, (this.y < 0) ? -this.y : this.y);
 		}
 
+		public function interp( blend : Number , v : Vector2D ) : Vector2D {
+			return new Vector2D( this.x + blend * (v.x - this.x) , this.y + blend * (v.y - this.y) );
+		}
+
 		public function interpEquals( blend : Number , v : Vector2D ) : Vector2D {
 			this.x = this.x + blend * (v.x - this.x);
 			this.y = this.y + blend * (v.y - this.y);

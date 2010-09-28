@@ -1,4 +1,7 @@
 package as3ufw.physics.renderers {
+	import flash.display.CapsStyle;
+
+	import as3ufw.geom.Vector2D;
 	import as3ufw.physics.Particle;
 	import as3ufw.physics.ParticleGroup;
 
@@ -8,9 +11,9 @@ package as3ufw.physics.renderers {
 	 * @author Richard.Jewson
 	 */
 	public class ContinuousCurverRenderer extends GraphicsRenderer {
-		
+
 		private var _join : Boolean;
-		
+
 		public function ContinuousCurverRenderer(graphics : Graphics,width : Number,colour : uint = 0, alpha : Number = 1) {
 			super(graphics, width, colour, alpha);
 			_join = true;
@@ -19,24 +22,33 @@ package as3ufw.physics.renderers {
 		override public function render(g : ParticleGroup) : void {
 			if (!g.particles || g.particleCount < 3) return;
 
-			graphics.lineStyle(width, colour, alpha);
-			graphics.moveTo( (g.particles.pos.x + g.particles.next.pos.x) * 0.5 , (g.particles.pos.y + g.particles.next.pos.y) * 0.5 );
+			var first : Vector2D;
+			var last : Vector2D;
+			var next : Vector2D;
+
+			graphics.lineStyle(width, colour + (0x000000), alpha,true,"normal",CapsStyle.NONE);
+			first = g.particles.pos.interp(0.5, g.particles.next.pos);
+			last = first.clone();
+			graphics.moveTo(last.x, last.y);
 			
 			var particle : Particle = g.particles.next;
 			while (particle.next) {
-				graphics.curveTo(particle.pos.x, particle.pos.y, (particle.pos.x + particle.next.pos.x) / 2, (particle.pos.y + particle.next.pos.y) / 2);
+				next = particle.pos.interp(0.5, particle.next.pos);
+				graphics.curveTo(particle.pos.x, particle.pos.y, next.x, next.y);
+				last.copy(next);
 				particle = particle.next;
 			}
-			if (_join) {
-				graphics.curveTo(particle.pos.x, particle.pos.y, (particle.pos.x + g.particles.pos.x) / 2, (particle.pos.y + g.particles.pos.y) / 2);
-				graphics.curveTo(g.particles.pos.x, g.particles.pos.y, (g.particles.pos.x + g.particles.next.pos.x) / 2, (g.particles.pos.y + g.particles.next.pos.y) / 2);
+			if (join) {
+				next = particle.pos.interp(0.5, g.particles.pos);
+				graphics.curveTo(particle.pos.x, particle.pos.y, next.x, next.y);
+				graphics.curveTo(g.particles.pos.x, g.particles.pos.y, first.x, first.y);
 			}
 		}
-		
+
 		public function get join() : Boolean {
 			return _join;
 		}
-		
+
 		public function set join(join : Boolean) : void {
 			_join = join;
 		}

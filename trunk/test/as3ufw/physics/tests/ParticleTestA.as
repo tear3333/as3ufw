@@ -23,7 +23,7 @@ package as3ufw.physics.tests {
 			emitter.velocity = 1;
 			
 			group.addEmitter(emitter);
-			group.addRenderer(new JoinedCurveRenderer(graphics,3));
+			group.addRenderer(new JoinedCurveRenderer(renderContext.graphics, 3));
 			//group.addRenderer(new PointRenderer(graphics,3));
 			
 			group.addForceGenerator(new RelativeAttractor(mousePos, 20, 10));
@@ -36,7 +36,7 @@ package as3ufw.physics.tests {
 			mousePos.x = stage.mouseX;
 			mousePos.y = stage.mouseY;
 			
-			graphics.clear();
+			renderContext.graphics.clear();
 			emitter.angle+=Random.float(0.45, 0.55);
 			emitter.velocity = Random.float(0.95, 1.05);
 			emitter.emit({ttl:10000});
