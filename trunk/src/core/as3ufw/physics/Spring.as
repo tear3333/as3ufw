@@ -22,7 +22,7 @@ package as3ufw.physics {
             
             if ((!p1 || !p1.active || !p2 || !p2.active) ) return false;
             
-			var deltaLength : Number = length;                    
+			var deltaLength : Number = length + 0.00001;                    
 			var diff : Number = (deltaLength - _restLength) / (deltaLength * (p1.invMass + p2.invMass));
 			var delta : Vector2D = p1.pos.minus(p2.pos);
 			var dmds : Vector2D = delta.mult(diff * stiffness);

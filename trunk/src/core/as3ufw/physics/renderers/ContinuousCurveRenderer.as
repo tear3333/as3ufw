@@ -10,11 +10,11 @@ package as3ufw.physics.renderers {
 	/**
 	 * @author Richard.Jewson
 	 */
-	public class ContinuousCurverRenderer extends GraphicsRenderer {
+	public class ContinuousCurveRenderer extends GraphicsRenderer {
 
 		private var _join : Boolean;
 
-		public function ContinuousCurverRenderer(graphics : Graphics,width : Number,colour : uint = 0, alpha : Number = 1) {
+		public function ContinuousCurveRenderer(graphics : Graphics,width : Number,colour : uint = 0, alpha : Number = 1) {
 			super(graphics, width, colour, alpha);
 			_join = true;
 		}
@@ -29,7 +29,7 @@ package as3ufw.physics.renderers {
 			graphics.lineStyle(width, colour + (0x000000), alpha,true,"normal",CapsStyle.NONE);
 			first = g.particles.pos.interp(0.5, g.particles.next.pos);
 			last = first.clone();
-			graphics.moveTo(last.x, last.y);
+			graphics.moveTo(first.x, first.y);
 			
 			var particle : Particle = g.particles.next;
 			while (particle.next) {

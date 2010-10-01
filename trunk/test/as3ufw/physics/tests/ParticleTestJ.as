@@ -1,4 +1,6 @@
 package as3ufw.physics.tests {
+	import as3ufw.utils.Random;
+	import as3ufw.physics.Spring;
 	import as3ufw.geom.Vector2D;
 	import as3ufw.physics.Particle;
 	import as3ufw.physics.ParticleGroup;
@@ -13,13 +15,15 @@ package as3ufw.physics.tests {
 	/**
 	 * @author Richard.Jewson
 	 */
-	public class ParticleTestF extends ParticleTestBase {
+	public class ParticleTestJ extends ParticleTestBase {
 
 		public var center : Particle;
-		public var lines : int = 40;
-		public var particlesPerLine : int = 20;
+		public var lines : int = 1;
+		public var particlesPerLine : int = 5;
+		public var lineWidth : int = 600;
+		public var lineHeight : int = 200;
 
-		public function ParticleTestF() {
+		public function ParticleTestJ() {
 			super();
 			
 			var pointRenderer : PointRenderer = new PointRenderer(renderContext.graphics, 3);
@@ -28,19 +32,36 @@ package as3ufw.physics.tests {
 			
 			for (var i : int = 0;i < lines;i++) {
 				var lineGroup : ParticleGroup = new ParticleGroup();
-				lineGroup.damping = 0.99;
+				lineGroup.damping = 1;
+				var first:Particle = null;
+				var last:Particle = null;
+				
 				for (var j : int = 0;j < particlesPerLine;j++) {
-					var pos : Vector2D = new Vector2D(j * 30, i * 10);
+					var pos : Vector2D = new Vector2D(j * (lineWidth/particlesPerLine), lineHeight + Random.float(-100, 100));
 					var p : Particle = Particle.GetParticle(pos);
+					if (j==0 ) {
+						first = p;
+						p.fixed = true;
+						p.pos.y = lineHeight;
+					} else if (j==particlesPerLine-1)
+						p.fixed = true;
+						p.pos.y = lineHeight;
+					if (last) {
+						var spring : Spring = new Spring(last, p, 0.05);
+						group.addSpring(spring);
+						//spring = new Spring(first, p, 0.05);
+						//group.addSpring(spring);
+					}
 					lineGroup.addParticle(p);
+					last = p;
 				}
 				lineGroup.addRenderer(pointRenderer);
 				lineGroup.addRenderer(curveRenderer);
 				engine.addGroup(lineGroup);
 			}
 			
-			engine.addForceGenerator(new RelativeAttractor(mousePos, -20, 100));
-			engine.addForceGenerator(new InitialPositionAttractor(1.1));
+			engine.addForceGenerator(new RelativeAttractor(mousePos, 10, 50));
+			//engine.addForceGenerator(new InitialPositionAttractor(0.1));
 			
 			start();
 		}

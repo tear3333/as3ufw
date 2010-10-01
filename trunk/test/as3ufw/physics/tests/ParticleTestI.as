@@ -1,4 +1,6 @@
 package as3ufw.physics.tests {
+	import flash.display.CapsStyle;
+	import flash.display.GraphicsPath;
 	import flash.filters.ColorMatrixFilter;
 
 	import as3ufw.physics.renderers.TestPathRenderer;
@@ -24,9 +26,10 @@ package as3ufw.physics.tests {
 	/**
 	 * @author Richard.Jewson
 	 */
-	public class ParticleTestD extends ParticleTestBase {
+	public class ParticleTestI extends ParticleTestBase {
+		private var testPathRender : TestPathRenderer;
 
-		public function ParticleTestD() {
+		public function ParticleTestI() {
 			super();
 
 			group.damping = 1;
@@ -64,24 +67,36 @@ package as3ufw.physics.tests {
 			group.addSpring(new Spring(last, first, 0.4));
 			
 			//group.addRenderer(new PointRenderer(graphics, 3));
-			group.addRenderer(new ContinuousCurveRenderer(renderContext.graphics, 1,0x00000, 0.1));
-//			group.addRenderer(new TestPathRenderer(renderContext.graphics, 1,0x00000, 0.1));
+//			group.addRenderer(new ContinuousCurveRenderer(renderContext.graphics, 1,0x00000, 0.1));
+			testPathRender = new TestPathRenderer(renderContext.graphics, 1,0x00000, 0.1);
+			testPathRender.trail = 100;
+			group.addRenderer(testPathRender);
 			
 			//group.addForceGenerator(new RelativeAttractor(mousePos, -20, 30));
-			group.addForceGenerator(new RandomForce(3));
+			group.addForceGenerator(new RandomForce(5));
 			//group.addForceGenerator(new PulseAttractor(mousePos,0.1));
 
 			start();
 		}
 
 		override public function onEnterFrame(event : Event) : void {
-			mousePos.x = stage.mouseX;
-			mousePos.y = stage.mouseY;
-			group.skew(mousePos.minus(group.pos));
+			bmd.fillRect(bmd.rect, 0xFFFFFF);
+			//mousePos.x = stage.mouseX;
+			//mousePos.y = stage.mouseY;
+			//group.skew(mousePos.minus(group.pos));
 			renderContext.graphics.clear();
 			engine.update();
 			if (lmb)
 				bmd.draw(renderContext, null, null, BlendMode.NORMAL, null, true);
+				
+			var tempShape:Shape = new Shape();
+			for each (var path : GraphicsPath in testPathRender.history) {
+				tempShape.graphics.clear();
+				tempShape.graphics.lineStyle(10, (0x000000), 0.025, true, "normal", CapsStyle.NONE);
+				tempShape.graphics.drawPath(path.commands, path.data);
+				bmd.draw(tempShape, null, null, BlendMode.NORMAL, null, true);
+			}	
+				
 			//bmd.colorTransform(bmd.rect, new ColorTransform(1,1,1,1,0,0,0,0));
 			//bmd.applyFilter(bmd, bmd.rect, new Point(0,0), new ColorMatrixFilter( [ 1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0.992,0 ] ) );
 			//bmd.applyFilter(bmd, bmd.rect, new Point(0,0), new BlurFilter(1.1, 1.1, 1));

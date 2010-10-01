@@ -22,7 +22,7 @@ package app.core.view.components {
 			dispatchEvent(new ViewEvent(ViewEvent.HIDE_START));
 		}
 
-		protected function initialize() : void {
+		public function initialize() : void {
 		}
 
 		protected function show_complete(event : Event = null) : void {
