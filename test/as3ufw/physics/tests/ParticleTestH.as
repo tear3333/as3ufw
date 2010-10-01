@@ -9,7 +9,7 @@ package as3ufw.physics.tests {
 	import as3ufw.physics.ParticleTestBase;
 	import as3ufw.physics.Spring;
 	import as3ufw.physics.forces.RandomForce;
-	import as3ufw.physics.renderers.ContinuousCurverRenderer;
+	import as3ufw.physics.renderers.ContinuousCurveRenderer;
 
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -65,7 +65,7 @@ package as3ufw.physics.tests {
 			
 			//group.addRenderer(new PointRenderer(graphics, 3));
 			group.addRenderer(new ContinuousCurveNormalRenderer(renderContext.graphics, 1, 0x00000, 0.1));
-			group.addRenderer(new ContinuousCurverRenderer(renderContext.graphics, 1, 0x00000, 0.1));
+			group.addRenderer(new ContinuousCurveRenderer(renderContext.graphics, 1, 0x00000, 0.1));
 			
 			//group.addForceGenerator(new RelativeAttractor(mousePos, -20, 30));
 			group.addForceGenerator(new RandomForce(3));
