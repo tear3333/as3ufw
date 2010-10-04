@@ -106,8 +106,8 @@
 			//Optimization                    
 			//var vel : Vector2D = velocity.plus(forces.multEquals(deltaT));
 			//pos.plusEquals(vel.multEquals(damping));
-			pos.x += ( ( ( pos.x - prevPos.x ) + forces.x * deltaT ) * damping * decay );
-			pos.y += ( ( ( pos.y - prevPos.y ) + forces.y * deltaT ) * damping * decay );
+			pos.x += ( ( ( pos.x - prevPos.x ) + forces.x * _deltaT ) * damping * decay );
+			pos.y += ( ( ( pos.y - prevPos.y ) + forces.y * _deltaT ) * damping * decay );
 			
 			//Optimization  			
 			//oldPos.copy(prevPos);
