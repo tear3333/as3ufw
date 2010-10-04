@@ -1,4 +1,7 @@
 package as3ufw.physics.tests {
+	import com.greensock.easing.Sine;
+	import com.greensock.TweenMax;
+
 	import as3ufw.utils.Random;
 	import as3ufw.physics.Spring;
 	import as3ufw.geom.Vector2D;
@@ -22,6 +25,7 @@ package as3ufw.physics.tests {
 		public var particlesPerLine : int = 5;
 		public var lineWidth : int = 600;
 		public var lineHeight : int = 200;
+		private var globalSpring : Spring;
 
 		public function ParticleTestJ() {
 			super();
@@ -35,10 +39,12 @@ package as3ufw.physics.tests {
 				lineGroup.damping = 1;
 				var first:Particle = null;
 				var last:Particle = null;
+				var spring : Spring;
 				
 				for (var j : int = 0;j < particlesPerLine;j++) {
-					var pos : Vector2D = new Vector2D(j * (lineWidth/particlesPerLine), lineHeight + Random.float(-100, 100));
+					var pos : Vector2D = new Vector2D(j * (lineWidth/(particlesPerLine-1)), lineHeight + Random.float(-5, 5));
 					var p : Particle = Particle.GetParticle(pos);
+
 					if (j==0 ) {
 						first = p;
 						p.fixed = true;
@@ -47,24 +53,31 @@ package as3ufw.physics.tests {
 						p.fixed = true;
 						p.pos.y = lineHeight;
 					if (last) {
-						var spring : Spring = new Spring(last, p, 0.05);
+						spring = new Spring(last, p, 0.01);
 						group.addSpring(spring);
-						//spring = new Spring(first, p, 0.05);
-						//group.addSpring(spring);
+						spring = new Spring(first, p, 0.0001);
+						group.addSpring(spring);
+					}
+					if (j==1 ) {
+						globalSpring = spring;
 					}
 					lineGroup.addParticle(p);
 					last = p;
 				}
+				globalSpring.stiffness = 1;
+				TweenMax.to(globalSpring,5,{length:20, repeat:-1, ease:Sine.easeInOut, yoyo:true , onUpdate:traceGlobal});
 				lineGroup.addRenderer(pointRenderer);
 				lineGroup.addRenderer(curveRenderer);
 				engine.addGroup(lineGroup);
 			}
 			
-			engine.addForceGenerator(new RelativeAttractor(mousePos, 10, 50));
+			engine.addForceGenerator(new RelativeAttractor(mousePos, -10, 50));
 			//engine.addForceGenerator(new InitialPositionAttractor(0.1));
 			
 			start();
 		}
+
+		public function traceGlobal(){trace(globalSpring.length)};
 
 		override public function onEnterFrame(event : Event) : void {
 			mousePos.x = stage.mouseX;

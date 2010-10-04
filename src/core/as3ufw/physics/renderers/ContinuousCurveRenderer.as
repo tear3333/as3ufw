@@ -26,23 +26,45 @@ package as3ufw.physics.renderers {
 			var last : Vector2D;
 			var next : Vector2D;
 
+			var particle : Particle;
+
 			graphics.lineStyle(width, colour + (0x000000), alpha,true,"normal",CapsStyle.NONE);
-			first = g.particles.pos.interp(0.5, g.particles.next.pos);
-			last = first.clone();
-			graphics.moveTo(first.x, first.y);
 			
-			var particle : Particle = g.particles.next;
-			while (particle.next) {
-				next = particle.pos.interp(0.5, particle.next.pos);
-				graphics.curveTo(particle.pos.x, particle.pos.y, next.x, next.y);
-				last.copy(next);
-				particle = particle.next;
-			}
+			//Need to handle joined lines differently
 			if (join) {
+				
+				first = g.particles.pos.interp(0.5, g.particles.next.pos);
+				last = first.clone();
+				graphics.moveTo(first.x, first.y);
+				
+				particle = g.particles.next;
+				while (particle.next) {
+					next = particle.pos.interp(0.5, particle.next.pos);
+					graphics.curveTo(particle.pos.x, particle.pos.y, next.x, next.y);
+					last.copy(next);
+					particle = particle.next;
+				}
 				next = particle.pos.interp(0.5, g.particles.pos);
 				graphics.curveTo(particle.pos.x, particle.pos.y, next.x, next.y);
 				graphics.curveTo(g.particles.pos.x, g.particles.pos.y, first.x, first.y);
+				
+			} else {
+
+				first = g.particles.pos.clone();
+				last = first.clone();
+				graphics.moveTo(first.x, first.y);		
+
+				particle = g.particles.next;
+				while (particle.next.next) {
+					next = particle.pos.interp(0.5, particle.next.pos);
+					graphics.curveTo(particle.pos.x, particle.pos.y, next.x, next.y);
+					last.copy(next);
+					particle = particle.next;
+				}
+				graphics.curveTo(particle.pos.x, particle.pos.y, particle.next.pos.x, particle.next.pos.y);
+						
 			}
+			
 		}
 
 		public function get join() : Boolean {

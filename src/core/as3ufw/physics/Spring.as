@@ -8,7 +8,7 @@ package as3ufw.physics {
 
 		private var p1 : Particle;
 		private var p2 : Particle;
-		private var stiffness : Number;
+		public var stiffness : Number;
 		private var _restLength : Number;
 
 		public function Spring(p1 : Particle,p2 : Particle,stiffness : Number = 0.5) {

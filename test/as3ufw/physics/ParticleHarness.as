@@ -23,6 +23,7 @@ package as3ufw.physics {
 		private var currentTest:Sprite;
 		
 		public function ParticleHarness() {
+
 			init();
 		}
 

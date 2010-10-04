@@ -12,9 +12,9 @@ package {
 			var j : int = st.indexOf('()', i);
 			st = st.substring(i, j);
 			st = st.replace("::", ".");
-			Log.log(Log.NONE, st, message, rest);
+			Log.logWithParseLevel( Log.NONE, st, message, rest);
 		} else {
-			Log.log(Log.NONE, null, message, rest);
+			Log.logWithParseLevel( Log.NONE, null, message, rest);
 		}
 		
 	}
