@@ -3,6 +3,8 @@ package {
 	
 	public function log(message : *,... rest) : void {
 	
+		if (!Log.enabled) return;
+	
 		var e : Error = new Error();	
 		var st : String = e.getStackTrace();
 		

@@ -11,22 +11,22 @@ package as3ufw.logging.appenders {
 			super();
 		}
 
-		override public function write(level : int, className : String, text : String, params : Array) : Boolean {
-			if (!super.write(level, className, text, params)) return false;
+		override public function write(level : int, className : String, text : String, params : Array) : void {
 			
-			var msg:String = '';
+			var msg:String = "";
 				
-			if (useDate) msg += (new Date()).toString();
+			if (Log.useDate) msg += (new Date()).toString();
 				
-			if (useLevel&&level) msg += Log.levelToString(level) + ' - ';
+			if (Log.useLevel&&level) msg += Log.levelToString(level) + " - ";
 			
-			if (useClass) msg += '[' + className + '] - ';
+			if (Log.useClass) msg += "[" + className + "] - ";
 				
 			msg += text ;//MessageUtil.toString(message, params);
-				
+			
+			msg += basicParamsOuput(params);
+			
 			trace(msg);
 			
-			return true;
 		}
 	}
 }
