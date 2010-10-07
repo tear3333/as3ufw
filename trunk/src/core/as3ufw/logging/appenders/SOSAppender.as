@@ -58,27 +58,29 @@ package as3ufw.logging.appenders {
 			active = false;
 		}
 
-		override public function write(level : int, className : String, text : String, params : Array) : Boolean {
-			if (!super.write(level, className, text, params)) return false;
+		override public function write(level : int, className : String, text : String, params : Array) : void {
 			
 			var msg:String;
 			//MessageUtil.toString(message, params);
 			
 			var title:String = "";
 			
-			if (useDate) title += (new Date()).toString() + " ";
+			if (Log.useDate) title += (new Date()).toString() + " ";
+			
+			var levelAsString:String = Log.levelToString(level);
 				
-			if (level) title += Log.levelToString(level) + " - ";
+			if (level) title += levelAsString + " - ";
 			
 			if (className) title += "[" + className + "] - ";
 
-			var i:int = text.indexOf("\n");
+			var extText:String = text + basicParamsOuput(params);
+
+			var i:int = extText.indexOf("\n");
 			if (i>0) {
-				msg = "!SOS<showFoldMessage  key=\"" + level + "\"><title><![CDATA[" + title + ": " + text.substr(0,i) + "]]></title><message><![CDATA["+text.substr(i,text.length)+"]]></message></showFoldMessage>\n";
+				msg = "!SOS<showFoldMessage  key=\"" + levelAsString + "\"><title><![CDATA[" + title + ": " + extText.substr(0,i) + "]]></title><message><![CDATA["+extText.substr(i+1,extText.length)+"]]></message></showFoldMessage>\n";
 			} else {
-				msg = "!SOS<showMessage key=\"" + level + "\"><![CDATA[" + title + ": " + text + "]]></showMessage>\n";
+				msg = "!SOS<showMessage key=\"" + levelAsString + "\"><![CDATA[" + title + ": " + extText + "]]></showMessage>\n";
 			}
-				
 				
 			if (active) {
 				socket.send(msg);
@@ -86,7 +88,6 @@ package as3ufw.logging.appenders {
 				buffer.push(msg);
 			}
 			
-			return true;
 		}
 	}
 }

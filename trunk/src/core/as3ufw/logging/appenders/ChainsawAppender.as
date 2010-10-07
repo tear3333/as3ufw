@@ -58,8 +58,7 @@ package as3ufw.logging.appenders {
 			active = false;
 		}
 
-		override public function write(level : int, className : String, text : String, params : Array) : Boolean {
-			if (!super.write(level, className, text, params)) return false;
+		override public function write(level : int, className : String, text : String, params : Array) : void {
 			
 			var buf:String = "<log4j:event logger=\"";
 			buf += className;
@@ -87,7 +86,6 @@ package as3ufw.logging.appenders {
 				buffer.push(buf);
 			}
 			
-			return true;
 		}
 	}
 }
