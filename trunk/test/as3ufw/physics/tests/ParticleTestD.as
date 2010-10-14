@@ -63,7 +63,7 @@ package as3ufw.physics.tests {
 			}
 			group.addSpring(new Spring(last, first, 0.4));
 			
-			//group.addRenderer(new PointRenderer(graphics, 3));
+			group.addRenderer(new PointRenderer(renderContext.graphics, 3));
 			group.addRenderer(new ContinuousCurveRenderer(renderContext.graphics, 1,0x00000, 0.1));
 //			group.addRenderer(new TestPathRenderer(renderContext.graphics, 1,0x00000, 0.1));
 			
