@@ -20,6 +20,7 @@ package as3ufw.physics {
 		public var bmd : BitmapData;
 		public var bm : Bitmap;
 		public var renderContext : Shape;
+		public var viewContext : Shape;
 
 		public function ParticleTestBase() {
 			init();
@@ -35,6 +36,8 @@ package as3ufw.physics {
 			addChild(bm); 
 			renderContext = new Shape();
 			addChild(renderContext);
+			viewContext = new Shape();
+			addChild(viewContext);
 		}
 
 		public function start() : void {

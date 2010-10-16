@@ -77,7 +77,7 @@ package as3ufw.physics.tests {
 			start();
 		}
 
-		public function traceGlobal(){trace(globalSpring.length)};
+		public function traceGlobal():void{trace(globalSpring.length)};
 
 		override public function onEnterFrame(event : Event) : void {
 			mousePos.x = stage.mouseX;
