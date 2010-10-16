@@ -8,7 +8,7 @@ package as3ufw.logging {
 	public class LogTest extends Sprite {
 		public function LogTest() {
 			var traceAppender:TraceAppender = new TraceAppender();
-			traceAppender.logLevel = Log.DEBUG | Log.INFO;
+			Log.logLevel = Log.DEBUG | Log.INFO;
 			//traceAppender.useDate = false;
 			Log.addApender(traceAppender);
 			

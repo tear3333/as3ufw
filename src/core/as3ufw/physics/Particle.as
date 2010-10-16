@@ -75,7 +75,7 @@
 			colour = 0x000000;
 			decay = 1;
 			active = true;
-			//params = {}
+			params = {};
 			mask = 0;
 			_deltaT = 0.0625;	
 			
