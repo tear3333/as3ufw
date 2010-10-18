@@ -63,7 +63,7 @@ package as3ufw.physics.tests {
 			}
 			group.addSpring(new Spring(last, first, 0.4));
 			
-			group.addRenderer(new PointRenderer(renderContext.graphics, 3));
+			group.addRenderer(new PointRenderer(viewContext.graphics, 3));
 			group.addRenderer(new ContinuousCurveRenderer(renderContext.graphics, 1,0x00000, 0.1));
 //			group.addRenderer(new TestPathRenderer(renderContext.graphics, 1,0x00000, 0.1));
 			
@@ -79,6 +79,7 @@ package as3ufw.physics.tests {
 			mousePos.y = stage.mouseY;
 			group.skew(mousePos.minus(group.pos));
 			renderContext.graphics.clear();
+			viewContext.graphics.clear();
 			engine.update();
 			if (lmb)
 				bmd.draw(renderContext, null, null, BlendMode.NORMAL, null, true);

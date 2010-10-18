@@ -39,9 +39,9 @@ package as3ufw.physics.tests {
 				engine.addGroup(lineGroup);
 			}
 
-			engine.addForceGenerator(new Attractor(Forces.Uniform, mousePos, -20,20));
-			engine.addForceGenerator(new InitialPositionAttractor(1.1));
-
+			engine.addForceGenerator(new Attractor(Forces.Uniform, mousePos, -20,50));
+			engine.addForceGenerator(new InitialPositionAttractor(Forces.Uniform, 10));
+			group.damping = 0.7;
 			start();
 		}
 
