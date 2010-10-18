@@ -5,21 +5,20 @@ package as3ufw.physics.forces {
 	/**
 	 * @author Richard.Jewson
 	 */
-	public class UniformAttractor extends AbstractForce implements IForceGenerator {
-
+	public class InverseAttractor2 extends AbstractForce implements IForceGenerator {
 		private var forcePosition : Vector2D;
-		private var strength : Number;
+		public var multiplier : Number;
 
-		public function UniformAttractor(forcePosition : Vector2D,strength : Number) {
-			this.strength = strength;
+		public function InverseAttractor2(forcePosition : Vector2D,multiplier : Number) {
+			this.multiplier = multiplier;
 			this.forcePosition = forcePosition;
 		}
 
 		override public function applyForce(targetParticle : Particle) : void {
 			if (!active) return;
 			var forceVector : Vector2D = forcePosition.minus(targetParticle.pos);
-			forceVector.normalize();
-			forceVector.multEquals(strength);
+			var len : Number = forceVector.magnitude;
+			forceVector.multEquals(multiplier * len);
 			targetParticle.addForce(forceVector);
 		}
 	}
