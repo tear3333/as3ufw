@@ -7,7 +7,7 @@ package as3ufw.physics.forces {
 	 */
 	public class InverseAttractor extends AbstractForce implements IForceGenerator {
 		private var forcePosition : Vector2D;
-		private var multiplier : Number;
+		public var multiplier : Number;
 
 		public function InverseAttractor(forcePosition : Vector2D,multiplier : Number) {
 			this.multiplier = multiplier;

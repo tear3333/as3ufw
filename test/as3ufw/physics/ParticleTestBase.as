@@ -16,6 +16,7 @@ package as3ufw.physics {
 		public var engine : ParticleEngine;
 		public var group : ParticleGroup;
 		public var mousePos : Vector2D;
+		public var oldMousePos : Vector2D;
 		public var lmb : Boolean;
 		public var bmd : BitmapData;
 		public var bm : Bitmap;
@@ -31,6 +32,7 @@ package as3ufw.physics {
 			group = new ParticleGroup();
 			engine.addGroup(group);
 			mousePos = new Vector2D();
+			oldMousePos = new Vector2D();
 			bmd = new BitmapData(600, 400);	
 			bm = new Bitmap(bmd);//,"auto",true);
 			addChild(bm); 
@@ -40,7 +42,7 @@ package as3ufw.physics {
 			addChild(viewContext);
 		}
 
-		public function start() : void {
+		virtual public function start() : void {
 			addEventListener(Event.ENTER_FRAME, onEnterFrame);
 			addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
 			addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
@@ -55,8 +57,11 @@ package as3ufw.physics {
 			lmb = true;
 		}
 
-		public function stop(e : Event = null) : void {
+		virtual public function stop(e : Event = null) : void {
 			removeEventListener(Event.ENTER_FRAME, onEnterFrame);
+			removeEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
+			removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);			
+			removeEventListener(Event.REMOVED_FROM_STAGE, stop);
 		}
 
 		public function onEnterFrame(event : Event) : void {
