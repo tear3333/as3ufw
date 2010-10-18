@@ -6,18 +6,27 @@ package as3ufw.physics.forces {
 	 * @author Richard.Jewson
 	 */
 	public class InitialPositionAttractor extends AbstractForce implements IForceGenerator {
+		private var force : Function;
+		private var position : Vector2D;
 		private var strength : Number;
+		private var range : Number;
+		private var rangeSqr : Number;
 
-		public function InitialPositionAttractor(strength : Number) {
+		public function InitialPositionAttractor(force : Function, strength : Number, range : Number = -1) {
+			this.force = force;
 			this.strength = strength;
+			this.range = range;
+			this.rangeSqr = range*range;
 		}
 
 		override public function applyForce(targetParticle : Particle) : void {
 			if (!active) return;
-			var forceVector : Vector2D = targetParticle.initPos.minus(targetParticle.pos);
-			forceVector.normalize();
-			forceVector.multEquals(strength);
-			targetParticle.addForce(forceVector);
+			var difference : Vector2D = new Vector2D(targetParticle.initPos.x - targetParticle.pos.x, targetParticle.initPos.y - targetParticle.pos.y);
+			// position.minus(targetParticle.pos);
+			var distanceSqr:Number = difference.x * difference.x + difference.y * difference.y;
+			if (distanceSqr==0) return;
+			if ((range>=0)&&(distanceSqr > rangeSqr)) return;
+			targetParticle.addForce(force(difference, strength));
 		}
 	}
 }

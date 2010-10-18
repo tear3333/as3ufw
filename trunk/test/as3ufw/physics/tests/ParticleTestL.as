@@ -1,12 +1,10 @@
 package as3ufw.physics.tests {
-	import as3ufw.physics.forces.Forces;
-	import as3ufw.physics.forces.Attractor;
 	import as3ufw.geom.Vector2D;
 	import as3ufw.physics.Particle;
 	import as3ufw.physics.ParticleTestBase;
 	import as3ufw.physics.Spring;
-	import as3ufw.physics.forces.InverseAttractor;
-	import as3ufw.physics.forces.InverseAttractor2;
+	import as3ufw.physics.forces.Attractor;
+	import as3ufw.physics.forces.Forces;
 	import as3ufw.physics.renderers.PointRenderer;
 	import as3ufw.physics.renderers.SegmentCurveRenderer;
 
@@ -38,21 +36,21 @@ package as3ufw.physics.tests {
 			for (var i : int = 0;i < points;i++) {
 				var p : Particle = Particle.GetParticle(pos);
 				// p.deltaT = 0.1*0.1;
-				p.mass = 1 + (i*2 / points);
+				p.mass = 1 + (i * 2 / points);
 				// i/20;
 				group.addParticle(p);
 
 				var spring : Spring = new Spring(center, p, 0.1);
-				//spring.length = 20;
-				group.addSpring(spring);
+				// spring.length = 20;
+				// group.addSpring(spring);
 			}
 			group.iterations = 1;
 			// group.damping = 0.5;
 			group.addRenderer(new PointRenderer(viewContext.graphics, 1));
 			group.addRenderer(new SegmentCurveRenderer(renderContext.graphics, 1, 0x000000, 0.02));
 
-			invAttractor = new Attractor(Forces.Inverse,mousePos, 200);
-			//invAttractor = new Attractor(Forces.Inverse2,mousePos, 1);
+			// invAttractor = new Attractor(Forces.Inverse,mousePos, 200);
+			invAttractor = new Attractor(Forces.Inverse2, mousePos, 0.1);
 			group.addForceGenerator(invAttractor);
 
 			removeChild(renderContext);

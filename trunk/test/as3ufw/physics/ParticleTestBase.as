@@ -1,4 +1,5 @@
 package as3ufw.physics {
+	import flash.utils.getQualifiedClassName;
 	import as3ufw.geom.Vector2D;
 
 	import flash.display.Bitmap;
@@ -43,6 +44,7 @@ package as3ufw.physics {
 		}
 
 		virtual public function start() : void {
+			trace(getQualifiedClassName(this));
 			addEventListener(Event.ENTER_FRAME, onEnterFrame);
 			addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
 			addEventListener(MouseEvent.MOUSE_UP, onMouseUp);

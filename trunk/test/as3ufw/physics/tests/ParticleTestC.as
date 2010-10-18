@@ -30,7 +30,7 @@ package as3ufw.physics.tests {
 			group.damping = 0.9;
 			group.addRenderer(new BitmapRenderer(bitmapData));
 
-			group.addForceGenerator(new InitialPositionAttractor(1));
+			group.addForceGenerator(new InitialPositionAttractor(Forces.Uniform,10));
 
 			for (var i : int = 0; i < 100; i++) {
 				for (var j : int = 0; j < 50; j++) {
