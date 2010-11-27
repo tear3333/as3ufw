@@ -6,16 +6,18 @@ package as3ufw.physics {
 	 */
 	public class Spring {
 
-		private var p1 : Particle;
-		private var p2 : Particle;
+		protected var p1 : Particle;
+		protected var p2 : Particle;
 		public var stiffness : Number;
-		private var _restLength : Number;
+		protected var restLength : Number;
+		public var dependent:Boolean;
 
 		public function Spring(p1 : Particle,p2 : Particle,stiffness : Number = 0.5) {
 			this.stiffness = stiffness;
 			this.p2 = p2;
 			this.p1 = p1;
-			_restLength = length;
+			restLength = length;
+			dependent = false;
 		}
 
 		public function resolve() : Boolean {
@@ -23,7 +25,7 @@ package as3ufw.physics {
             if ((!p1 || !p1.active || !p2 || !p2.active) ) return false;
             
 			var deltaLength : Number = length + 0.00001;                    
-			var diff : Number = (deltaLength - _restLength) / (deltaLength * (p1.invMass + p2.invMass));
+			var diff : Number = (deltaLength - restLength) / (deltaLength * (p1.invMass + p2.invMass));
 			var delta : Vector2D = p1.pos.minus(p2.pos);
 			var dmds : Vector2D = delta.mult(diff * stiffness);
                 
@@ -38,7 +40,7 @@ package as3ufw.physics {
 		}
 
 		public function set length(len : Number) : void {
-			_restLength = len;
+			restLength = len;
 		}
 	}
 }
