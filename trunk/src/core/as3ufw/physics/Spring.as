@@ -1,4 +1,5 @@
 package as3ufw.physics {
+	import flash.display.Graphics;
 	import as3ufw.geom.Vector2D;
 
 	/**
@@ -6,18 +7,16 @@ package as3ufw.physics {
 	 */
 	public class Spring {
 
-		protected var p1 : Particle;
-		protected var p2 : Particle;
+		internal var p1 : Particle;
+		internal var p2 : Particle;
 		public var stiffness : Number;
 		protected var restLength : Number;
-		public var dependent:Boolean;
 
 		public function Spring(p1 : Particle,p2 : Particle,stiffness : Number = 0.5) {
-			this.stiffness = stiffness;
-			this.p2 = p2;
 			this.p1 = p1;
+			this.p2 = p2;
+			this.stiffness = stiffness;
 			restLength = length;
-			dependent = false;
 		}
 
 		public function resolve() : Boolean {
@@ -42,5 +41,12 @@ package as3ufw.physics {
 		public function set length(len : Number) : void {
 			restLength = len;
 		}
+
+		public function render(g : Graphics, colour : uint = 0x000000) : void {
+			g.lineStyle(1, colour);
+			g.moveTo(p1.pos.x, p1.pos.y);
+			g.lineTo(p2.pos.x,p2.pos.y);
+		}
+		
 	}
 }
