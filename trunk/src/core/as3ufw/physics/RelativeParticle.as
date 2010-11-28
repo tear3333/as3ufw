@@ -5,15 +5,14 @@ package as3ufw.physics {
 	/**
 	 * @author richard.jewson
 	 */
-	public class SpringRelativeParticle extends Particle {
+	public class RelativeParticle extends Particle {
 		
 		public var pcentLengthOffset : Number;
 		public var lateralOffset : Number;
-		private var parent : Spring;
+		public var group : RelativeParticleGroup;
 
-		public function SpringRelativeParticle(parent : Spring, pcentLengthOffset : Number, lateralOffset : Number) {
+		public function RelativeParticle(pcentLengthOffset : Number, lateralOffset : Number) {
 			super(new Vector2D());
-			this.parent = parent;
 			this.pcentLengthOffset = pcentLengthOffset;
 			this.lateralOffset = lateralOffset;
 			fixed = true;
@@ -21,7 +20,8 @@ package as3ufw.physics {
 		}
 		
 		public function updatePosition():void {
-			var lenOffset:Vector2D = parent.p1.pos.interp(pcentLengthOffset,parent.p2.pos);
+			if (!group) return;
+			var lenOffset:Vector2D = group.p1.pos.interp(pcentLengthOffset,group.p2.pos);
 			var latOffset:Vector2D = lenOffset.rightHandNormal().normalize().mult(lateralOffset);
 			setStaticPosition(lenOffset.plus(latOffset));
 		}
