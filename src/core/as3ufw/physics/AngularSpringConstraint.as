@@ -3,7 +3,7 @@ package as3ufw.physics {
 	 * @author richard.jewson
 	 */
 	public class AngularSpringConstraint extends Spring {
-		private var angleParticle : Particle;
+		internal var angleParticle : Particle;
 		private var minAng : Number;
 		private var maxAng : Number;
 
@@ -14,6 +14,7 @@ package as3ufw.physics {
 			if (minAng == 10) {
 				this.minAng = acRadian;
 				this.maxAng = acRadian;
+				trace(this.minAng);
 			} else {
 				this.minAng = minAng;
 				this.maxAng = maxAng;
@@ -38,7 +39,7 @@ package as3ufw.physics {
 			while (angDiff > Math.PI) angDiff -= PI2;
 			while (angDiff < -Math.PI) angDiff += PI2;
 
-			var p2invMass : Number = (dependent == true) ? 0 : p2.invMass;
+			var p2invMass : Number = p2.invMass;
 
 			var sumInvMass : Number = p1.invMass + p2invMass;
 			var mult1 : Number = p1.invMass / sumInvMass;
@@ -54,28 +55,8 @@ package as3ufw.physics {
 			while (newDiff < -Math.PI) newDiff += PI2;
 
 			if (newDiff > lowMid) {
-				/*
-				if (newDiff > breakAng) {
-					var diff = newDiff - breakAng;
-					broken = true;
-					if (hasEventListener(BreakEvent.ANGULAR)) {
-						dispatchEvent(new BreakEvent(BreakEvent.ANGULAR, diff));
-					}
-					return;
-				}
-				 */
 				angChange = newDiff - lowMid;
 			} else if (newDiff < -lowMid) {
-				/*
-				if (newDiff < - breakAng) {
-					var diff2 = newDiff + breakAng;
-					broken = true;
-					if (hasEventListener(BreakEvent.ANGULAR)) {
-						dispatchEvent(new BreakEvent(BreakEvent.ANGULAR, diff2));
-					}
-					return;
-				}
-				 */
 				angChange = newDiff + lowMid;
 			}
 
@@ -85,8 +66,8 @@ package as3ufw.physics {
 
 			p1.pos.x = displaceX + Math.cos(finalAng + Math.PI) * restLength * mult1;
 			p1.pos.y = displaceY + Math.sin(finalAng + Math.PI) * restLength * mult1;
-			p2.pos.x = displaceX + Math.cos(finalAng) * restLength * mult2;
-			p2.pos.y = displaceY + Math.sin(finalAng) * restLength * mult2;
+			//p2.pos.x = displaceX + Math.cos(finalAng) * restLength * mult2;
+			//p2.pos.y = displaceY + Math.sin(finalAng) * restLength * mult2;
 			
 			return true;
 		}

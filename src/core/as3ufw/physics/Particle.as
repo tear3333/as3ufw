@@ -194,5 +194,11 @@
 			p.active = false;
 			_particlePool = p;
 		}
+		
+		public function render(g : Graphics, colour : uint = 0x000000) : void {
+			g.lineStyle(1, colour);
+			g.drawRect(pos.x-1, pos.y-1, 2, 2);
+		}
+		
 	}
 }
