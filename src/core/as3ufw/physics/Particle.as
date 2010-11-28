@@ -11,11 +11,11 @@
 	 * @author Richard.Jewson
 	 */
 	public class Particle {
-		public var pos : Vector2D;
-		public var prevPos : Vector2D;
-		public var oldPos : Vector2D;
-
-		public var initPos : Vector2D;
+		
+		public const pos : Vector2D = new Vector2D();
+		public const prevPos : Vector2D = new Vector2D();
+		public const oldPos : Vector2D = new Vector2D();
+		public const initPos : Vector2D = new Vector2D();
 
 		public var fixed : Boolean;
 
@@ -50,10 +50,10 @@
 		 * 				To make the particle imovable, set to Math.POSITIVE_INFINITY
 		 */
 		public function Particle(pos : Vector2D) {
-			this.pos = new Vector2D();
-			prevPos = new Vector2D();
-			oldPos = new Vector2D();
-			initPos = new Vector2D();
+			//this.pos = new Vector2D();
+			//prevPos = new Vector2D();
+			//oldPos = new Vector2D();
+			//initPos = new Vector2D();
 			forces = new Vector2D();
 			temp = new Vector2D();
 			userData = {};
@@ -133,7 +133,7 @@
 		}
 
 		public function set velocity(v : Vector2D) : void {
-			prevPos = pos.minus(v);
+			prevPos.copy(pos.minus(v));
 		}
 		
 		public function set mass(m:Number) : void {
