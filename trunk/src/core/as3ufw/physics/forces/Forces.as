@@ -20,8 +20,8 @@ package as3ufw.physics.forces {
 		
 		public static function Inverse2(diff : Vector2D, strength : Number) : Vector2D {
 			return diff.multEquals(strength * diff.magnitude);
-		}			
-		
+		}
+
 		
 	}
 }
