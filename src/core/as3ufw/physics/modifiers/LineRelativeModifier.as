@@ -17,7 +17,7 @@ package as3ufw.physics.modifiers {
 		}
 
 		public function addVector(v:Vector2D, pcentLengthOffset : Number, lateralOffset : Number) : void {
-			vectors.add(new LineRelativeVectorProxy(v, pcentLengthOffset, lateralOffset));
+			vectors.push(new LineRelativeVectorProxy(v, pcentLengthOffset, lateralOffset));
 		}
 		
 		public function update() : void {
