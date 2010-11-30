@@ -66,6 +66,8 @@ package as3ufw.physics.tests {
 			mousePos.y = stage.mouseY;
 
 			renderContext.graphics.clear();
+			viewContext.graphics.clear();
+			engine.update();
 
 			for each (var branch : Branch in branches) {
 				branch.update();
@@ -78,8 +80,6 @@ package as3ufw.physics.tests {
 			}
 			
 
-			viewContext.graphics.clear();
-			engine.update();
 		}
 	}
 }

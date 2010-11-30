@@ -37,7 +37,7 @@ package as3ufw.physics.structure {
 			}
 
 			tipPos = new Vector2D(0, -length);
-			tipPos = tipPos.rotate(angle).plus(root.pos);
+			tipPos = parent ? targetTipPos() : tipPos.rotate(angle).plus(root.pos);
 
 			tip = new Particle(tipPos);
 			tip.mass = tipMass;
