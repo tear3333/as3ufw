@@ -38,8 +38,8 @@ package as3ufw.physics.forces.field {
 
 		override public function applyForce(targetParticle : Particle) : void {
 			if (!active) return;
-			var px : Number = targetParticle.pos.x / scaleX;
-			var py : Number = targetParticle.pos.y / scaleY;
+			var px : Number = x + (targetParticle.pos.x / scaleX);
+			var py : Number = y + (targetParticle.pos.y / scaleY);
                         
 			if (tiled) {
 				px = px % _bitmapData.width;

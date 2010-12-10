@@ -25,7 +25,7 @@ package as3ufw.task {
 			stage.align = StageAlign.TOP_LEFT;
 			
 			var traceAppender : TraceAppender = new TraceAppender();
-			traceAppender.useDate = false;
+			//traceAppender.useDate = false;
 			Log.addApender(traceAppender);
 			
 			_log = Log.getClassLogger(ConfigAssetLoaderTest);

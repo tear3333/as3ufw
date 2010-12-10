@@ -7,6 +7,12 @@ package as3ufw.physics {
 		private var minAng : Number;
 		private var maxAng : Number;
 
+		private var p1invMass : Number;
+		private var p2invMass : Number;
+		private var sumInvMass : Number;
+		private var mult1 : Number;
+		private var mult2 : Number;
+
 		public function AngularSpringConstraint(affectedParticle : Particle, centerRotationParticle : Particle, angleParticle : Particle, minAng : Number, maxAng : Number, stiffness : Number = 0.5) {
 			super(affectedParticle, centerRotationParticle, stiffness);
 			this.angleParticle = angleParticle;
@@ -19,6 +25,13 @@ package as3ufw.physics {
 				this.minAng = minAng;
 				this.maxAng = maxAng;
 			}
+			
+			p1invMass = p1.invMass;
+			p2invMass = p2.invMass;
+			sumInvMass = p1invMass + p2invMass;
+			mult1 = p1invMass / sumInvMass;
+			mult2 = p2invMass / sumInvMass;
+			
 		}
 
 		public function get acRadian() : Number {
@@ -38,12 +51,7 @@ package as3ufw.physics {
 			var angDiff : Number = ang12 - ang23;
 			while (angDiff > Math.PI) angDiff -= PI2;
 			while (angDiff < -Math.PI) angDiff += PI2;
-
-			var p2invMass : Number = p2.invMass;
-
-			var sumInvMass : Number = p1.invMass + p2invMass;
-			var mult1 : Number = p1.invMass / sumInvMass;
-			var mult2 : Number = p2invMass / sumInvMass;
+			
 			var angChange : Number = 0;
 
 			var lowMid : Number = (maxAng - minAng) / 2;
