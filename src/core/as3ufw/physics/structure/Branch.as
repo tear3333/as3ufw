@@ -19,19 +19,23 @@ package as3ufw.physics.structure {
 		public var rest : Particle;
 		public var tipPos : Vector2D;
 		private var tipMass : Number;
+		private var stiffness : Number;
+		internal var depth : int;
 
-		public function Branch(group : ParticleGroup, parent : Branch, length : Number, angle : Number, tipMass : Number = 1) {
+		public function Branch(group : ParticleGroup, parent : Branch, length : Number, angle : Number, tipMass : Number = 1, stiffness : Number = 0.1) {
 			this.group = group;
 			this.parent = parent;
 			this.length = length;
 			this.angle = angle;
 			this.tipMass = tipMass;
+			this.stiffness = stiffness;
+			depth = parent ? parent.depth + 1 : 0;
 			initBranch();
 		}
 
 		private function initBranch() : void {
 			if (!parent) {
-				root = new Particle(new Vector2D(300, 300));
+				root = new Particle(new Vector2D(0, 0));
 			} else {
 				root = parent.tip;
 			}
@@ -45,11 +49,12 @@ package as3ufw.physics.structure {
 			
 			rest = new Particle(tipPos);
 			
-			group.addSpring(new AngularSpringConstraint(tip, root, rest, 10, 10, 0.1));
+			group.addSpring(new AngularSpringConstraint(tip, root, rest, 10, 10, stiffness));
 		}
 
 		public function update() : void {
 			rest.pos.copy(targetTipPos());
+			//normalized = root.pos.minus(tip.pos).
 		}
 
 		private function targetTipPos() : Vector2D {
@@ -59,7 +64,7 @@ package as3ufw.physics.structure {
 		}
 
 		public function draw(g : Graphics) : void {
-			g.lineStyle(1, 0);
+			g.lineStyle(Math.max(3-depth,1), 0);
 			g.moveTo(root.pos.x, root.pos.y);
 			g.lineTo(tip.pos.x, tip.pos.y);
 		}

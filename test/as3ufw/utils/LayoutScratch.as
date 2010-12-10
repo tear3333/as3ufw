@@ -29,7 +29,7 @@ package as3ufw.utils {
 			stage.align = StageAlign.TOP_LEFT;
 			
 			var traceAppender : TraceAppender = new TraceAppender();
-			traceAppender.useDate = false;
+			//traceAppender.useDate = false;
 			Log.addApender(traceAppender);
 			
 			var bgbm : Bitmap = new bg();
