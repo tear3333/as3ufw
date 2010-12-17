@@ -21,8 +21,8 @@
 
 		private var forces : Vector2D;
 		
-		private var _mass : Number;
-		private var _invMass : Number;
+		public var mass : Number;
+		public var invMass : Number;
 		private var _deltaT : Number;
 		
 		private var temp : Vector2D;
@@ -68,7 +68,7 @@
 			fixed = false;
 			forces.setTo(0, 0);
 			prev = next = null;
-			mass = 1;
+			setMass(1);
 			count = 0;
 			birth = getTimer();
 			ttl = 0;
@@ -83,7 +83,7 @@
 		}
 
 		public function addForce(f : Vector2D) : void {
-			forces.plusEquals(f.mult(_invMass));
+			forces.plusEquals(f.mult(invMass));
 		}
 
 		public function addMasslessForce(f : Vector2D) : void {
@@ -95,8 +95,8 @@
 			if (fixed) return true;
 			//Optimization
 			//forces.multEquals(_invMass);
-			forces.x *= _invMass;
-			forces.y *= _invMass;
+			forces.x *= invMass;
+			forces.y *= invMass;
 			
 			//Optimization
 			//temp.copy(pos); 
@@ -136,19 +136,11 @@
 			prevPos.copy(pos.minus(v));
 		}
 		
-		public function set mass(m:Number) : void {
-			if (mass<=0) mass = 0.0000001;
-			_mass = m;
-			_invMass = 1/m;
+		public function setMass(m:Number) : void {
+			if (m<=0) m = 0.0000001;
+			mass = m;
+			invMass = 1/m;
 		}
-
-		public function get mass():Number {
-			return _mass;
-		}
-		
-		public function get invMass():Number {
-			return _invMass;
-		}		
 		
 		public function get deltaT() : Number {
 			return _deltaT;

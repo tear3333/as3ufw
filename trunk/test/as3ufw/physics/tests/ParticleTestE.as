@@ -37,7 +37,7 @@ package as3ufw.physics.tests {
 			for (var i : int = 0;i < points;i++) {
 				var p : Particle = Particle.GetParticle(pos);
 
-				p.mass = ((mass1 + i * mass2 + Math.random()) * baseMod) / partNum;
+				p.setMass(((mass1 + i * mass2 + Math.random()) * baseMod) / partNum);
 
 				group.addParticle(p);	
 				

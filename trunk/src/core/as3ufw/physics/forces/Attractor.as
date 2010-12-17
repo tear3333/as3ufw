@@ -22,9 +22,11 @@ package as3ufw.physics.forces {
 
 		override public function applyForce(targetParticle : Particle) : void {
 			if (!active) return;
-			var difference:Vector2D = new Vector2D(position.x - targetParticle.pos.x,position.y - targetParticle.pos.y);//position.minus(targetParticle.pos);
-			if ((range>=0)&&( (difference.x * difference.x + difference.y * difference.y) > rangeSqr) ) return;
-			targetParticle.addForce(force(difference, strength));
+			//var difference:Vector2D = new Vector2D(position.x - targetParticle.pos.x,position.y - targetParticle.pos.y);//position.minus(targetParticle.pos);
+			var differenceX:Number = position.x - targetParticle.pos.x;
+			var differenceY:Number = position.y - targetParticle.pos.y;
+			if ((range>=0)&&( (differenceX * differenceX + differenceY * differenceY) > rangeSqr) ) return;
+			targetParticle.addForce(force(new Vector2D(differenceX,differenceY), strength));
 		}
 	}
 }

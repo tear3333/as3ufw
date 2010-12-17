@@ -30,7 +30,7 @@ package as3ufw.physics.tests {
 			center.fixed = true;
 			
 			var p : Particle = Particle.GetParticle(pos);
-			p.mass = 0.1;
+			p.setMass(0.1);
 			group.addParticle(p);	
 				
 			var spring : Spring = new Spring(center, p, 1);

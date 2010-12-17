@@ -202,6 +202,13 @@ package as3ufw.geom {
 			return this;
 		}
 
+		public function closestPointOnLine(p1:Vector2D,p2:Vector2D) : Vector2D {
+			var diff:Vector2D = p2.minus(p1);
+			var u:Number = ((x - p1.x) * diff.x + (y - p1.y) * diff.y) / (diff.x * diff.x + diff.y * diff.y);
+			return new Vector2D(p1.x + u * diff.x, p1.y + u * diff.y);
+		}
+
+
 		public static function createVectorArray( len : int ) : Array {
 			var vectorArray : Array = new Array();
 			for (var i : int = 0;i < len; i++) {
