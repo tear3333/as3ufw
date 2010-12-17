@@ -1,33 +1,31 @@
 package as3ufw.physics {
-	import as3ufw.physics.tests.ParticleTestM;
-	import as3ufw.physics.tests.ParticleTestL;
-	import as3ufw.physics.tests.ParticleTestK;
-	import as3ufw.physics.tests.ParticleTestJ;
-	import as3ufw.physics.tests.ParticleTestI;
-	import as3ufw.physics.tests.ParticleTestH;
-	import as3ufw.physics.tests.ParticleTestG;
-	import as3ufw.physics.tests.ParticleTestF;
-	import as3ufw.physics.tests.ParticleTestE;
-	import as3ufw.physics.tests.ParticleTestD;
-	import as3ufw.physics.tests.ParticleTestC;
-	import as3ufw.physics.tests.ParticleTestB;
 	import as3ufw.physics.tests.ParticleTestA;
-	import flash.ui.Keyboard;
-	import flash.events.KeyboardEvent;
+	import as3ufw.physics.tests.ParticleTestB;
+	import as3ufw.physics.tests.ParticleTestC;
+	import as3ufw.physics.tests.ParticleTestD;
+	import as3ufw.physics.tests.ParticleTestE;
+	import as3ufw.physics.tests.ParticleTestF;
+	import as3ufw.physics.tests.ParticleTestG;
+	import as3ufw.physics.tests.ParticleTestH;
+	import as3ufw.physics.tests.ParticleTestI;
+	import as3ufw.physics.tests.ParticleTestJ;
+	import as3ufw.physics.tests.ParticleTestK;
+	import as3ufw.physics.tests.ParticleTestL;
+
 	import flash.display.Sprite;
+	import flash.events.KeyboardEvent;
+	import flash.ui.Keyboard;
 
 	/**
 	 * @author Richard.Jewson
 	 */
 	public class ParticleHarness extends Sprite {
-		
-		private var tests:Array = [ParticleTestM,ParticleTestL,ParticleTestK,ParticleTestJ,ParticleTestI,ParticleTestH,ParticleTestG,ParticleTestF,ParticleTestE,ParticleTestD,ParticleTestC,ParticleTestB,ParticleTestA];
-//		private var testIndex:int = 6;
-		private var testIndex:int = 0;
-		private var currentTest:Sprite;
-		
-		public function ParticleHarness() {
+		private var tests : Array = [ParticleTestL, ParticleTestK, ParticleTestJ, ParticleTestI, ParticleTestH, ParticleTestG, ParticleTestF, ParticleTestE, ParticleTestD, ParticleTestC, ParticleTestB, ParticleTestA];
+		// private var testIndex:int = 6;
+		private var testIndex : int = 0;
+		private var currentTest : Sprite;
 
+		public function ParticleHarness() {
 			init();
 		}
 
@@ -38,13 +36,17 @@ package as3ufw.physics {
 
 		private function onKeyDown(event : KeyboardEvent) : void {
 			switch (event.keyCode) {
-				case Keyboard.LEFT:prevTest();break;
-				case Keyboard.RIGHT:nextTest();break;
+				case Keyboard.LEFT:
+					prevTest();
+					break;
+				case Keyboard.RIGHT:
+					nextTest();
+					break;
 			}
 		}
 
-		private function runTest(index:int):void {
-			var clazz:Class = tests[index];
+		private function runTest(index : int) : void {
+			var clazz : Class = tests[index];
 			if (currentTest) {
 				removeChild(currentTest);
 			}
@@ -59,7 +61,7 @@ package as3ufw.physics {
 
 		private function prevTest() : void {
 			testIndex--;
-			if (testIndex == -1) testIndex = tests.length-1;
+			if (testIndex == -1) testIndex = tests.length - 1;
 			runTest(testIndex);
 		}
 	}

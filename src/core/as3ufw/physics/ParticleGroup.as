@@ -158,32 +158,5 @@ package as3ufw.physics {
 			}
 		}
 
-//		public function renderPoints(graphics : Graphics,size : Number,colour : uint = 0, alpha : Number = 1) : void {
-//			graphics.lineStyle(1, colour, alpha);
-//			
-//			var particle : Particle = particles;
-//			while (particle) {
-//				graphics.drawCircle(particle.pos.x, particle.pos.y, size);
-//				particle = particle.next;
-//			}
-//		}
-//
-//		public function renderCurveLine(graphics : Graphics,width : Number,colour : uint = 0, alpha : Number = 1) : void {
-//			if (!particles || particleCount < 3) return;
-//
-//			graphics.lineStyle(width, colour, alpha);
-//			graphics.moveTo(particles.pos.x, particles.pos.y);
-//
-//			var particle : Particle = particles.next;
-//			while (particle) {
-//				if (particle.next.next) {
-//					graphics.curveTo(particle.pos.x, particle.pos.y, (particle.pos.x + particle.next.pos.x) / 2, (particle.pos.y + particle.next.pos.y) / 2);
-//				} else {
-//					graphics.curveTo(particle.pos.x, particle.pos.y, particle.next.pos.x, particle.next.pos.y);
-//					return;
-//				}
-//				particle = particle.next;
-//			}			
-//		}
 	}
 }

@@ -36,7 +36,7 @@ package as3ufw.physics.tests {
 			for (var i : int = 0;i < points;i++) {
 				var p : Particle = Particle.GetParticle(pos);
 				// p.deltaT = 0.1*0.1;
-				p.mass = 1 + (i * 2 / points);
+				p.setMass(1 + (i * 2 / points));
 				// i/20;
 				group.addParticle(p);
 

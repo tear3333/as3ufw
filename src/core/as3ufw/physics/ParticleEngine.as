@@ -9,16 +9,16 @@ package as3ufw.physics {
 	public class ParticleEngine {
 
 		public var groups : Vector.<ParticleGroup>;
-		public var forceGenerator : Vector.<IForceGenerator>;
+		public var forceGenerators : Vector.<IForceGenerator>;
 
 		public function ParticleEngine() {
-			forceGenerator = new Vector.<IForceGenerator>();
+			forceGenerators = new Vector.<IForceGenerator>();
 			groups = new Vector.<ParticleGroup>();
 		}
 
 		public function update() : void {
 			for each (var group : ParticleGroup in groups) {
-				group.update(forceGenerator);
+				group.update(forceGenerators);
 			}
 		}
 
@@ -27,11 +27,21 @@ package as3ufw.physics {
 		}
 
 		public function removeGroup(g : ParticleGroup) : void {
-			//_springs.push(s);
+			var i : int = groups.indexOf(g);
+			if (i>-1) {
+				groups.splice(i, 1);
+			}
 		}
 
 		public function addForceGenerator(f : IForceGenerator) : void {
-			forceGenerator.push(f);
+			forceGenerators.push(f);
+		}
+
+		public function removeForceGenerator(f : IForceGenerator) : void {
+			var i : int = groups.indexOf(f);
+			if (i>-1) {
+				forceGenerators.splice(i, 1);
+			}
 		}
 	}
 }
