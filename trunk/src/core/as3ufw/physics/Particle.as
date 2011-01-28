@@ -83,11 +83,15 @@
 		}
 
 		public function addForce(f : Vector2D) : void {
-			forces.plusEquals(f.mult(invMass));
+			//forces.plusEquals(f.mult(invMass));
+			forces.x += f.x*invMass;
+			forces.y += f.y*invMass;
 		}
 
 		public function addMasslessForce(f : Vector2D) : void {
-			forces.plusEquals(f);
+			//forces.plusEquals(f);
+			forces.x += f.x;
+			forces.y += f.y;
 		}
 		
 		public function update(now:uint, damping : Number = 1) : Boolean {
