@@ -1,4 +1,6 @@
 package as3ufw.physics {
+	import as3ufw.physics.tests.ParticleTestO;
+	import as3ufw.physics.tests.ParticleTestN;
 	import as3ufw.physics.tests.ParticleTestM;
 	import as3ufw.physics.tests.ParticleTestA;
 	import as3ufw.physics.tests.ParticleTestB;
@@ -21,7 +23,7 @@ package as3ufw.physics {
 	 * @author Richard.Jewson
 	 */
 	public class ParticleHarness extends Sprite {
-		private var tests : Array = [ParticleTestM, ParticleTestL, ParticleTestK, ParticleTestJ, ParticleTestI, ParticleTestH, ParticleTestG, ParticleTestF, ParticleTestE, ParticleTestD, ParticleTestC, ParticleTestB, ParticleTestA];
+		private var tests : Array = [ParticleTestM,ParticleTestO,ParticleTestN,ParticleTestM, ParticleTestL, ParticleTestK, ParticleTestJ, ParticleTestI, ParticleTestH, ParticleTestG, ParticleTestF, ParticleTestE, ParticleTestD, ParticleTestC, ParticleTestB, ParticleTestA];
 		// private var testIndex:int = 6;
 		private var testIndex : int = 0;
 		private var currentTest : Sprite;

@@ -82,7 +82,10 @@ package as3ufw.physics {
 		}
 
 		public function removeSpring(s : Spring) : void {
-			//TODO finish
+			var i : int = springs.indexOf(s);
+			if (i>-1) {
+				springs.splice(i, 1);
+			}
 		}
 
 		public function addEmitter(e : IEmitter) : void {
@@ -91,7 +94,10 @@ package as3ufw.physics {
 		}
 
 		public function removeEmitter(e : IEmitter) : void {
-			//TODO finish
+			var i : int = emitters.indexOf(e);
+			if (i>-1) {
+				emitters.splice(i, 1);
+			}
 		}
 
 		public function addRenderer(r : IRenderer) : void {
@@ -99,7 +105,10 @@ package as3ufw.physics {
 		}
 
 		public function removeRenderer(r : IRenderer) : void {
-			//TODO finish
+			var i : int = renderers.indexOf(r);
+			if (i>-1) {
+				renderers.splice(i, 1);
+			}
 		}
 
 		public function addForceGenerator(f : IForceGenerator) : void {
@@ -107,7 +116,10 @@ package as3ufw.physics {
 		}
 
 		public function removeForceGenerator(f : IForceGenerator) : void {
-			//TODO finish
+			var i : int = forceGenerators.indexOf(f);
+			if (i>-1) {
+				forceGenerators.splice(i, 1);
+			}
 		}
 
 		public function update( engineForceGenerators:Vector.<IForceGenerator> ) : void {
@@ -117,10 +129,12 @@ package as3ufw.physics {
 			while (particle) {
 				var fgen : IForceGenerator;
 				for each (fgen in engineForceGenerators) {
-					fgen.applyForce(particle);
+					if (fgen.active)
+						fgen.applyForce(particle);
 				}
 				for each (fgen in forceGenerators) {
-					fgen.applyForce(particle);
+					if (fgen.active)
+						fgen.applyForce(particle);
 				}
 				if (!particle.update(now, damping)) {
 					var nextParticle:Particle = particle.next;
