@@ -19,7 +19,6 @@ package as3ufw.physics {
 			if (minAng == 10) {
 				this.minAng = acRadian;
 				this.maxAng = acRadian;
-				trace(this.minAng);
 			} else {
 				this.minAng = minAng;
 				this.maxAng = maxAng;

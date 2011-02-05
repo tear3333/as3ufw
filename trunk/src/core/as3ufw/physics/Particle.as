@@ -1,9 +1,8 @@
- package as3ufw.physics {
-	import flash.utils.getTimer;
-
+package as3ufw.physics {
 	import as3ufw.geom.Vector2D;
 
 	import flash.display.Graphics;
+	import flash.utils.getTimer;
 
 	/**
 	 * The basic physics entity in the engine.
@@ -11,35 +10,28 @@
 	 * @author Richard.Jewson
 	 */
 	public class Particle {
-		
 		public const pos : Vector2D = new Vector2D();
 		public const prevPos : Vector2D = new Vector2D();
 		public const oldPos : Vector2D = new Vector2D();
 		public const initPos : Vector2D = new Vector2D();
-
 		public var fixed : Boolean;
-
-		private var forces : Vector2D;
-		
+		public var forces : Vector2D;
 		public var mass : Number;
 		public var invMass : Number;
 		private var _deltaT : Number;
-		
 		private var temp : Vector2D;
-
-		public var mask:uint;
-		public var prev:Particle;
-		public var next:Particle;
+		public var mask : uint;
+		public var prev : Particle;
+		public var next : Particle;
 		public var birth : uint;
 		public var ttl : uint;
 		public var count : uint;
 		public var colour : uint;
 		public var decay : Number;
 		public var active : Boolean;
+		public var draw : Boolean;
 		public var params : Object;
-		
-		public var userData:Object;
-		
+		public var userData : Object;
 
 		/*
 		 * Constructs the particle
@@ -50,17 +42,17 @@
 		 * 				To make the particle imovable, set to Math.POSITIVE_INFINITY
 		 */
 		public function Particle(pos : Vector2D) {
-			//this.pos = new Vector2D();
-			//prevPos = new Vector2D();
-			//oldPos = new Vector2D();
-			//initPos = new Vector2D();
+			// this.pos = new Vector2D();
+			// prevPos = new Vector2D();
+			// oldPos = new Vector2D();
+			// initPos = new Vector2D();
 			forces = new Vector2D();
 			temp = new Vector2D();
 			userData = {};
 			reset(pos);
 		}
 
-		public function reset(pos : Vector2D):void {
+		public function reset(pos : Vector2D) : void {
 			this.pos.copy(pos);
 			prevPos.copy(pos);
 			oldPos.copy(pos);
@@ -75,63 +67,62 @@
 			colour = 0x000000;
 			decay = 1;
 			active = true;
+			draw = true;
 			params = {};
 			mask = 0;
-			_deltaT = 0.0625;	
-			
-				
+			_deltaT = 0.0625;
 		}
 
 		public function addForce(f : Vector2D) : void {
-			//forces.plusEquals(f.mult(invMass));
-			forces.x += f.x*invMass;
-			forces.y += f.y*invMass;
+			// forces.plusEquals(f.mult(invMass));
+			forces.x += f.x * invMass;
+			forces.y += f.y * invMass;
 		}
 
 		public function addMasslessForce(f : Vector2D) : void {
-			//forces.plusEquals(f);
+			// forces.plusEquals(f);
 			forces.x += f.x;
 			forces.y += f.y;
 		}
-		
-		public function update(now:uint, damping : Number = 1) : Boolean {
-			if (ttl>0 && now-birth > ttl ) return false;
+
+		public function update(now : uint, damping : Number = 1) : Boolean {
+			if (ttl > 0 && now - birth > ttl ) return false;
 			if (fixed) return true;
-			//Optimization
-			//forces.multEquals(_invMass);
+			// Optimization
+			// forces.multEquals(_invMass);
 			forces.x *= invMass;
 			forces.y *= invMass;
-			
-			//Optimization
-			//temp.copy(pos); 
+
+			// Optimization
+			// temp.copy(pos);
 			temp.x = pos.x;
 			temp.y = pos.y;
-			
-			//Optimization                    
-			//var vel : Vector2D = velocity.plus(forces.multEquals(deltaT));
-			//pos.plusEquals(vel.multEquals(damping));
+
+			// Optimization
+			// var vel : Vector2D = velocity.plus(forces.multEquals(deltaT));
+			// pos.plusEquals(vel.multEquals(damping));
 			pos.x += ( ( ( pos.x - prevPos.x ) + forces.x * _deltaT ) * damping * decay );
 			pos.y += ( ( ( pos.y - prevPos.y ) + forces.y * _deltaT ) * damping * decay );
-			
-			//Optimization  			
-			//oldPos.copy(prevPos);
+
+			// Optimization
+			// oldPos.copy(prevPos);
 			oldPos.x = prevPos.x;
 			oldPos.y = prevPos.y;
 
-			//Optimization  			
-			//prevPos.copy(temp);
+			// Optimization
+			// prevPos.copy(temp);
 			prevPos.x = temp.x;
 			prevPos.y = temp.y;
-			
-			//Optimization 
-			//forces.setTo(0, 0);
+
+			// Optimization
+			// forces.setTo(0, 0);
 			forces.x = forces.y = 0;
-			
+
 			count++;
-			
+
 			return true;
 		}
-		
+
 		public function get velocity() : Vector2D {
 			return pos.minus(prevPos);
 		}
@@ -139,49 +130,49 @@
 		public function set velocity(v : Vector2D) : void {
 			prevPos.copy(pos.minus(v));
 		}
-		
-		public function setMass(m:Number) : void {
-			if (m<=0) m = 0.0000001;
+
+		public function setMass(m : Number) : void {
+			if (m <= 0) m = 0.0000001;
 			mass = m;
-			invMass = 1/m;
+			invMass = 1 / m;
 		}
-		
+
 		public function get deltaT() : Number {
 			return _deltaT;
 		}
-		
+
 		public function set deltaT(deltaT : Number) : void {
 			_deltaT = deltaT;
 		}
 
-		public function setStaticPosition(position:Vector2D) : void {
+		public function setStaticPosition(position : Vector2D) : void {
 			pos.x = prevPos.x = position.x;
 			pos.y = prevPos.y = position.y;
 		}
 
-		public function skew(delta:Vector2D) : void {
+		public function skew(delta : Vector2D) : void {
 			pos.plusEquals(delta);
 			prevPos.plusEquals(delta);
 			oldPos.plusEquals(delta);
 			initPos.plusEquals(delta);
 		}
 
-		private static var _particlePool:Particle;
-		private static var _maxPoolCount:int;
-		
-		public static function GetParticle(pos : Vector2D):Particle {
+		private static var _particlePool : Particle;
+		private static var _maxPoolCount : int;
+
+		public static function GetParticle(pos : Vector2D) : Particle {
 			if (_particlePool) {
-				//trace("from pool");
-				var p:Particle = _particlePool;
+				// trace("from pool");
+				var p : Particle = _particlePool;
 				_particlePool = p.next;
 				p.reset(pos);
 				return p;
 			}
-			//trace(++_maxPoolCount);
+			// trace(++_maxPoolCount);
 			return new Particle(pos);
 		}
-		
-		public static function RecycleParticle(p:Particle):void {
+
+		public static function RecycleParticle(p : Particle) : void {
 			if (_particlePool) {
 				_particlePool.prev = p;
 			}
@@ -190,11 +181,10 @@
 			p.active = false;
 			_particlePool = p;
 		}
-		
+
 		public function render(g : Graphics, colour : uint = 0x000000) : void {
 			g.lineStyle(1, colour);
-			g.drawRect(pos.x-1, pos.y-1, 2, 2);
+			g.drawRect(pos.x - 1, pos.y - 1, 2, 2);
 		}
-		
 	}
 }

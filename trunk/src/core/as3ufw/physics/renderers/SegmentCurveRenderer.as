@@ -19,9 +19,11 @@ package as3ufw.physics.renderers {
 			var count:int = 0;
 			var particle : Particle = g.particles;
 			while (particle) {
-				graphics.lineStyle(width, colour + (0x000000), alpha,true,"normal",CapsStyle.NONE);
-				graphics.moveTo( (particle.oldPos.x + particle.prevPos.x) * 0.5 , (particle.oldPos.y + particle.prevPos.y) * 0.5 );
-				graphics.curveTo(particle.prevPos.x, particle.prevPos.y, (particle.pos.x + particle.prevPos.x) / 2, (particle.pos.y + particle.prevPos.y) / 2);
+				if (particle.draw) {
+					graphics.lineStyle(width, colour + (0x000000), alpha,true,"normal",CapsStyle.NONE);
+					graphics.moveTo( (particle.oldPos.x + particle.prevPos.x) * 0.5 , (particle.oldPos.y + particle.prevPos.y) * 0.5 );
+					graphics.curveTo(particle.prevPos.x, particle.prevPos.y, (particle.pos.x + particle.prevPos.x) / 2, (particle.pos.y + particle.prevPos.y) / 2);
+				}
 				particle = particle.next;
 				count++;
 			}
