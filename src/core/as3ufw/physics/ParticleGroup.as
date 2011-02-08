@@ -55,13 +55,20 @@ package as3ufw.physics {
 		}
 
 		public function removeParticle(p : Particle) : void {
-			if (p == particles) {                                                
+			if (p.prev == null)
 				particles = p.next;
-				particles.prev = null;
-			} else {
+			else
 				p.prev.next = p.next;
-				if (p.next) p.next.prev = p.prev;
-			}
+			if (p.next != null)
+				p.next.prev = p.prev;
+			
+//			if (p == particles) {                                                
+//				particles = p.next;
+//				particles.prev = null;
+//			} else {
+//				p.prev.next = p.next;
+//				if (p.next) p.next.prev = p.prev;
+//			}
 			Particle.RecycleParticle(p);
 			particleCount--;
 		}
