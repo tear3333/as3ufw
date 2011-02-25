@@ -5,6 +5,8 @@ package as3ufw.physics.tests {
 	import as3ufw.physics.Spring;
 	import as3ufw.physics.renderers.SegmentCurveRenderer;
 
+	import org.rje.graphics.vector.brushes.BrushParams;
+
 	import flash.display.BlendMode;
 	import flash.events.Event;
 
@@ -12,26 +14,25 @@ package as3ufw.physics.tests {
 	 * @author richard.jewson
 	 */
 	public class ParticleTestK extends ParticleTestBase {
-
 		public var center : Particle;
 
 		public function ParticleTestK() {
 			super();
 			group.damping = 0.8;
-			
+
 			var pos : Vector2D = new Vector2D(200, 200);
 			center = Particle.GetParticle(pos);
-			//group.addParticle(center);
+			// group.addParticle(center);
 			center.fixed = true;
-			
+
 			var p : Particle = Particle.GetParticle(pos);
 			p.setMass(5);
-			group.addParticle(p);	
-				
+			group.addParticle(p);
+
 			var spring : Spring = new Spring(center, p, 1);
 			group.addSpring(spring);
-			
-			group.addRenderer(new SegmentCurveRenderer(renderContext.graphics, 3, 0x000000, 1));
+
+			group.addRenderer(new SegmentCurveRenderer(renderContext.graphics, new BrushParams(1, 3)));
 
 			start();
 		}

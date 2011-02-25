@@ -31,7 +31,7 @@ package org.rje.graphics.vector.brushes {
 			if (Math.random() > dSqr / (threshold/2)) {
 			//if (Math.random() > 0.96){//dSqr / (threshold / 2)) {
 			//trace(1 - (dSqr / threshold));
-				graphics.lineStyle(params.width, params.colour, ((1 - (dSqr / threshold)) * params.weight));
+				graphics.lineStyle(params.width, params.colour, ((1 - (dSqr / threshold)) * params.alpha));
 				graphics.moveTo(point.x, point.y);
 				graphics.lineTo(targetPoint.x, targetPoint.y);
 			}		

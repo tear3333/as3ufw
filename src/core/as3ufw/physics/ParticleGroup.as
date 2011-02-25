@@ -22,6 +22,8 @@ package as3ufw.physics {
 		public var forceGenerators : Vector.<IForceGenerator>;
 
 		public var pos:Vector2D;
+		
+		public var globalForce:Vector2D;
 
 		public var particleCount : int;
 
@@ -42,6 +44,7 @@ package as3ufw.physics {
 			renderers = new Vector.<IRenderer>();
 			forceGenerators = new Vector.<IForceGenerator>();
 			pos = new Vector2D();
+			globalForce = new Vector2D();
 			doRender = true;
 			damping = 1;
 			iterations = 1;
@@ -143,7 +146,7 @@ package as3ufw.physics {
 					if (fgen.active)
 						fgen.applyForce(particle);
 				}
-				if (!particle.update(now, damping)) {
+				if (!particle.update(now, damping, globalForce)) {
 					var nextParticle:Particle = particle.next;
 					removeParticle(particle);
 					particle = nextParticle;

@@ -29,7 +29,7 @@ package org.rje.graphics.vector.brushes {
 		
 		override public function draw(point:Vector2D, targetPoint:Vector2D, ageDelta:Number, dSqr:Number, dX:Number, dY:Number ) : void {
 			//if (g < 2000 && Math.random() > g / (2000/2)) {
-			graphics.lineStyle(params.width, params.colour, ((1 - (dSqr / 1000)) * params.weight));
+			graphics.lineStyle(params.width, params.colour, ((1 - (dSqr / 1000)) * params.alpha));
 			graphics.moveTo(point.x, point.y);
 			graphics.lineTo(targetPoint.x, targetPoint.y);
 		}

@@ -1,4 +1,6 @@
 package as3ufw.physics {
+	import as3ufw.utils.Random;
+	import as3ufw.physics.fluid.Constants;
 	import as3ufw.geom.Vector2D;
 
 	import flash.display.Graphics;
@@ -32,6 +34,11 @@ package as3ufw.physics {
 		public var draw : Boolean;
 		public var params : Object;
 		public var userData : Object;
+
+		public var density : Number;
+		public var pressure : Number;
+		
+		public var blob:int = Random.boolean() ? -1 : 1;
 
 		/*
 		 * Constructs the particle
@@ -70,6 +77,8 @@ package as3ufw.physics {
 			draw = true;
 			params = {};
 			mask = 0;
+			density = Constants.DENSITY_OFFSET;
+			pressure = 0;
 			_deltaT = 0.0625;
 		}
 
@@ -85,11 +94,15 @@ package as3ufw.physics {
 			forces.y += f.y;
 		}
 
-		public function update(now : uint, damping : Number = 1) : Boolean {
+		public function update(now : uint, damping : Number, globalForce:Vector2D ) : Boolean {
 			if (ttl > 0 && now - birth > ttl ) return false;
 			if (fixed) return true;
 			// Optimization
 			// forces.multEquals(_invMass);
+			
+			forces.x += globalForce.x;
+			forces.y += globalForce.y;
+			
 			forces.x *= invMass;
 			forces.y *= invMass;
 
@@ -180,6 +193,10 @@ package as3ufw.physics {
 			p.prev = null;
 			p.active = false;
 			_particlePool = p;
+		}
+
+		public function GetHashCode() : int {
+			return (pos.x * Constants.PRIME_1) ^ (pos.y * Constants.PRIME_2);
 		}
 
 		public function render(g : Graphics, colour : uint = 0x000000) : void {

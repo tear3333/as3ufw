@@ -9,6 +9,8 @@ package as3ufw.physics.tests {
 	import as3ufw.physics.renderers.ContinuousCurveRenderer;
 	import as3ufw.physics.renderers.PointRenderer;
 
+	import org.rje.graphics.vector.brushes.BrushParams;
+
 	import flash.events.Event;
 
 	/**
@@ -22,8 +24,8 @@ package as3ufw.physics.tests {
 		public function ParticleTestF() {
 			super();
 
-			var pointRenderer : PointRenderer = new PointRenderer(renderContext.graphics, 3);
-			var curveRenderer : ContinuousCurveRenderer = new ContinuousCurveRenderer(renderContext.graphics, 1);
+			var pointRenderer : PointRenderer = new PointRenderer(renderContext.graphics, new BrushParams(1, 3));
+			var curveRenderer : ContinuousCurveRenderer = new ContinuousCurveRenderer(renderContext.graphics, new BrushParams(1, 1));
 			curveRenderer.join = false;
 
 			for (var i : int = 0;i < lines;i++) {
@@ -39,7 +41,7 @@ package as3ufw.physics.tests {
 				engine.addGroup(lineGroup);
 			}
 
-			engine.addForceGenerator(new Attractor(Forces.Uniform, mousePos, -20,50));
+			engine.addForceGenerator(new Attractor(Forces.Uniform, mousePos, -20, 50));
 			engine.addForceGenerator(new InitialPositionAttractor(Forces.Uniform, 10));
 			group.damping = 0.7;
 			start();

@@ -1,16 +1,11 @@
 package as3ufw.physics.tests {
-	import as3ufw.physics.renderers.SegmentCurveNormalRenderer;
 	import as3ufw.geom.Vector2D;
 	import as3ufw.physics.Particle;
 	import as3ufw.physics.ParticleTestBase;
 	import as3ufw.physics.Spring;
-	import as3ufw.physics.renderers.PointRenderer;
-	import as3ufw.physics.renderers.SegmentCurveRenderer;
-
-	import flash.display.Bitmap;
-	import flash.display.BitmapData;
+	import as3ufw.physics.renderers.SegmentCurveNormalRenderer;
+	import org.rje.graphics.vector.brushes.BrushParams;
 	import flash.display.BlendMode;
-	import flash.display.Shape;
 	import flash.events.Event;
 
 	/**
@@ -38,7 +33,7 @@ package as3ufw.physics.tests {
 				group.addSpring(spring);
 			}
 			
-			group.addRenderer(new SegmentCurveNormalRenderer(renderContext.graphics, 1, 0x000000, 0.1));
+			group.addRenderer(new SegmentCurveNormalRenderer(renderContext.graphics, new BrushParams(0.1,1)));
 
 			start();
 		}

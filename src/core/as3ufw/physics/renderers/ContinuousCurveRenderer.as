@@ -1,4 +1,5 @@
 package as3ufw.physics.renderers {
+	import org.rje.graphics.vector.brushes.BrushParams;
 	import flash.display.CapsStyle;
 
 	import as3ufw.geom.Vector2D;
@@ -14,8 +15,8 @@ package as3ufw.physics.renderers {
 
 		private var _join : Boolean;
 
-		public function ContinuousCurveRenderer(graphics : Graphics,width : Number,colour : uint = 0, alpha : Number = 1) {
-			super(graphics, width, colour, alpha);
+		public function ContinuousCurveRenderer(graphics : Graphics,brushParams:BrushParams) {
+			super(graphics, brushParams);
 			_join = true;
 		}
 
@@ -28,8 +29,8 @@ package as3ufw.physics.renderers {
 
 			var particle : Particle;
 
-			graphics.lineStyle(width, colour + (0x000000), alpha,true,"normal",CapsStyle.NONE);
-			
+			brushParams.startDrawingMode(graphics);
+			//graphics.lineStyle(brushParams.width, brushParams.colour, brushParams.alpha,brushParams.hinting,"normal",brushParams.caps);
 			//Need to handle joined lines differently
 			if (join) {
 				
@@ -62,9 +63,8 @@ package as3ufw.physics.renderers {
 					particle = particle.next;
 				}
 				graphics.curveTo(particle.pos.x, particle.pos.y, particle.next.pos.x, particle.next.pos.y);
-						
 			}
-			
+			brushParams.endDrawingMode(graphics);
 		}
 
 		public function get join() : Boolean {

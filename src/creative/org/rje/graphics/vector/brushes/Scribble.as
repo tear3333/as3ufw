@@ -19,7 +19,7 @@ package org.rje.graphics.vector.brushes {
 
 		override public function doStroke(point:Vector2D) : void {
 			
-			graphics.lineStyle(params.width, params.colour, params.weight);
+			graphics.lineStyle(params.width, params.colour, params.alpha);
 			graphics.moveTo(lastPoint.x, lastPoint.y);
 			graphics.lineTo(point.x, point.y);
 			
