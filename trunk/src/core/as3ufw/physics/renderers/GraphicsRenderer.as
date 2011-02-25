@@ -1,4 +1,5 @@
 package as3ufw.physics.renderers {
+	import org.rje.graphics.vector.brushes.BrushParams;
 	import as3ufw.physics.ParticleGroup;
 
 	import flash.display.Graphics;
@@ -8,16 +9,12 @@ package as3ufw.physics.renderers {
 	 */
 	public class GraphicsRenderer implements IRenderer {
 		
-		protected var graphics : Graphics;
-		protected var width : Number;
-		protected var colour : uint;
-		protected var alpha : Number;
+		public var graphics : Graphics;
+		public var brushParams : BrushParams;
 
-		public function GraphicsRenderer(graphics : Graphics,width : Number,colour : uint = 0, alpha : Number = 1) {
-			this.alpha = alpha;
-			this.colour = colour;
-			this.width = width;
+		public function GraphicsRenderer(graphics : Graphics, brushParams : BrushParams) {
 			this.graphics = graphics;
+			this.brushParams = brushParams;
 		}
 		
 		virtual public function render(g : ParticleGroup) : void {

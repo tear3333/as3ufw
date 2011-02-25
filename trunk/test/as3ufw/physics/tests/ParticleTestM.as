@@ -1,5 +1,4 @@
 package as3ufw.physics.tests {
-	import as3ufw.physics.renderers.SegmentCurveRenderer;
 	import as3ufw.geom.Vector2D;
 	import as3ufw.physics.Particle;
 	import as3ufw.physics.ParticleTestBase;
@@ -9,6 +8,8 @@ package as3ufw.physics.tests {
 	import as3ufw.physics.renderers.PointRenderer;
 	import as3ufw.utils.Random;
 
+	import org.rje.graphics.vector.brushes.BrushParams;
+
 	import flash.display.BlendMode;
 	import flash.events.Event;
 
@@ -16,7 +17,6 @@ package as3ufw.physics.tests {
 	 * @author Richard.Jewson
 	 */
 	public class ParticleTestM extends ParticleTestBase {
-		
 		public var center : Particle;
 		private var invAttractor : Attractor;
 		public var perpParticles : Vector.<Particle> = new Vector.<Particle>();
@@ -39,10 +39,10 @@ package as3ufw.physics.tests {
 			for (var i : int = 0;i < points;i++) {
 				var p : Particle = Particle.GetParticle(pos);
 				// p.deltaT = 0.1*0.1;
-				p.setMass(0.5 + (i*1.5  / points));
+				p.setMass(0.5 + (i * 1.5 / points));
 				// i/20;
 				group.addParticle(p);
-				p.userData["i"] = Math.max(Math.min(i / points + Random.float(-0.5, 0.5), 1) , 0);
+				p.userData["i"] = Math.max(Math.min(i / points + Random.float(-0.5, 0.5), 1), 0);
 				// p.userData["i"] = (Math.sin( (i/points) * (Math.PI) ));
 				trace(p.userData["i"]);
 				// var spring : Spring = new Spring(center, p, 10.1);
@@ -52,9 +52,9 @@ package as3ufw.physics.tests {
 			}
 			group.iterations = 1;
 			// group.damping = 0.5;
-			group.addRenderer(new PointRenderer(viewContext.graphics, 1));
-			group.addRenderer(new GradientSegmentCurveRenderer(renderContext.graphics, 1, 0xF1ECD6,0xA9925C, 0.15));
-			//group.addRenderer(new SegmentCurveRenderer(renderContext.graphics, 3, 0x000000, 0.01));
+			group.addRenderer(new PointRenderer(viewContext.graphics, new BrushParams(1,1)));
+			group.addRenderer(new GradientSegmentCurveRenderer(renderContext.graphics, new BrushParams(0.15, 1, 0xF1ECD6), 0xA9925C));
+			// group.addRenderer(new SegmentCurveRenderer(renderContext.graphics, 3, 0x000000, 0.01));
 			// invAttractor = new Attractor(Forces.Inverse,mousePos, 200);
 			invAttractor = new Attractor(Forces.Inverse2, mousePos, 0.3);
 			group.addForceGenerator(invAttractor);
@@ -77,12 +77,12 @@ package as3ufw.physics.tests {
 			engine.update();
 			if (lmb)
 				bmd.draw(renderContext, null, null, BlendMode.NORMAL, null, true);
-				
+
 			for each (var p:Particle in perpParticles) {
-				p.userData.i+=0.01;
-				//trace(p);
-				if (p.userData.i>1) p.userData.i = 00;
-			}	
+				p.userData.i += 0.01;
+				// trace(p);
+				if (p.userData.i > 1) p.userData.i = 00;
+			}
 		}
 	}
 }

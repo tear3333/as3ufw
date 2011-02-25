@@ -13,6 +13,8 @@ package as3ufw.physics.tests {
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Sine;
 
+	import org.rje.graphics.vector.brushes.BrushParams;
+
 	import flash.events.Event;
 
 	/**
@@ -29,8 +31,8 @@ package as3ufw.physics.tests {
 		public function ParticleTestJ() {
 			super();
 
-			var pointRenderer : PointRenderer = new PointRenderer(renderContext.graphics, 3);
-			var curveRenderer : ContinuousCurveRenderer = new ContinuousCurveRenderer(renderContext.graphics, 1);
+			var pointRenderer : PointRenderer = new PointRenderer(renderContext.graphics, new BrushParams(1, 3));
+			var curveRenderer : ContinuousCurveRenderer = new ContinuousCurveRenderer(renderContext.graphics, new BrushParams(1, 1));
 			curveRenderer.join = false;
 
 			for (var i : int = 0;i < lines;i++) {
@@ -70,7 +72,7 @@ package as3ufw.physics.tests {
 				engine.addGroup(lineGroup);
 			}
 
-			engine.addForceGenerator(new Attractor(Forces.Relative, mousePos, 5,100));
+			engine.addForceGenerator(new Attractor(Forces.Relative, mousePos, 5, 100));
 			// engine.addForceGenerator(new InitialPositionAttractor(0.1));
 
 			start();
@@ -80,7 +82,6 @@ package as3ufw.physics.tests {
 			trace(globalSpring.length);
 		};
 
-		
 		override public function stop(e : Event = null) : void {
 			TweenMax.killAll();
 			super.stop(e);

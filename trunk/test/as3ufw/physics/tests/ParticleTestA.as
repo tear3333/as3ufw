@@ -1,4 +1,5 @@
 package as3ufw.physics.tests {
+	import org.rje.graphics.vector.brushes.BrushParams;
 	import as3ufw.geom.Vector2D;
 	import as3ufw.physics.ParticleTestBase;
 	import as3ufw.physics.emitters.PointEmitter;
@@ -22,7 +23,7 @@ package as3ufw.physics.tests {
 			emitter.velocity = 1;
 
 			group.addEmitter(emitter);
-			group.addRenderer(new JoinedCurveRenderer(renderContext.graphics, 3));
+			group.addRenderer(new JoinedCurveRenderer(renderContext.graphics, new BrushParams(1,3)));
 			// group.addRenderer(new PointRenderer(graphics,3));
 
 			group.addForceGenerator(new Attractor(Forces.Uniform, mousePos, 20, 20));

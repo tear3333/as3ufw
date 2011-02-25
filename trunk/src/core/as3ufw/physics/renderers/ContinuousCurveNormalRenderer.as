@@ -1,11 +1,12 @@
 package as3ufw.physics.renderers {
-	import flash.display.CapsStyle;
-
-	import as3ufw.geom.twoD.CurveUtils;
 	import as3ufw.geom.Vector2D;
+	import as3ufw.geom.twoD.CurveUtils;
 	import as3ufw.physics.Particle;
 	import as3ufw.physics.ParticleGroup;
 
+	import org.rje.graphics.vector.brushes.BrushParams;
+
+	import flash.display.CapsStyle;
 	import flash.display.Graphics;
 
 	/**
@@ -15,8 +16,8 @@ package as3ufw.physics.renderers {
 
 		private var _join : Boolean;
 
-		public function ContinuousCurveNormalRenderer(graphics : Graphics,width : Number,colour : uint = 0, alpha : Number = 1) {
-			super(graphics, width, colour, alpha);
+		public function ContinuousCurveNormalRenderer(graphics : Graphics,brushParams:BrushParams) {
+			super(graphics,brushParams);
 			_join = true;
 		}
 
@@ -27,7 +28,8 @@ package as3ufw.physics.renderers {
 			var last:Vector2D;
 			var next:Vector2D;
 
-			graphics.lineStyle(width, colour, alpha,true,"normal",CapsStyle.NONE);
+			//graphics.lineStyle(width, colour, alpha,true,"normal",CapsStyle.NONE);
+			brushParams.startDrawingMode(graphics,false);
 			first = g.particles.pos.interp(0.5, g.particles.next.pos);
 			last = first.clone();
 			graphics.moveTo(last.x,last.y);

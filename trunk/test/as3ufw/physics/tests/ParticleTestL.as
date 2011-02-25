@@ -8,6 +8,8 @@ package as3ufw.physics.tests {
 	import as3ufw.physics.renderers.PointRenderer;
 	import as3ufw.physics.renderers.SegmentCurveRenderer;
 
+	import org.rje.graphics.vector.brushes.BrushParams;
+
 	import flash.display.BlendMode;
 	import flash.events.Event;
 
@@ -46,8 +48,8 @@ package as3ufw.physics.tests {
 			}
 			group.iterations = 1;
 			// group.damping = 0.5;
-			group.addRenderer(new PointRenderer(viewContext.graphics, 1));
-			group.addRenderer(new SegmentCurveRenderer(renderContext.graphics, 1, 0x000000, 0.02));
+			group.addRenderer(new PointRenderer(viewContext.graphics, new BrushParams(1)));
+			group.addRenderer(new SegmentCurveRenderer(renderContext.graphics, new BrushParams(0.02, 1)));
 
 			// invAttractor = new Attractor(Forces.Inverse,mousePos, 200);
 			invAttractor = new Attractor(Forces.Inverse2, mousePos, 0.1);

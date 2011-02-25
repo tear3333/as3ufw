@@ -2,6 +2,8 @@ package as3ufw.physics.renderers {
 	import as3ufw.physics.Particle;
 	import as3ufw.physics.ParticleGroup;
 
+	import org.rje.graphics.vector.brushes.BrushParams;
+
 	import flash.display.Graphics;
 
 	/**
@@ -9,14 +11,14 @@ package as3ufw.physics.renderers {
 	 */
 	public class JoinedCurveRenderer extends GraphicsRenderer {
 
-		public function JoinedCurveRenderer(graphics : Graphics,width : Number,colour : uint = 0, alpha : Number = 1) {
-			super(graphics, width, colour, alpha);
+		public function JoinedCurveRenderer(graphics : Graphics, brushParams : BrushParams) {
+			super(graphics, brushParams);
 		}
-		
+
 		override public function render(g : ParticleGroup) : void {
 			if (!g.particles || g.particleCount < 3) return;
 
-			graphics.lineStyle(width, colour, alpha);
+			graphics.lineStyle(brushParams.width, brushParams.colour, brushParams.alpha);
 			graphics.moveTo(g.particles.pos.x, g.particles.pos.y);
 
 			var particle : Particle = g.particles.next;
@@ -28,7 +30,7 @@ package as3ufw.physics.renderers {
 					return;
 				}
 				particle = particle.next;
-			}						
+			}
 		}
 	}
 }
