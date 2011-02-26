@@ -21,15 +21,18 @@ package as3ufw.physics.forces {
 			this.threshold = threshold;
 		}
 
-		override public function applyForce(targetParticle : Particle) : void {
+		override public function applyForce(targetParticles : Particle) : void {
 			if (!active) return;
-			var difference : Vector2D = new Vector2D(targetParticle.initPos.x - targetParticle.pos.x, targetParticle.initPos.y - targetParticle.pos.y);
-			// position.minus(targetParticle.pos);
-			var distanceSqr:Number = difference.x * difference.x + difference.y * difference.y;
-			if (distanceSqr==0) return;
-			if (distanceSqr<threshold) return;
-			if ((range>=0)&&(distanceSqr > rangeSqr)) return;
-			targetParticle.addForce(force(difference, strength));
+			var particle : Particle = targetParticles;
+			while (particle) {
+				var difference : Vector2D = new Vector2D(particle.initPos.x - particle.pos.x, particle.initPos.y - particle.pos.y);
+				// position.minus(targetParticle.pos);
+				var distanceSqr:Number = difference.x * difference.x + difference.y * difference.y;
+				if (!( (distanceSqr==0) && (distanceSqr<threshold) && ((range>=0)&&(distanceSqr > rangeSqr)) ) ) {
+					particle.addForce(force(difference, strength));
+				}
+				particle = particle.next;
+			}
 		}
 	}
 }

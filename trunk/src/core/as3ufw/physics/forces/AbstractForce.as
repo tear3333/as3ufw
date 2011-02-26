@@ -8,7 +8,7 @@ package as3ufw.physics.forces {
 
 		private var _active : Boolean = true;
 
-		virtual public function applyForce(targetParticle : Particle) : void {
+		virtual public function applyForce(targetParticles : Particle) : void {
 		}
 
 		public function get active() : Boolean {

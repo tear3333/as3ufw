@@ -13,9 +13,13 @@ package as3ufw.physics.forces {
 			this.strength = strength;
 		}
 
-		override public function applyForce(targetParticle : Particle) : void {
+		override public function applyForce(targetParticles : Particle) : void {
 			if (!active) return;
-			targetParticle.addForce(new Vector2D(Random.float(-1*strength, 1*strength),Random.float(-1*strength, 1*strength)));
+			var particle : Particle = targetParticles;
+			while (particle) {
+				particle.addForce(new Vector2D(Random.float(-1*strength, 1*strength),Random.float(-1*strength, 1*strength)));
+				particle = particle.next;
+			}
 		}
 	}
 }

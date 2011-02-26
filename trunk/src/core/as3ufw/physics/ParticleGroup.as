@@ -1,13 +1,15 @@
 package as3ufw.physics {
+	import as3ufw.physics.constraints.IConstraint;
 	import as3ufw.geom.Vector2D;
-
-	import flash.utils.getTimer;
-
+	import as3ufw.physics.constraints.Spring;
 	import as3ufw.physics.emitters.IEmitter;
 	import as3ufw.physics.forces.IForceGenerator;
 	import as3ufw.physics.renderers.IRenderer;
-
 	import flash.display.Graphics;
+	import flash.utils.getTimer;
+
+
+
 
 	/**
 	 * @author Richard.Jewson
@@ -16,7 +18,7 @@ package as3ufw.physics {
 
 		public var particles : Particle;
 		public var controlParticles : Vector.<Particle>;
-		public var springs : Vector.<Spring>;
+		public var constraints : Vector.<IConstraint>;
 		public var emitters : Vector.<IEmitter>;
 		public var renderers : Vector.<IRenderer>;
 		public var forceGenerators : Vector.<IForceGenerator>;
@@ -39,7 +41,7 @@ package as3ufw.physics {
 			_id = _nextid++;
 			particles = null;
 			controlParticles = new Vector.<Particle>();
-			springs = new Vector.<Spring>();
+			constraints = new Vector.<IConstraint>();
 			emitters = new Vector.<IEmitter>();
 			renderers = new Vector.<IRenderer>();
 			forceGenerators = new Vector.<IForceGenerator>();
@@ -87,14 +89,14 @@ package as3ufw.physics {
 			}
 		}
 
-		public function addSpring(s : Spring) : void {
-			springs.push(s);
+		public function addConstraint(c : IConstraint) : void {
+			constraints.push(c);
 		}
 
-		public function removeSpring(s : Spring) : void {
-			var i : int = springs.indexOf(s);
+		public function removeConstraint(c : IConstraint) : void {
+			var i : int = constraints.indexOf(c);
 			if (i>-1) {
-				springs.splice(i, 1);
+				constraints.splice(i, 1);
 			}
 		}
 
@@ -135,17 +137,15 @@ package as3ufw.physics {
 		public function update( engineForceGenerators:Vector.<IForceGenerator> ) : void {
 			var now : uint = getTimer();
 	
+			var fgen : IForceGenerator;
+			for each (fgen in engineForceGenerators) {
+				fgen.applyForce(particles);
+			}
+			for each (fgen in forceGenerators) {
+				fgen.applyForce(particles);
+			}
 			var particle : Particle = particles;
 			while (particle) {
-				var fgen : IForceGenerator;
-				for each (fgen in engineForceGenerators) {
-					if (fgen.active)
-						fgen.applyForce(particle);
-				}
-				for each (fgen in forceGenerators) {
-					if (fgen.active)
-						fgen.applyForce(particle);
-				}
 				if (!particle.update(now, damping, globalForce)) {
 					var nextParticle:Particle = particle.next;
 					removeParticle(particle);
@@ -155,8 +155,9 @@ package as3ufw.physics {
 				}
 			}
 			for (var i : int = 0; i < iterations; i++) {
-				for each (var spring : Spring in springs) {
-					spring.resolve();
+				var iterationPercent:Number = i/iterations;
+				for each (var constraint : IConstraint in constraints) {
+					constraint.resolve(iterationPercent);
 				}
 			}
 			render();

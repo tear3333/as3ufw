@@ -1,4 +1,5 @@
-package as3ufw.physics {
+package as3ufw.physics.constraints {
+	import as3ufw.physics.Particle;
 	/**
 	 * @author richard.jewson
 	 */
@@ -34,7 +35,7 @@ package as3ufw.physics {
 			return angDiff;
 		}
 
-		override public function resolve() : Boolean {
+		override public function resolve(iterationPercent:Number) : Boolean {
 			
 			var ang12 : Number = Math.atan2(p2.pos.y - p1.pos.y, p2.pos.x - p1.pos.x);
 			var ang23 : Number = Math.atan2(angleParticle.pos.y - p2.pos.y, angleParticle.pos.x - p2.pos.x);

@@ -1,11 +1,12 @@
-package as3ufw.physics {
-	import flash.display.Graphics;
+package as3ufw.physics.constraints {
 	import as3ufw.geom.Vector2D;
+	import as3ufw.physics.Particle;
+	import flash.display.Graphics;
 
 	/**
 	 * @author Richard.Jewson
 	 */
-	public class Spring {
+	public class Spring implements IConstraint {
 
 		internal var p1 : Particle;
 		internal var p2 : Particle;
@@ -19,7 +20,7 @@ package as3ufw.physics {
 			restLength = length;
 		}
 
-		public function resolve() : Boolean {
+		public function resolve(iterationPercent:Number) : Boolean {
             
             if ((!p1 || !p1.active || !p2 || !p2.active) ) return false;
             

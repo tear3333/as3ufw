@@ -3,19 +3,19 @@ package as3ufw.physics.tests {
 	import as3ufw.physics.Particle;
 	import as3ufw.physics.ParticleGroup;
 	import as3ufw.physics.ParticleTestBase;
-	import as3ufw.physics.Spring;
+	import as3ufw.physics.constraints.Spring;
 	import as3ufw.physics.forces.Attractor;
 	import as3ufw.physics.forces.Forces;
 	import as3ufw.physics.renderers.ContinuousCurveRenderer;
 	import as3ufw.physics.renderers.PointRenderer;
 	import as3ufw.utils.Random;
-
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Sine;
-
+	import flash.events.Event;
 	import org.rje.graphics.vector.brushes.BrushParams;
 
-	import flash.events.Event;
+
+
 
 	/**
 	 * @author Richard.Jewson
@@ -55,9 +55,9 @@ package as3ufw.physics.tests {
 					p.pos.y = lineHeight;
 					if (last) {
 						spring = new Spring(last, p, 0.01);
-						group.addSpring(spring);
+						group.addConstraint(spring);
 						spring = new Spring(first, p, 0.0001);
-						group.addSpring(spring);
+						group.addConstraint(spring);
 					}
 					if (j == 1 ) {
 						globalSpring = spring;
