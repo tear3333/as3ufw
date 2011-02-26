@@ -2,17 +2,17 @@ package as3ufw.physics.tests {
 	import as3ufw.geom.Vector2D;
 	import as3ufw.physics.Particle;
 	import as3ufw.physics.ParticleTestBase;
-	import as3ufw.physics.Spring;
+	import as3ufw.physics.constraints.Spring;
 	import as3ufw.physics.forces.RandomForce;
 	import as3ufw.physics.renderers.TestPathRenderer;
-
-	import org.rje.graphics.vector.brushes.BrushParams;
-
 	import flash.display.BlendMode;
 	import flash.display.CapsStyle;
 	import flash.display.GraphicsPath;
 	import flash.display.Shape;
 	import flash.events.Event;
+	import org.rje.graphics.vector.brushes.BrushParams;
+
+
 
 	/**
 	 * @author Richard.Jewson
@@ -47,15 +47,15 @@ package as3ufw.physics.tests {
 				if (i == 0) first = p;
 
 				var spring : Spring = new Spring(center, p, 0.01);
-				group.addSpring(spring);
+				group.addConstraint(spring);
 
 				if (last) {
-					group.addSpring(new Spring(last, p, 0.4));
+					group.addConstraint(new Spring(last, p, 0.4));
 				}
 
 				last = p;
 			}
-			group.addSpring(new Spring(last, first, 0.4));
+			group.addConstraint(new Spring(last, first, 0.4));
 
 			// group.addRenderer(new PointRenderer(graphics, 3));
 			// group.addRenderer(new ContinuousCurveRenderer(renderContext.graphics, 1,0x00000, 0.1));

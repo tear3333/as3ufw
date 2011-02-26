@@ -2,13 +2,13 @@ package as3ufw.physics.tests {
 	import as3ufw.geom.Vector2D;
 	import as3ufw.physics.Particle;
 	import as3ufw.physics.ParticleTestBase;
-	import as3ufw.physics.Spring;
+	import as3ufw.physics.constraints.Spring;
 	import as3ufw.physics.renderers.SegmentCurveRenderer;
-
-	import org.rje.graphics.vector.brushes.BrushParams;
-
 	import flash.display.BlendMode;
 	import flash.events.Event;
+	import org.rje.graphics.vector.brushes.BrushParams;
+
+
 
 	/**
 	 * @author richard.jewson
@@ -30,7 +30,7 @@ package as3ufw.physics.tests {
 			group.addParticle(p);
 
 			var spring : Spring = new Spring(center, p, 1);
-			group.addSpring(spring);
+			group.addConstraint(spring);
 
 			group.addRenderer(new SegmentCurveRenderer(renderContext.graphics, new BrushParams(1, 3)));
 

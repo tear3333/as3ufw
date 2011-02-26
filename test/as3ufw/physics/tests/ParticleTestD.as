@@ -1,17 +1,17 @@
 package as3ufw.physics.tests {
-	import as3ufw.physics.ParticleUtils;
 	import as3ufw.geom.Vector2D;
 	import as3ufw.physics.Particle;
 	import as3ufw.physics.ParticleTestBase;
-	import as3ufw.physics.Spring;
+	import as3ufw.physics.ParticleUtils;
+	import as3ufw.physics.constraints.Spring;
 	import as3ufw.physics.forces.RandomForce;
 	import as3ufw.physics.renderers.ContinuousCurveRenderer;
 	import as3ufw.physics.renderers.PointRenderer;
-
-	import org.rje.graphics.vector.brushes.BrushParams;
-
 	import flash.display.BlendMode;
 	import flash.events.Event;
+	import org.rje.graphics.vector.brushes.BrushParams;
+
+
 
 	/**
 	 * @author Richard.Jewson
@@ -29,7 +29,7 @@ package as3ufw.physics.tests {
 			group.addControlParticle(center);
 			group.pos.copy(firstPos);
 
-			ParticleUtils.createSpringCircle(group,center,15,100);
+			ParticleUtils.createSpringCircle(group,center,5,200);
 
 //			var first : Particle;
 //			var last : Particle;

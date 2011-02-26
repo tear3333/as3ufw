@@ -36,46 +36,50 @@ package as3ufw.physics.forces.field {
 			this.scaleY = 1;
 		}
 
-		override public function applyForce(targetParticle : Particle) : void {
+		override public function applyForce(targetParticles : Particle) : void {
 			if (!active) return;
-			var px : Number = x + (targetParticle.pos.x / scaleX);
-			var py : Number = y + (targetParticle.pos.y / scaleY);
-                        
-			if (tiled) {
-				px = px % _bitmapData.width;
-				py = py % _bitmapData.height;
-			} else {
-				if ((px < 0) || (px >= _bitmapData.width) || (py < 0) || (py >= _bitmapData.height))
-					return;
+			var particle : Particle = targetParticles;
+			while (particle) {
+				var px : Number = x + (particle.pos.x / scaleX);
+				var py : Number = y + (particle.pos.y / scaleY);
+	                        
+				if (tiled) {
+					px = px % _bitmapData.width;
+					py = py % _bitmapData.height;
+				} else {
+					if ((px < 0) || (px >= _bitmapData.width) || (py < 0) || (py >= _bitmapData.height))
+						return;
+				}
+	                        
+				var colour:uint = _bitmapData.getPixel(int(px), int(py));
+				var force:Vector2D = new Vector2D();
+				switch (channelX) {
+					case 1:
+						force.x = 2 * ((((colour & 0xFF0000) >> 16) / 255) - 0.5) * max;
+						break;
+					case 2:
+						force.x = 2 * ((((colour & 0x00FF00) >> 8) / 255) - 0.5) * max;
+						break;
+					case 4:
+						force.x = 2 * (((colour & 0x0000FF) / 255) - 0.5) * max;
+						break;
+				}
+	                        
+				switch (channelY) {
+					case 1:
+						force.y = 2 * ((((colour & 0xFF0000) >> 16) / 255) - 0.5) * max;
+						break;
+					case 2:
+						force.y = 2 * ((((colour & 0x00FF00) >> 8) / 255) - 0.5) * max;
+						break;
+					case 4:
+						force.y = 2 * (((colour & 0x0000FF) / 255) - 0.5) * max;
+						break;
+				}
+	                        
+				particle.addForce(force);
+				particle = particle.next;
 			}
-                        
-			var colour:uint = _bitmapData.getPixel(int(px), int(py));
-			var force:Vector2D = new Vector2D();
-			switch (channelX) {
-				case 1:
-					force.x = 2 * ((((colour & 0xFF0000) >> 16) / 255) - 0.5) * max;
-					break;
-				case 2:
-					force.x = 2 * ((((colour & 0x00FF00) >> 8) / 255) - 0.5) * max;
-					break;
-				case 4:
-					force.x = 2 * (((colour & 0x0000FF) / 255) - 0.5) * max;
-					break;
-			}
-                        
-			switch (channelY) {
-				case 1:
-					force.y = 2 * ((((colour & 0xFF0000) >> 16) / 255) - 0.5) * max;
-					break;
-				case 2:
-					force.y = 2 * ((((colour & 0x00FF00) >> 8) / 255) - 0.5) * max;
-					break;
-				case 4:
-					force.y = 2 * (((colour & 0x0000FF) / 255) - 0.5) * max;
-					break;
-			}
-                        
-			targetParticle.addForce(force);
 		}
 
 		public function set bitmapData(bitmapData : BitmapData) : void {

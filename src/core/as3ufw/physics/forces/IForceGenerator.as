@@ -5,7 +5,7 @@ package as3ufw.physics.forces {
 	 * @author Richard.Jewson
 	 */
 	public interface IForceGenerator {
-		function applyForce(targetParticle : Particle) : void;
+		function applyForce(targetParticles : Particle) : void;
 
 		function set active(a : Boolean) : void;
 

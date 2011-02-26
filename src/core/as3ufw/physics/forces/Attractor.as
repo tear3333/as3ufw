@@ -20,13 +20,18 @@ package as3ufw.physics.forces {
 			this.rangeSqr = range*range;
 		}
 
-		override public function applyForce(targetParticle : Particle) : void {
+		override public function applyForce(targetParticles : Particle) : void {
 			if (!active) return;
-			//var difference:Vector2D = new Vector2D(position.x - targetParticle.pos.x,position.y - targetParticle.pos.y);//position.minus(targetParticle.pos);
-			var differenceX:Number = position.x - targetParticle.pos.x;
-			var differenceY:Number = position.y - targetParticle.pos.y;
-			if ((range>=0)&&( (differenceX * differenceX + differenceY * differenceY) > rangeSqr) ) return;
-			targetParticle.addForce(force(new Vector2D(differenceX,differenceY), strength));
+			var particle : Particle = targetParticles;
+			while (particle) {
+				//var difference:Vector2D = new Vector2D(position.x - targetParticle.pos.x,position.y - targetParticle.pos.y);//position.minus(targetParticle.pos);
+				var differenceX:Number = position.x - particle.pos.x;
+				var differenceY:Number = position.y - particle.pos.y;
+				if (!((range>=0)&&( (differenceX * differenceX + differenceY * differenceY) > rangeSqr) ) ) {
+					particle.addForce(force(new Vector2D(differenceX,differenceY), strength));
+				}
+				particle = particle.next;
+			}
 		}
 	}
 }
