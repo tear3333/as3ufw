@@ -37,8 +37,9 @@ package as3ufw.physics {
 
 		public var density : Number;
 		public var pressure : Number;
+		public var radius : Number;
 		
-		public var blob:int = Random.boolean() ? -1 : 1;
+		public var blob : int = Random.boolean() ? -1 : 1;
 
 		/*
 		 * Constructs the particle
@@ -79,6 +80,7 @@ package as3ufw.physics {
 			mask = 0;
 			density = Constants.DENSITY_OFFSET;
 			pressure = 0;
+			radius = 1;
 			_deltaT = 0.0625;
 		}
 
@@ -130,7 +132,6 @@ package as3ufw.physics {
 			// Optimization
 			// forces.setTo(0, 0);
 			forces.x = forces.y = 0;
-
 			count++;
 
 			return true;

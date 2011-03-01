@@ -1,4 +1,6 @@
 package as3ufw.physics.emitters {
+	import as3ufw.physics.ParticleGroup;
+	import as3ufw.utils.ObjectUtils;
 	import as3ufw.utils.Random;
 	import as3ufw.geom.Vector2D;
 	import as3ufw.physics.Particle;
@@ -12,14 +14,15 @@ package as3ufw.physics.emitters {
 	public class RectangularRandomEmitter extends AbstractEmitter {
 		private var _rectangle : Rectangle;
 		
-		public function RectangularRandomEmitter( rectangle : Rectangle ) {
+		public function RectangularRandomEmitter( group:ParticleGroup, rectangle : Rectangle ) {
+			this.group = group;
 			this._rectangle = rectangle;
 		}
 
 		override public function emit(params:Object = null) : Particle {
 			var p:Particle = Particle.GetParticle(new Vector2D(Random.integer(_rectangle.left, _rectangle.right),Random.integer(_rectangle.top, _rectangle.bottom)));
-			p.ttl = Random.integer(5000, 20000);
 			group.addParticle(p);
+			ObjectUtils.set(p, params);
 			return p;
 		}
 	}
