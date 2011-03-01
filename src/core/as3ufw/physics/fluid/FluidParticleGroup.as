@@ -1,4 +1,5 @@
 package as3ufw.physics.fluid {
+	import as3ufw.physics.forces.MinimumDistanceForce;
 	import as3ufw.geom.Vector2D;
 	import as3ufw.physics.Particle;
 	import as3ufw.physics.ParticleGroup;
@@ -17,12 +18,11 @@ package as3ufw.physics.fluid {
 		protected var m_skviscosity_factor : Number;
 		private var rev : Number = 1;
 		private var correctV : Boolean = false;
-		
-		
+		private var minDistForce : MinimumDistanceForce;
 
 		public function FluidParticleGroup() {
 			super();
-			setup(8);
+			setup(32);
 		}
 
 		private function setup(ks : Number) : void {
@@ -38,6 +38,8 @@ package as3ufw.physics.fluid {
 			m_skspiky_factor = (15.0 / (Math.PI * kernelRad6));
 			
 			m_skviscosity_factor = (15.0 / (2.0 * Math.PI * m_kernelSize3));
+			
+			minDistForce = new MinimumDistanceForce(0.05,10);
 		}
 
 		private function CalculatePressureAndDensities() : void {
@@ -163,8 +165,8 @@ package as3ufw.physics.fluid {
 		}
 
 		private function CheckParticleDistance() : void {
-			var minDist : Number = 0.5 * m_kernelSize;
-			var minDistSq : Number = minDist * minDist;
+			//var minDist : Number = 0.5 * m_kernelSize;
+			//var minDistSq : Number = minDist * minDist;
 			var distX : Number;
 			var distY : Number;
 			var distSqrd : Number;
@@ -176,7 +178,10 @@ package as3ufw.physics.fluid {
 					distX = particle.pos.x - particle2.pos.x;
 					distY = particle.pos.y - particle2.pos.y;
 					distSqrd = distX * distX + distY * distY;
+					var minDist:Number = (particle.radius + particle2.radius) * 0.5;
+					var minDistSq : Number = minDist * minDist;
 					if (distSqrd < minDistSq) {
+//					if (distSqrd < (dQ*dQ)) {
 						if (distSqrd > 0.0000001) {
 							var distLen : Number = Math.sqrt(distSqrd);
 							distX *= 0.4 * ((distLen - minDist) / distLen);
@@ -245,7 +250,8 @@ package as3ufw.physics.fluid {
 			CalculatePressureAndDensities();
 			CalculateForces();
 			super.update(engineForceGenerators);
-			CheckParticleDistance();
+			//CheckParticleDistance();
+			minDistForce.applyForce(particles);
 		}
 	}
 }

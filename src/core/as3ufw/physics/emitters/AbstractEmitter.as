@@ -27,5 +27,6 @@ package as3ufw.physics.emitters {
 		virtual public function get group() : ParticleGroup {
 			return _group;
 		}
+		
 	}
 }

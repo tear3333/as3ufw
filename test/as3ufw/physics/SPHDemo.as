@@ -1,4 +1,11 @@
 package as3ufw.physics {
+	import com.greensock.easing.Sine;
+	import com.greensock.TweenMax;
+	import flash.geom.Rectangle;
+	import as3ufw.physics.containers.RectangularContainer;
+	import as3ufw.physics.forces.RandomForce;
+	import as3ufw.physics.renderers.CirclePointRenderer;
+	import as3ufw.utils.Random;
 	import org.rje.graphics.vector.brushes.BrushParams;
 	import as3ufw.physics.forces.Forces;
 	import as3ufw.physics.forces.AbstractForce;
@@ -29,6 +36,8 @@ package as3ufw.physics {
 		public var renderContext : Shape;
 		public var viewContext : Shape;
 		private var attractor : AbstractForce;
+		private var container : RectangularContainer;
+		
 
 		public function SPHDemo() {
 			init();
@@ -50,21 +59,27 @@ package as3ufw.physics {
 			addChild(viewContext);
 			
 //			attractor = new Attractor(Forces.Uniform, mousePos, -2, -1);
-			attractor = new Attractor(Forces.Uniform, mousePos, -50, 40);
+			attractor = new Attractor(Forces.Uniform, mousePos, 0.5, -1);
 			attractor.active = false;
 			
 			group.addForceGenerator(attractor);
+			//group.addForceGenerator(new RandomForce(1));
+			//group.damping = 0.995;
+			//group.globalForce.y = 5;
+//			group.addRenderer(new PointRenderer(renderContext.graphics,new BrushParams(1,3)));
+			group.addRenderer(new CirclePointRenderer(renderContext.graphics,new BrushParams(1,3)));
 			
-			group.damping = 0.95;
-			group.globalForce.y = 5;
-			group.addRenderer(new PointRenderer(renderContext.graphics,new BrushParams(1,3)));
+			container = new RectangularContainer(new Rectangle(100,100,300,300),0);
 			
-			for (var i : int = 0; i < 1000; i++) {
+			for (var i : int = 0; i < 30; i++) {
 				var p:Particle = new Particle(new Vector2D(200+(Math.random()*100),200+(Math.random()*100)));
-				p.mass = 1;
+				p.radius = i<7 ? 64 : 16 ;
+				if (p.radius == 16) {
+					TweenMax.to(p,Random.float(0.5, 3),{radius:32, repeat:-1, ease:Sine.easeInOut, yoyo:true});
+				}
+				p.mass = p.radius == 64 ? 10 : 1;//Random.integer(1, 5);
 				group.addParticle(p);				
 			}
-			
 			start();
 		}
 
@@ -98,15 +113,7 @@ package as3ufw.physics {
 			mousePos.y = stage.mouseY;
 			renderContext.graphics.clear();
 			engine.update();
-			var p:Particle = group.particles;
-			var e:Number = 0.000000001;
-			while (p) {
-				if (p.pos.x<100) p.pos.x = 100+e;
-				if (p.pos.x>400) p.pos.x = 400-e;
-				if (p.pos.y<100) p.pos.y = 100+e;
-				if (p.pos.y>390) p.pos.y = 390-e;
-				p = p.next;
-			}
+			container.resolve(group.particles);
 		}
 	}
 }

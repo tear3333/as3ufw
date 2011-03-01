@@ -9,27 +9,17 @@ package as3ufw.utils {
 	 * @author Richard.Jewson
 	 */
 	public class ObjectUtils {
-
 		private static var refCount : int = 0;
 		private static var FORMAT_INDENT : int = 2;
 		private static var TYPE_INFO_CACHE : Dictionary = new Dictionary();
 		private static var CLASS_INFO_CACHE : Dictionary = new Dictionary();
 
-		public static function toString(value : Object, 
-										maxDepth : int = 4,
-                                    	namespaceURIs : Array = null, 
-                                    	exclude : Array = null) : String {
-        
+		public static function toString(value : Object, maxDepth : int = 4, namespaceURIs : Array = null, exclude : Array = null) : String {
 			refCount = 0;
 			return internalToString(value, 0, maxDepth, null, namespaceURIs, exclude);
 		}
 
-		private static function internalToString(value : Object, 
-                                             depth : int = 0,
-                                             maxDepth : int = 100,
-                                             refs : Dictionary = null, 
-                                             namespaceURIs : Array = null, 
-                                             exclude : Array = null) : String {                           
+		private static function internalToString(value : Object, depth : int = 0, maxDepth : int = 100, refs : Dictionary = null, namespaceURIs : Array = null, exclude : Array = null) : String {
 			var str : String;
 			var type : String = value == null ? "null" : typeof(value);
 			switch (type) {
@@ -48,20 +38,20 @@ package as3ufw.utils {
 					} else if (value is Class) {
 						return "(" + getQualifiedClassName(value) + ")";
 					} else {
-						var classInfo : Object = getClassInfo(value, exclude, { includeReadOnly: true, uris: namespaceURIs });
+						var classInfo : Object = getClassInfo(value, exclude, {includeReadOnly:true, uris:namespaceURIs});
 						var properties : Array = classInfo.properties;
-                    
+
 						str = "(" + classInfo.name + ")";
-                    
+
 						if (refs == null)
-                        refs = new Dictionary(true);
+							refs = new Dictionary(true);
 
 						var id : Object = refs[value];
 						if (id != null) {
 							str += "#" + int(id);
 							return str;
 						}
-                    
+
 						if (value != null) {
 							str += "#" + refCount.toString();
 							refs[value] = refCount;
@@ -71,21 +61,21 @@ package as3ufw.utils {
 						var isArray : Boolean = value is Array;
 						var prop : *;
 						depth += 1;
-                    
+
 						// Print all of the variable values.
 						for (var j : int = 0;j < properties.length; j++) {
 							str = newline(str, depth * FORMAT_INDENT);
 							prop = properties[j];
 							if (isArray)
-                            str += "[";
+								str += "[";
 							str += prop.toString();
 							if (isArray)
-                            	str += "] ";
-                        	else
-                            	str += " = ";
+								str += "] ";
+							else
+								str += " = ";
 							try {
 								if (depth > maxDepth) {
-									str += "max depth(" + maxDepth + ") reached...";  
+									str += "max depth(" + maxDepth + ") reached...";
 								} else {
 									str += internalToString(value[prop], depth, maxDepth, refs, namespaceURIs, exclude);
 								}
@@ -105,15 +95,15 @@ package as3ufw.utils {
 
 		public static function describeType(o : *) : XML {
 			var className : String;
-	
+
 			if (o is String)
 				className = o;
 			else
 				className = getQualifiedClassName(o);
 			var result : XML = TYPE_INFO_CACHE[className];
-			if (result) 
+			if (result)
 				return result;
-			
+
 			if (o is String)
 				o = getDefinitionByName(o);
 
@@ -121,14 +111,12 @@ package as3ufw.utils {
 			return result;
 		}
 
-		public static function getClassInfo(obj : Object,
-                                        excludes : Array = null,
-                                        options : Object = null) : Object {   
+		public static function getClassInfo(obj : Object, excludes : Array = null, options : Object = null) : Object {
 			var n : int;
 			var i : int;
 
 			if (options == null)
-            options = { includeReadOnly: true, uris: null, includeTransient: true };
+				options = {includeReadOnly:true, uris:null, includeTransient:true};
 
 			var result : Object;
 			var propertyNames : Array = [];
@@ -143,7 +131,7 @@ package as3ufw.utils {
 				className = "XML";
 				properties = obj.text();
 				if (properties.length())
-                	propertyNames.push("*");
+					propertyNames.push("*");
 				properties = obj.attributes();
 			} else {
 				var classInfo : XML = describeType(obj);
@@ -152,9 +140,9 @@ package as3ufw.utils {
 				isdynamic = (classInfo.@isDynamic.toString() == "true");
 
 				if (options.includeReadOnly)
-                	properties = classInfo..accessor.(@access != "writeonly") + classInfo..variable;
-            else
-                properties = classInfo..accessor.(@access == "readwrite") + classInfo..variable;
+					properties = classInfo..accessor.(@access != "writeonly") + classInfo..variable;
+				else
+					properties = classInfo..accessor.(@access == "readwrite") + classInfo..variable;
 
 				var numericIndex : Boolean = false;
 			}
@@ -164,7 +152,7 @@ package as3ufw.utils {
 				cacheKey = getCacheKey(obj, excludes, options);
 				result = CLASS_INFO_CACHE[cacheKey];
 				if (result != null)
-                return result;
+					return result;
 			}
 
 			result = {};
@@ -172,7 +160,7 @@ package as3ufw.utils {
 			result["alias"] = classAlias;
 			result["properties"] = propertyNames;
 			result["dynamic"] = isdynamic;
-        
+
 			var excludeObject : Object = {};
 			if (excludes) {
 				n = excludes.length;
@@ -188,9 +176,9 @@ package as3ufw.utils {
 						if (isArray) {
 							var pi : Number = parseInt(p);
 							if (isNaN(pi))
-                             propertyNames.push(new QName("", p));
-                         else
-                            propertyNames.push(pi);
+								propertyNames.push(new QName("", p));
+							else
+								propertyNames.push(pi);
 						} else {
 							propertyNames.push(new QName("", p));
 						}
@@ -200,13 +188,13 @@ package as3ufw.utils {
 			}
 
 			if (className == "Object" || isArray) {
-            // Do nothing since we've already got the dynamic members
- 	       	} else if (className == "XML") {
+				// Do nothing since we've already got the dynamic members
+			} else if (className == "XML") {
 				n = properties.length();
 				for (i = 0;i < n; i++) {
 					p = properties[i].name();
 					if (excludeObject[p] != 1)
-                    propertyNames.push(new QName("", "@" + p));
+						propertyNames.push(new QName("", "@" + p));
 				}
 			} else {
 				n = properties.length();
@@ -217,22 +205,22 @@ package as3ufw.utils {
 					prop = properties[i];
 					p = prop.@name.toString();
 					uri = prop.@uri.toString();
-                
+
 					if (excludeObject[p] == 1)
-                    continue;
-                    
-					//if (!options.includeTransient)// && internalHasMetadata(metadataInfo, p, "Transient"))
-					//continue;
+						continue;
+
+					// if (!options.includeTransient)// && internalHasMetadata(metadataInfo, p, "Transient"))
+					// continue;
 
 					if (uris != null) {
-						if (uris.length == 1 && uris[0] == "*") {   
+						if (uris.length == 1 && uris[0] == "*") {
 							qName = new QName(uri, p);
 							try {
-								obj[qName]; // access the property to ensure it is supported
+								obj[qName];
+								// access the property to ensure it is supported
 								propertyNames.push();
-							}
-                        catch(e : Error) {
-                            // don't keep property name 
+							} catch(e : Error) {
+								// don't keep property name
 							}
 						} else {
 							for (var j : int = 0;j < uris.length; j++) {
@@ -242,22 +230,19 @@ package as3ufw.utils {
 									try {
 										obj[qName];
 										propertyNames.push(qName);
-									}
-                                catch(e : Error) {
-                                    // don't keep property name 
+									} catch(e : Error) {
+										// don't keep property name
 									}
 								}
 							}
 						}
-					}
-                else if (uri.length == 0) {
+					} else if (uri.length == 0) {
 						qName = new QName(uri, p);
 						try {
 							obj[qName];
 							propertyNames.push(qName);
-						}
-                    catch(e : Error) {
-                        // don't keep property name 
+						} catch(e : Error) {
+							// don't keep property name
 						}
 					}
 				}
@@ -270,7 +255,8 @@ package as3ufw.utils {
 				// two properties are only equal if both the uri and local name are identical
 				if (propertyNames[i].toString() == propertyNames[i + 1].toString()) {
 					propertyNames.splice(i, 1);
-					i--; // back up
+					i--;
+					// back up
 				}
 			}
 
@@ -290,7 +276,7 @@ package as3ufw.utils {
 				for (var i : uint = 0;i < excludes.length; i++) {
 					var excl : String = excludes[i] as String;
 					if (excl != null)
-                    key += excl;
+						key += excl;
 				}
 			}
 
@@ -299,7 +285,7 @@ package as3ufw.utils {
 					key += flag;
 					var value : String = options[flag] as String;
 					if (value != null)
-                    key += value;
+						key += value;
 				}
 			}
 			return key;
@@ -308,32 +294,37 @@ package as3ufw.utils {
 		private static function newline(str : String, n : int = 0) : String {
 			var result : String = str;
 			result += "\n";
-        
+
 			for (var i : int = 0;i < n; i++) {
 				result += " ";
 			}
 			return result;
 		}
-		
-		public static function merge(... params):Object {
-			var target:Object = params[0] || {};
-			
+
+		public static function merge(... params) : Object {
+			var target : Object = params[0] || {};
+
 			for (var i : int = 1; i < params.length; i++) {
 				for (var key:String in params[i]) {
 					target[key] = params[key];
 				}
 			}
-			
+
 			return target;
 		}
-		
-		public static function set(target:Object, params:Object):void {
+
+		public static function set(target : Object, params : Object) : void {
 			if (params) {
 				for (var name : String in params) {
-					if (target.hasOwnProperty(name)) target[name] = params[name];				
+					//if (target.hasOwnProperty(name)) {
+						if (params[name] is Function) {
+							target[name] = params[name]();
+						} else {
+							target[name] = params[name];
+						}
+					//}
 				}
 			}
 		}
-		
 	}
 }
