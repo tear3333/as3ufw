@@ -39,7 +39,7 @@ package as3ufw.physics {
 		public var pressure : Number;
 		public var radius : Number;
 		
-		public var blob : int = Random.boolean() ? -1 : 1;
+		public var layer : uint;
 
 		/*
 		 * Constructs the particle
