@@ -1,4 +1,5 @@
 package as3ufw.physics {
+	import as3ufw.physics.forces.InitialPositionAttractor;
 	import com.greensock.easing.Sine;
 	import com.greensock.TweenMax;
 	import flash.geom.Rectangle;
@@ -59,12 +60,20 @@ package as3ufw.physics {
 			addChild(viewContext);
 			
 //			attractor = new Attractor(Forces.Uniform, mousePos, -2, -1);
-			attractor = new Attractor(Forces.Uniform, mousePos, 0.5, -1);
+			attractor = new Attractor(Forces.Uniform, mousePos, -10, 40);
 			attractor.active = false;
 			
 			group.addForceGenerator(attractor);
-			//group.addForceGenerator(new RandomForce(1));
-			//group.damping = 0.995;
+	
+//move things up the screen		
+//			group.globalForce.setTo(0, -2);
+			
+			group.addForceGenerator(new Attractor(Forces.Uniform, new Vector2D(200,200), 0.3));
+			
+			//var f:IForce = new InitialPositionAttractor(force, strength)
+			
+			group.addForceGenerator(new RandomForce(1));
+			group.damping = 0.9995;
 			//group.globalForce.y = 5;
 //			group.addRenderer(new PointRenderer(renderContext.graphics,new BrushParams(1,3)));
 			group.addRenderer(new CirclePointRenderer(renderContext.graphics,new BrushParams(1,3)));
@@ -77,10 +86,10 @@ package as3ufw.physics {
 				if (p.radius == 16) {
 					TweenMax.to(p,Random.float(0.5, 3),{radius:32, repeat:-1, ease:Sine.easeInOut, yoyo:true});
 					p.mass = p.radius = 16;
-					p.layer = 0;
+					//p.layer = 0;
 				} else {
 					p.mass = p.radius = 64;
-					p.layer = 1;
+					//p.layer = 1;
 				}
 				group.addParticle(p);				
 			}

@@ -39,7 +39,7 @@ package as3ufw.physics.fluid {
 			
 			m_skviscosity_factor = (15.0 / (2.0 * Math.PI * m_kernelSize3));
 			
-			minDistForce = new MinimumDistanceForce(0.05,10);
+			minDistForce = new MinimumDistanceForce(0.1,10);
 		}
 
 		private function CalculatePressureAndDensities() : void {

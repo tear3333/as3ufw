@@ -12,6 +12,7 @@
 
     <property name="bindir" value="${basedir}/bin" />
     <property name="source.dir" value="${basedir}/src/core" />
+    <property name="creative.source.dir" value="${basedir}/src/creative" />
     <property name="lib.dir" value="${basedir}/lib" />
 
     <property name="flex3bindir" value="${FLEX_HOME}/bin" />
@@ -31,6 +32,7 @@
         <echo>Generating swc using '${classesdir}'</echo>
         <exec executable="${compc}">
             <arg line="-source-path ${source.dir}" />
+            <arg line="-source-path ${creative.source.dir}" />
         	<arg line="-source-path ${lib.dir}" />
             <arg line="-output ${bindir}/as3ufw.swc" />
             <arg line="-include-sources ${source.dir}" />
