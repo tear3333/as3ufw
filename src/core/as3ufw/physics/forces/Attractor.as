@@ -6,11 +6,11 @@ package as3ufw.physics.forces {
 	 * @author Richard.Jewson
 	 */
 	public class Attractor extends AbstractForce implements IForceGenerator {
-		private var force : Function;
-		private var position : Vector2D;
-		private var strength : Number;
-		private var range : Number;
-		private var rangeSqr : Number;
+		public var force : Function;
+		public var position : Vector2D;
+		public var strength : Number;
+		public var range : Number;
+		public var rangeSqr : Number;
 
 		public function Attractor(force : Function, position : Vector2D, strength : Number, range : Number = -1) {
 			this.force = force;
