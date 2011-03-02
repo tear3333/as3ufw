@@ -76,8 +76,12 @@ package as3ufw.physics {
 				p.radius = i<7 ? 64 : 16 ;
 				if (p.radius == 16) {
 					TweenMax.to(p,Random.float(0.5, 3),{radius:32, repeat:-1, ease:Sine.easeInOut, yoyo:true});
+					p.mass = p.radius = 16;
+					p.layer = 0;
+				} else {
+					p.mass = p.radius = 64;
+					p.layer = 1;
 				}
-				p.mass = p.radius == 64 ? 10 : 1;//Random.integer(1, 5);
 				group.addParticle(p);				
 			}
 			start();

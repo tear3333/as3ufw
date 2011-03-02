@@ -16,7 +16,7 @@ package as3ufw.physics.fluid {
 		protected var m_skpoly6_factor : Number;
 		protected var m_skspiky_factor : Number;
 		protected var m_skviscosity_factor : Number;
-		private var rev : Number = 1;
+		
 		private var correctV : Boolean = false;
 		private var minDistForce : MinimumDistanceForce;
 
@@ -77,7 +77,7 @@ package as3ufw.physics.fluid {
 				var particle2 : Particle = particle.next;
 				while (particle2) {
 					if (particle2.density > 0.00000001) {
-						//rev = particle.blob == particle2.blob ? 10 : -10;
+						var rev:Number = particle.layer == particle2.layer ? 10 : -10;
 						distX = particle.pos.x - particle2.pos.x;
 						distY = particle.pos.y - particle2.pos.y;
 
