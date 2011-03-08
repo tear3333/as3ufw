@@ -25,7 +25,7 @@ package as3ufw.physics.tests {
 
 			group.damping = 1;
 			var emitter:RectangularRandomEmitter = new RectangularRandomEmitter(group,new Rectangle(0,0,600,400));
-			for (var i : int = 0; i < 5; i++) {
+			for (var i : int = 0; i < 50; i++) {
 				emitter.emit();
 			}
 			group.addRenderer(new PointRenderer(viewContext.graphics, new BrushParams(1, 2)));

@@ -33,14 +33,14 @@ package as3ufw.physics.forces {
 							distX *= stiffness * ((distLen - minDist) / distLen);
 							distY *= stiffness * ((distLen - minDist) / distLen);
 
-							particle2.pos.x += distX;
-							particle2.pos.y += distY;
+							particle2.pos.x += distX * particle2.invMass;
+							particle2.pos.y += distY * particle2.invMass;
 //							if (correctV) {
 //								particle2.prevPos.x += distX;
 //								particle2.prevPos.y += distY;
 //							}
-							particle.pos.x -= distX;
-							particle.pos.y -= distY;
+							particle.pos.x -= distX * particle.invMass;
+							particle.pos.y -= distY * particle.invMass;
 							// if (correctV) {
 							// particle.prevPos.x -= distX;
 							// particle.prevPos.y -= distY;
