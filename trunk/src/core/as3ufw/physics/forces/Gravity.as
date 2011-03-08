@@ -18,7 +18,7 @@ package as3ufw.physics.forces {
 					
 					var delta:Vector2D = particle.pos.minus(nextParticle.pos);
 					var dSqrd:Number = delta.magnitudeSqr;
-					var f:Number = (particle.mass * nextParticle.mass) / dSqrd;
+					var f:Number = (particle.mass * nextParticle.mass) / Math.sqrt(dSqrd);
 					particle.addMasslessForce(delta.mult(-f));
 					nextParticle.addMasslessForce(delta.mult(f));
 					
